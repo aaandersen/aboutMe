@@ -12,10 +12,10 @@ interface Skill {
 
 const skills: Skill[] = [
   { name: "Microsoft Power Point", level: 90, category: "tools" },
-  { name: "Adobe Premiere Pro", level: 85, category: "tools" },
+  { name: "Adobe Premiere Pro", level: 80, category: "tools" },
   { name: "Microsoft Excel", level: 90, category: "tools" },
-  { name: "SCRUM Methodologies", level: 85, category: "tech" },
-  { name: "Data Analysis", level: 80, category: "analytical" },
+  { name: "SCRUM Methodologies", level: 80, category: "tech" },
+  { name: "Data Analysis", level: 65, category: "analytical" },
   { name: "Problem Solving", level: 85, category: "analytical" },
   { name: "Process Optimization", level: 75, category: "analytical" },
   { name: "Data Organization", level: 85, category: "analytical" },
