@@ -81,7 +81,7 @@ const HeroSection = () => {
               <img 
                 src="/lovable-uploads/2eebffc6-42b4-4ba9-b753-d710ac8e209c.png" 
                 alt="Anders Adalberth Andersen" 
-                className="w-full h-auto object-cover"
+                className="w-full h-auto object-cover mt-24"
                 loading="eager"
               />
               <div className="hover-effect"></div>
