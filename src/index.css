@@ -143,6 +143,7 @@
 .photo-container {
   position: relative;
   overflow: hidden;
+  top: 70px;
   border-radius: 1rem;
   transition: all 0.5s ease;
 }
