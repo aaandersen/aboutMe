@@ -33,7 +33,7 @@ const TimelineData: TimelineItem[] = [
     id: "2",
     title: "GYMNASIE HTX",
     organization: "NEXT SUKKERTOPPEN",
-    period: "August 2020 - January 2023",
+    period: "August 2018 - January 2021",
     type: "education",
     description: [
       "Mathematics A and Programming B.",
