@@ -33,7 +33,7 @@ const HeroSection = () => {
             
             <div className="flex items-center space-x-6 pt-2">
               <a 
-                href="https://linkedin.com" 
+                href="https://www.linkedin.com/in/anders-adalberth-andersen-58b537215" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-primary transition-colors"
@@ -42,7 +42,7 @@ const HeroSection = () => {
                 <Linkedin size={20} />
               </a>
               <a 
-                href="https://github.com" 
+                href="https://github.com/AAAndersen" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-primary transition-colors"
