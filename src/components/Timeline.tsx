@@ -44,7 +44,7 @@ const TimelineData: TimelineItem[] = [
     id: "3",
     title: "Content Creator",
     organization: "TMC Nordic",
-    period: "October 2024 - Present",
+    period: "October 2024 - August 2025",
     type: "work",
     description: [
       "Develop and produce digital content to enhance the brand's online presence.",
@@ -55,7 +55,7 @@ const TimelineData: TimelineItem[] = [
     id: "4",
     title: "Substitute Teacher",
     organization: "Rødovre School",
-    period: "August 2022 - Present",
+    period: "August 2022 - August 2025",
     type: "work",
     description: [
       "Teach and guide students in various subjects with a focus on structured learning and engagement.",
@@ -91,6 +91,16 @@ const TimelineData: TimelineItem[] = [
     type: "work",
     description: [
       "Managed data registration and coordinated administrative tasks with precision and confidentiality."
+    ]
+  },
+  {
+    id: "8",
+    title: "Technology Specialist Student Worker",
+    organization: "Microsoft",
+    period: "August 2025 - Present",
+    type: "work",
+    description: [
+      "Contributing to the development and implementation of AI-driven solutions that help businesses transform and optimize their operations."
     ]
   }
 ];
