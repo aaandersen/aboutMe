@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <!-- Blød rosa marmor-base -->
+    <radialGradient id="base" cx="32%" cy="28%" r="85%">
+      <stop offset="0%"  stop-color="#FBEEF0"/>
+      <stop offset="38%" stop-color="#F6DEE3"/>
+      <stop offset="70%" stop-color="#F0D2D9"/>
+      <stop offset="100%" stop-color="#E9C6CE"/>
+    </radialGradient>
+    <linearGradient id="goldVein" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0"   stop-color="#E4D3A8"/>
+      <stop offset="0.5" stop-color="#C2A05E"/>
+      <stop offset="1"   stop-color="#A8842F"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.2"/>
+    </filter>
+    <filter id="softer" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5"/>
+    </filter>
+    <!-- Naturlig stentekstur ovenpå -->
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="4" seed="7" result="n"/>
+      <feColorMatrix in="n" type="matrix"
+        values="0 0 0 0 1  0 0 0 0 0.95  0 0 0 0 0.95  0 0 0 0.06 0"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="800" fill="url(#base)"/>
+
+  <!-- Brede, bløde hvide skyer (marmorens dybde) -->
+  <g filter="url(#softer)" opacity="0.55">
+    <path d="M-40,120 C160,60 300,200 480,150 C620,110 740,210 860,170" fill="none" stroke="#FFFFFF" stroke-width="46" stroke-linecap="round"/>
+    <path d="M-40,520 C180,470 360,600 560,540 C680,505 780,560 860,540" fill="none" stroke="#FBEFF1" stroke-width="60" stroke-linecap="round"/>
+  </g>
+
+  <!-- Hvide årer -->
+  <g filter="url(#soft)" opacity="0.7" fill="none" stroke="#FFFFFF" stroke-linecap="round">
+    <path d="M-20,210 C120,250 230,150 360,240 C470,315 560,250 700,330 C760,365 800,350 840,360" stroke-width="3"/>
+    <path d="M-20,470 C150,430 250,540 400,500 C520,468 640,560 820,500" stroke-width="2.2"/>
+    <path d="M120,-20 C160,140 90,260 200,420 C280,540 230,680 300,820" stroke-width="2"/>
+    <path d="M560,-20 C540,120 640,240 600,400 C566,540 660,640 620,820" stroke-width="1.8"/>
+  </g>
+
+  <!-- Tynde guldårer (champagne-guld, mat) -->
+  <g filter="url(#soft)" opacity="0.55" fill="none" stroke="url(#goldVein)" stroke-linecap="round">
+    <path d="M-20,300 C140,330 260,250 380,330 C500,410 640,330 840,400" stroke-width="1.4"/>
+    <path d="M40,-20 C90,170 30,300 150,470 C230,580 180,700 250,820" stroke-width="1"/>
+    <path d="M700,-20 C690,140 760,260 720,420 C690,540 770,650 740,820" stroke-width="0.9"/>
+    <path d="M-20,620 C180,580 320,660 520,610 C660,575 760,630 840,605" stroke-width="1.1"/>
+  </g>
+
+  <!-- Fine forgreninger -->
+  <g filter="url(#soft)" opacity="0.4" fill="none" stroke="url(#goldVein)" stroke-width="0.7" stroke-linecap="round">
+    <path d="M380,330 C420,300 470,320 520,290"/>
+    <path d="M150,470 C190,500 230,490 270,520"/>
+    <path d="M600,400 C640,380 670,400 710,385"/>
+  </g>
+
+  <rect width="800" height="800" filter="url(#grain)"/>
+</svg>

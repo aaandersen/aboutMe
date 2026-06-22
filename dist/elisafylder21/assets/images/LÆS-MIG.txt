@@ -1,0 +1,11 @@
+LÆG DINE BILLEDER HER
+=====================
+
+1. Kopiér dine billeder ind i denne mappe (public/assets/images/).
+2. Åbn  public/js/content.js  og find afsnittet "GALLERI / MINDER".
+3. Skriv filnavnet i "src", fx:  src: "assets/images/elisa-og-mig.jpg"
+
+Tips:
+- Brug gerne .jpg eller .webp. Kvadratiske billeder ser flot ud i de runde rammer.
+- Filnavne uden mellemrum og æøå virker bedst (brug fx "sommer-2025.jpg").
+- Indtil du tilføjer et billede, viser siden et elegant marmor-felt i stedet.

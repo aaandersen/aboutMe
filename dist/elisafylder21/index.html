@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Hostes under /elisafylder21/ på anders.adalberth.com (Netlify). Sikrer at relative stier virker, også uden trailing slash. -->
+  <base href="/elisafylder21/" />
+  <title>Elisa fylder 21</title>
+  <meta name="description" content="En lille hjemmeside til Elisas 21-års fødselsdag — lavet med kærlighed." />
+  <meta name="theme-color" content="#F3EADD" />
+
+  <!-- Open Graph (pænt preview når linket deles) -->
+  <meta property="og:title" content="Elisa fylder 21" />
+  <meta property="og:description" content="En hel side — kun til dig." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://elisafylder21.com" />
+
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+
+  <!-- Fonte: Playfair Display (overskrifter), Cormorant (accent), Montserrat (brødtekst) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Montserrat:wght@200;300;400;500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/styles.css?v=8" />
+</head>
+<body>
+
+  <!-- ====================== TOP-NAVIGATION ====================== -->
+  <header class="nav" id="nav">
+    <a class="nav__brand" href="#top" data-i18n-aria="brand">E<span class="nav__brand-dot">·</span>21</a>
+
+    <nav class="nav__links" id="navLinks">
+      <a href="#story"   data-content="nav.story">Historie</a>
+      <a href="#gallery" data-content="nav.gallery">Minder</a>
+      <a href="#reasons" data-content="nav.reasons">21 grunde</a>
+      <a href="#letter"  data-content="nav.letter">Brev</a>
+      <a href="#music"   data-content="nav.music">Musik</a>
+      <a href="#vault"   id="navGift" data-content="nav.gift">Gave</a>
+      <button class="lang-toggle" id="langToggle" type="button" aria-label="Skift sprog">
+        <span class="lang-toggle__opt is-active" data-lang="da">DA</span>
+        <span class="lang-toggle__sep">/</span>
+        <span class="lang-toggle__opt" data-lang="en">EN</span>
+      </button>
+    </nav>
+
+    <div class="nav__right">
+      <button class="nav__burger" id="navBurger" type="button" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ====================== HERO / FORSIDE ====================== -->
+  <section class="hero" id="top">
+    <div class="hero__marble" aria-hidden="true"></div>
+    <div class="hero__veil" aria-hidden="true"></div>
+
+    <div class="hero__inner">
+      <p class="hero__eyebrow" data-content="hero.eyebrow">Tillykke</p>
+
+      <h1 class="hero__title">
+        <span class="hero__title-top"    data-content="hero.titleTop">Elisa</span>
+        <span class="hero__title-script" data-content="hero.titleBottom">fylder 21</span>
+      </h1>
+
+      <div class="hero__rule" aria-hidden="true">
+        <span class="hero__rule-line"></span>
+        <svg class="hero__rule-leaf" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+          <path d="M12 2 C8 8 8 16 12 22 C16 16 16 8 12 2 Z" fill="none" stroke="currentColor" stroke-width="0.8"/>
+          <line x1="12" y1="4" x2="12" y2="20" stroke="currentColor" stroke-width="0.6"/>
+        </svg>
+        <span class="hero__rule-line"></span>
+      </div>
+
+      <p class="hero__tagline" data-content="hero.tagline">En hel side — kun til dig.</p>
+
+      <!-- Nedtælling -->
+      <div class="countdown" id="countdown" aria-live="polite">
+        <p class="countdown__label" data-content="hero.countdownLabel">Der er kun</p>
+        <div class="countdown__grid">
+          <div class="countdown__cell"><span class="countdown__num" id="cdDays">--</span><span class="countdown__unit" data-unit="days">dage</span></div>
+          <div class="countdown__cell"><span class="countdown__num" id="cdHours">--</span><span class="countdown__unit" data-unit="hours">timer</span></div>
+          <div class="countdown__cell"><span class="countdown__num" id="cdMins">--</span><span class="countdown__unit" data-unit="mins">min.</span></div>
+          <div class="countdown__cell"><span class="countdown__num" id="cdSecs">--</span><span class="countdown__unit" data-unit="secs">sek.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <a href="#intro" class="hero__scroll" aria-label="Rul ned">
+      <span data-content="hero.scroll">Rul ned</span>
+      <span class="hero__scroll-arrow"></span>
+    </a>
+  </section>
+
+  <!-- ====================== INTRO ====================== -->
+  <section class="intro reveal" id="intro">
+    <span class="section-mark" aria-hidden="true"></span>
+    <h2 class="intro__title" data-content="intro.title">Til den smukkeste</h2>
+    <p class="intro__text" data-content="intro.text"></p>
+  </section>
+
+  <!-- ====================== TIDSLINJE / VORES HISTORIE ====================== -->
+  <section class="section story" id="story">
+    <div class="section__head reveal">
+      <p class="section__eyebrow" data-content="timeline.sectionSubtitle">De øjeblikke der førte os hertil</p>
+      <h2 class="section__title" data-content="timeline.sectionTitle">Vores historie</h2>
+    </div>
+    <div class="timeline" id="timeline"><!-- udfyldes af main.js --></div>
+  </section>
+
+  <!-- ====================== GALLERI / MINDER ====================== -->
+  <section class="section gallery" id="gallery">
+    <div class="section__head reveal">
+      <p class="section__eyebrow" data-content="gallery.sectionSubtitle">Et lille udvalg af os</p>
+      <h2 class="section__title" data-content="gallery.sectionTitle">Minder</h2>
+    </div>
+    <div class="gallery__grid" id="galleryGrid"><!-- udfyldes af main.js --></div>
+  </section>
+
+  <!-- ====================== 21 GRUNDE ====================== -->
+  <section class="section reasons" id="reasons">
+    <div class="reasons__marble" aria-hidden="true"></div>
+    <div class="section__head reveal">
+      <p class="section__eyebrow" data-content="reasons.sectionSubtitle">Én for hvert år</p>
+      <h2 class="section__title" data-content="reasons.sectionTitle">21 grunde til at jeg elsker dig</h2>
+    </div>
+    <ol class="reasons__list" id="reasonsList"><!-- udfyldes af main.js --></ol>
+  </section>
+
+  <!-- ====================== KÆRLIGHEDSBREV ====================== -->
+  <section class="section letter" id="letter">
+    <div class="section__head reveal">
+      <h2 class="section__title" data-content="letter.sectionTitle">Et brev til dig</h2>
+    </div>
+    <article class="letter__card reveal" id="letterCard"><!-- udfyldes af main.js --></article>
+  </section>
+
+  <!-- ====================== MUSIK ====================== -->
+  <section class="section music" id="music">
+    <div class="section__head reveal">
+      <p class="section__eyebrow" id="musicSubtitle" data-content="spotify.subtitle">Tryk på play og luk øjnene et øjeblik</p>
+      <h2 class="section__title" id="musicTitle" data-content="spotify.title">Vores sang</h2>
+    </div>
+    <div class="music__frame reveal" id="musicFrame"><!-- udfyldes af main.js --></div>
+  </section>
+
+  <!-- ====================== HEMMELIG GAVE / VAULT ====================== -->
+  <section class="section vault" id="vault">
+    <div class="vault__marble" aria-hidden="true"></div>
+    <div class="vault__inner reveal" id="vaultInner"><!-- udfyldes af main.js --></div>
+  </section>
+
+  <!-- ====================== FOOTER ====================== -->
+  <footer class="footer">
+    <svg class="footer__leaf" viewBox="0 0 40 24" width="56" height="34" aria-hidden="true">
+      <path d="M20 4 C14 9 9 11 2 12 C9 13 14 15 20 20 C26 15 31 13 38 12 C31 11 26 9 20 4 Z" fill="none" stroke="currentColor" stroke-width="0.7"/>
+    </svg>
+    <p class="footer__line" data-content="footer.line">Lavet med kærlighed</p>
+    <p class="footer__sub"  data-content="footer.sub">til Elisa · 21 år</p>
+    <a href="#top" class="footer__top" aria-label="Til toppen">↑</a>
+  </footer>
+
+  <!-- ====================== LIGHTBOX (galleri) ====================== -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox__close" id="lightboxClose" aria-label="Luk">×</button>
+    <figure class="lightbox__fig">
+      <img class="lightbox__img" id="lightboxImg" alt="" />
+      <figcaption class="lightbox__cap" id="lightboxCap"></figcaption>
+    </figure>
+  </div>
+
+  <!-- ====================== KODEORDS-LÅS (gate) ====================== -->
+  <div class="gate" id="gate" aria-hidden="true">
+    <div class="gate__card" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
+      <button class="gate__close" id="gateClose" aria-label="Luk">×</button>
+      <div class="gate__lock" aria-hidden="true">
+        <svg viewBox="0 0 48 56" width="46" height="54">
+          <path d="M14 24 V16 a10 10 0 0 1 20 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <rect x="9" y="24" width="30" height="26" rx="5" fill="none" stroke="currentColor" stroke-width="2"/>
+          <circle cx="24" cy="35" r="3.2" fill="currentColor"/>
+          <line x1="24" y1="38" x2="24" y2="43" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h3 class="gate__title" id="gateTitle">Skriv kodeordet</h3>
+      <p class="gate__hint" id="gateHint"></p>
+      <form class="gate__form" id="gateForm" autocomplete="off" novalidate>
+        <input class="gate__input" id="gateInput" type="password" inputmode="text"
+               autocomplete="off" autocapitalize="none" spellcheck="false" aria-label="Kodeord" />
+        <button class="gate__btn" id="gateBtn" type="submit">Lås op</button>
+      </form>
+      <p class="gate__error" id="gateError" role="alert"></p>
+    </div>
+  </div>
+
+  <!-- ====================== MINIGAME: POP BALLONERNE (overlay) ====================== -->
+  <div class="gamebox" id="gameOverlay" aria-hidden="true">
+    <div class="gamebox__marble" aria-hidden="true"></div>
+    <button class="gamebox__close" id="gameClose" aria-label="Luk">×</button>
+    <div class="gamebox__inner" id="gameInner"><!-- udfyldes af main.js --></div>
+  </div>
+
+  <!-- ====================== GAVE-REVEAL (overlay) ====================== -->
+  <div class="giftview" id="giftOverlay" aria-hidden="true">
+    <div class="giftview__marble" aria-hidden="true"></div>
+    <button class="giftview__close" id="giftClose" aria-label="Luk">×</button>
+    <div class="giftview__inner" id="giftInner"><!-- udfyldes af main.js --></div>
+  </div>
+
+  <script src="js/content.js?v=8"></script>
+  <script src="js/main.js?v=8"></script>
+  <script src="js/cat.js?v=8"></script>
+</body>
+</html>

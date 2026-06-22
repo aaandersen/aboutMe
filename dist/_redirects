@@ -1,0 +1,3 @@
+# Fødselsdagssiden til Elisa hostes som statiske filer under /elisafylder21/.
+# Sørg for at URL'en uden skråstreg også virker (sender til versionen med skråstreg).
+/elisafylder21    /elisafylder21/    301!
