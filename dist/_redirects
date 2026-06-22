@@ -4,3 +4,11 @@
 # matcher stier med og uden skråstreg ens. <base>-tagget i index.html sikrer
 # at relative stier loader korrekt.
 /elisafylder21    /elisafylder21/index.html    200
+
+# Fuldstack-apps (Azure Static Web Apps m. Functions-backend + SWA-login) kan
+# IKKE serveres som statiske filer under en understi — backend og login virker
+# kun på deres egen Azure-origin. De redirectes derfor til deres rigtige domæner.
+/aiusagetracker      https://aiusagetracker.org/         302
+/aiusagetracker/*    https://aiusagetracker.org/:splat   302
+/aicockpit           https://aicockpit.org/              302
+/aicockpit/*         https://aicockpit.org/:splat        302
