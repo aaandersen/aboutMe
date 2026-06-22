@@ -1,8 +1,10 @@
 
 import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
+import HexBackground from "@/components/HexBackground";
 import HeroSection from "@/components/HeroSection";
 import TechMarquee from "@/components/TechMarquee";
+import AgentExpertise from "@/components/AgentExpertise";
 import Timeline from "@/components/Timeline";
 import SkillsMatrix from "@/components/SkillsMatrix";
 import Certifications from "@/components/Certifications";
@@ -40,17 +42,21 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-background">
+    <div className="relative min-h-screen">
+      <HexBackground />
       <div className="grain" aria-hidden="true" />
-      <Navbar />
-      <HeroSection />
-      <TechMarquee />
-      <Timeline />
-      <SkillsMatrix />
-      <Certifications />
-      <Portfolio />
-      <ContactForm />
-      <Footer />
+      <div className="relative z-10">
+        <Navbar />
+        <HeroSection />
+        <TechMarquee />
+        <AgentExpertise />
+        <Timeline />
+        <SkillsMatrix />
+        <Certifications />
+        <Portfolio />
+        <ContactForm />
+        <Footer />
+      </div>
     </div>
   );
 };

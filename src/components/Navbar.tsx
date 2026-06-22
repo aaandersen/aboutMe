@@ -59,9 +59,12 @@ const Navbar = () => {
         </a>
         
         {/* Desktop navigation */}
-        <nav className="hidden md:flex items-center space-x-6">
+        <nav className="hidden lg:flex items-center space-x-5">
           <button onClick={() => scrollToSection("about")} className="nav-link">
             About
+          </button>
+          <button onClick={() => scrollToSection("agents")} className="nav-link">
+            Agents
           </button>
           <button onClick={() => scrollToSection("experience")} className="nav-link">
             Experience
@@ -88,7 +91,7 @@ const Navbar = () => {
         
         {/* Mobile menu button */}
         <button
-          className="md:hidden p-2 rounded-full hover:bg-secondary transition-colors"
+          className="lg:hidden p-2 rounded-full hover:bg-secondary transition-colors"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label="Toggle menu"
         >
@@ -98,10 +101,13 @@ const Navbar = () => {
       
       {/* Mobile menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full border-b border-white/10 bg-background/95 shadow-lg backdrop-blur-xl animate-fade-in">
+        <div className="lg:hidden absolute top-full left-0 w-full border-b border-white/10 bg-background/95 shadow-lg backdrop-blur-xl animate-fade-in">
           <nav className="container flex flex-col py-4 space-y-4">
             <button onClick={() => scrollToSection("about")} className="nav-link text-left py-3">
               About
+            </button>
+            <button onClick={() => scrollToSection("agents")} className="nav-link text-left py-3">
+              Agents
             </button>
             <button onClick={() => scrollToSection("experience")} className="nav-link text-left py-3">
               Experience

@@ -11,6 +11,9 @@ interface Skill {
 }
 
 const skills: Skill[] = [
+  { name: "AI Agent Development", level: 88, category: "tech" },
+  { name: "Agent Orchestration & MCP", level: 82, category: "tech" },
+  { name: "Microsoft Copilot Studio", level: 85, category: "tech" },
   { name: "Microsoft Power Point", level: 90, category: "tools" },
   { name: "Adobe Premiere Pro", level: 80, category: "tools" },
   { name: "Microsoft Excel", level: 90, category: "tools" },

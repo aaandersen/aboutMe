@@ -3,6 +3,7 @@ import { Github, Linkedin, Mail, Phone } from "lucide-react";
 
 const navLinks = [
   { label: "About", href: "#about" },
+  { label: "Agents", href: "#agents" },
   { label: "Experience", href: "#experience" },
   { label: "Skills", href: "#skills" },
   { label: "Certifications", href: "#certifications" },
@@ -21,7 +22,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative border-t border-white/10 bg-background py-14">
+    <footer className="relative border-t border-white/10 bg-background/60 py-14 backdrop-blur-xl">
       <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary via-violet-500 to-sky-400" />
       <div className="container mx-auto">
         <div className="flex flex-col items-center gap-8 text-center">

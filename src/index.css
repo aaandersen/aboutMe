@@ -434,6 +434,11 @@
   box-shadow: 0 0 0 1px hsl(var(--brand-1) / 0.25), 0 0 40px -6px hsl(var(--brand-1) / 0.45);
 }
 
+/* Hexagon clip (pointy-top) — ties icon badges to the hex-net motif */
+.hex-clip {
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .blob,
   .aurora,

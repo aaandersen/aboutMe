@@ -34,7 +34,6 @@ const HeroSection = () => {
       {/* Background layers */}
       <div className="aurora" aria-hidden="true" />
       <div className="surface-gradient absolute inset-0 -z-10" aria-hidden="true" />
-      <div className="bg-grid absolute inset-0 -z-10" aria-hidden="true" />
       <div
         className="blob -z-10 left-[-6rem] top-[-4rem] h-80 w-80 bg-primary/30"
         aria-hidden="true"
@@ -64,8 +63,8 @@ const HeroSection = () => {
 
             <p className="max-w-xl text-lg leading-relaxed text-muted-foreground md:text-xl">
               Business Administration &amp; IT graduate from CBS and Technology
-              Specialist at Microsoft — turning AI agents and citizen development
-              into real, lasting business value.
+              Specialist at Microsoft — I develop and orchestrate AI agents,
+              turning citizen development into real, lasting business value.
             </p>
 
             <div className="flex flex-wrap gap-2.5 pt-1">

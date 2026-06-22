@@ -109,7 +109,7 @@ const Portfolio = () => {
   });
 
   return (
-    <section id="portfolio" className="bg-secondary/50 py-24" ref={sectionRef}>
+    <section id="portfolio" className="bg-white/[0.015] py-24" ref={sectionRef}>
       <div className="container">
         <div className="mb-12 flex flex-col items-center text-center">
           <span className="eyebrow mb-3">Selected work</span>
