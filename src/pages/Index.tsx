@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import Timeline from "@/components/Timeline";
 import SkillsMatrix from "@/components/SkillsMatrix";
+import Certifications from "@/components/Certifications";
 import Portfolio from "@/components/Portfolio";
 import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/Footer";
@@ -43,6 +44,7 @@ const Index = () => {
       <HeroSection />
       <Timeline />
       <SkillsMatrix />
+      <Certifications />
       <Portfolio />
       <ContactForm />
       <Footer />
