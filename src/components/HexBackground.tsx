@@ -10,7 +10,7 @@ import { useEffect, useRef } from "react";
  */
 
 const HEX_SIZE = 36;
-const HIGHLIGHT_RADIUS = 230;
+const HIGHLIGHT_RADIUS = 200;
 
 const HexBackground = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -34,6 +34,8 @@ const HexBackground = () => {
     const target = { x: 0, y: 0 };
     const pos = { x: 0, y: 0 };
     let lastMove = -100000;
+    let highlight = 0;
+    let running = false;
     let rafId = 0;
 
     const tracePath = (
@@ -82,7 +84,7 @@ const HexBackground = () => {
       // Pre-render the faint base grid once.
       baseCtx.clearRect(0, 0, width, height);
       baseCtx.lineWidth = 1;
-      baseCtx.strokeStyle = "hsla(222, 32%, 62%, 0.06)";
+      baseCtx.strokeStyle = "hsla(216, 14%, 55%, 0.05)";
       for (const h of hexes) {
         tracePath(baseCtx, h.x, h.y, HEX_SIZE - 1.5);
         baseCtx.stroke();
@@ -90,77 +92,101 @@ const HexBackground = () => {
     };
 
     const render = (time: number) => {
-      // Idle? Let the highlight drift along a slow Lissajous path.
-      if (time - lastMove > 2200) {
-        const t = time * 0.00016;
-        target.x = width * (0.5 + 0.42 * Math.sin(t * 1.1));
-        target.y = height * (0.5 + 0.42 * Math.cos(t * 0.9));
-      }
-      pos.x += (target.x - pos.x) * 0.08;
-      pos.y += (target.y - pos.y) * 0.08;
+      // The reflection glints in while the pointer moves and fades back to the
+      // bare carbon grid when it rests.
+      const movedRecently = time - lastMove < 600;
+      const targetIntensity = movedRecently ? 1 : 0;
+      const fadeRate = targetIntensity > highlight ? 0.16 : 0.05;
+      highlight += (targetIntensity - highlight) * fadeRate;
+
+      pos.x += (target.x - pos.x) * 0.12;
+      pos.y += (target.y - pos.y) * 0.12;
 
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.drawImage(base, 0, 0);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      for (const h of hexes) {
-        const dx = h.x - pos.x;
-        const dy = h.y - pos.y;
-        const dist = Math.hypot(dx, dy);
-        if (dist > HIGHLIGHT_RADIUS) continue;
+      if (highlight > 0.012) {
+        for (const h of hexes) {
+          const dx = h.x - pos.x;
+          const dy = h.y - pos.y;
+          const dist = Math.hypot(dx, dy);
+          if (dist > HIGHLIGHT_RADIUS) continue;
 
-        const linear = 1 - dist / HIGHLIGHT_RADIUS;
-        const ease = linear * linear * (3 - 2 * linear);
+          const linear = 1 - dist / HIGHLIGHT_RADIUS;
+          const ease = linear * linear * (3 - 2 * linear) * highlight;
 
-        tracePath(ctx, h.x, h.y, HEX_SIZE - 1.5);
-        ctx.fillStyle = `hsla(264, 90%, 67%, ${ease * 0.16})`;
-        ctx.fill();
-        ctx.lineWidth = 1.2;
-        ctx.strokeStyle = `hsla(190, 92%, 62%, ${ease * 0.7})`;
-        ctx.stroke();
+          // Neutral, low-intensity sheen — light catching carbon, not a glow.
+          tracePath(ctx, h.x, h.y, HEX_SIZE - 1.5);
+          ctx.fillStyle = `hsla(210, 12%, 80%, ${ease * 0.05})`;
+          ctx.fill();
+          ctx.lineWidth = 1;
+          ctx.strokeStyle = `hsla(208, 16%, 86%, ${ease * 0.3})`;
+          ctx.stroke();
+        }
+        rafId = requestAnimationFrame(render);
+      } else {
+        // Settled and faded out — leave just the resting carbon grid.
+        running = false;
       }
+    };
 
+    const start = () => {
+      if (running || prefersReduced) return;
+      running = true;
       rafId = requestAnimationFrame(render);
+    };
+
+    const stop = () => {
+      running = false;
+      cancelAnimationFrame(rafId);
+    };
+
+    const paintBase = () => {
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(base, 0, 0);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
 
     const handleMove = (e: MouseEvent) => {
       target.x = e.clientX;
       target.y = e.clientY;
       lastMove = performance.now();
+      start();
     };
 
     const handleResize = () => {
       build();
-      pos.x = width / 2;
-      pos.y = height / 2;
+      pos.x = target.x = width / 2;
+      pos.y = target.y = height / 2;
+      paintBase();
     };
 
     const handleVisibility = () => {
-      cancelAnimationFrame(rafId);
-      if (!document.hidden && !prefersReduced) {
-        rafId = requestAnimationFrame(render);
-      }
+      if (document.hidden) stop();
+      else paintBase();
     };
 
     build();
     pos.x = target.x = width / 2;
     pos.y = target.y = height / 2;
 
-    if (prefersReduced) {
-      ctx.setTransform(1, 0, 0, 1, 0, 0);
-      ctx.drawImage(base, 0, 0);
-    } else {
+    // Paint the resting carbon grid once; the reflection loop only runs while
+    // the pointer is actually moving, then stops again.
+    paintBase();
+
+    window.addEventListener("resize", handleResize);
+    if (!prefersReduced) {
       window.addEventListener("mousemove", handleMove, { passive: true });
-      window.addEventListener("resize", handleResize);
       document.addEventListener("visibilitychange", handleVisibility);
-      rafId = requestAnimationFrame(render);
     }
 
     return () => {
-      cancelAnimationFrame(rafId);
-      window.removeEventListener("mousemove", handleMove);
+      stop();
       window.removeEventListener("resize", handleResize);
+      window.removeEventListener("mousemove", handleMove);
       document.removeEventListener("visibilitychange", handleVisibility);
     };
   }, []);
