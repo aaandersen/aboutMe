@@ -35,9 +35,9 @@ const Navbar = () => {
     <header
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        isScrolled 
-          ? "bg-white/80 backdrop-blur-md shadow-sm py-4" 
-          : "bg-transparent py-6"
+        isScrolled
+          ? "border-b border-border/60 bg-white/80 py-3 shadow-sm backdrop-blur-md"
+          : "border-b border-transparent bg-transparent py-6"
       )}
     >
       <div className="container flex items-center justify-between">
@@ -69,6 +69,12 @@ const Navbar = () => {
           <button onClick={() => scrollToSection("contact")} className="nav-link">
             Contact
           </button>
+          <button
+            onClick={() => scrollToSection("contact")}
+            className="btn-gradient ml-2 rounded-full px-5 py-2 text-sm font-semibold text-white"
+          >
+            Let's talk
+          </button>
         </nav>
         
         {/* Mobile menu button */}
@@ -99,6 +105,12 @@ const Navbar = () => {
             </button>
             <button onClick={() => scrollToSection("contact")} className="nav-link text-left py-3">
               Contact
+            </button>
+            <button
+              onClick={() => scrollToSection("contact")}
+              className="btn-gradient mt-2 rounded-full px-5 py-3 text-sm font-semibold text-white"
+            >
+              Let's talk
             </button>
           </nav>
         </div>

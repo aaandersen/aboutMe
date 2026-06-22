@@ -1,54 +1,61 @@
 
 import { Github, Linkedin, Mail, Phone } from "lucide-react";
 
+const navLinks = [
+  { label: "About", href: "#about" },
+  { label: "Experience", href: "#experience" },
+  { label: "Skills", href: "#skills" },
+  { label: "Portfolio", href: "#portfolio" },
+  { label: "Contact", href: "#contact" },
+];
+
+const socials = [
+  { href: "https://www.linkedin.com/in/anders-adalberth-andersen-58b537215", label: "LinkedIn", Icon: Linkedin },
+  { href: "https://github.com/aaandersen", label: "GitHub", Icon: Github },
+  { href: "mailto:andersadalberth@gmail.com", label: "Email", Icon: Mail },
+  { href: "tel:+4529362992", label: "Phone", Icon: Phone },
+];
+
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-white border-t border-border py-12">
+    <footer className="relative border-t border-border bg-white py-14">
+      <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary via-violet-500 to-sky-400" />
       <div className="container mx-auto">
-        <div className="flex flex-col items-center text-center">
-          <div className="mb-6">
-            <h2 className="text-2xl font-bold">
+        <div className="flex flex-col items-center gap-8 text-center">
+          <div>
+            <h2 className="font-display text-2xl font-bold">
               Anders<span className="text-primary">.</span>
             </h2>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Business Administration &amp; IT · AI &amp; Citizen Development
+            </p>
           </div>
-          
-          <div className="flex items-center space-x-6 mb-8">
-            <a 
-              href="https://linkedin.com" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-primary transition-colors"
-              aria-label="LinkedIn"
-            >
-              <Linkedin size={20} />
-            </a>
-            <a 
-              href="https://github.com" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-primary transition-colors"
-              aria-label="GitHub"
-            >
-              <Github size={20} />
-            </a>
-            <a 
-              href="mailto:andersadalberth@gmail.com" 
-              className="text-muted-foreground hover:text-primary transition-colors"
-              aria-label="Email"
-            >
-              <Mail size={20} />
-            </a>
-            <a 
-              href="tel:+4529362992" 
-              className="text-muted-foreground hover:text-primary transition-colors"
-              aria-label="Phone"
-            >
-              <Phone size={20} />
-            </a>
+
+          <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm font-medium text-muted-foreground">
+            {navLinks.map(({ label, href }) => (
+              <a key={label} href={href} className="transition-colors hover:text-primary">
+                {label}
+              </a>
+            ))}
+          </nav>
+
+          <div className="flex items-center gap-4">
+            {socials.map(({ href, label, Icon }) => (
+              <a
+                key={label}
+                href={href}
+                target={href.startsWith("http") ? "_blank" : undefined}
+                rel="noopener noreferrer"
+                aria-label={label}
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-border text-muted-foreground transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:text-primary"
+              >
+                <Icon size={18} />
+              </a>
+            ))}
           </div>
-          
+
           <div className="text-sm text-muted-foreground">
             <p className="mb-1">Copenhagen, Denmark</p>
             <p>&copy; {currentYear} Anders Adalberth Andersen. All rights reserved.</p>

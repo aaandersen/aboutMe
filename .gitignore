@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Logs / scratch
+*.log
+_build.log
+
+# Local env
+.env
+.env.*
+!.env.example
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.vite/
+
+# NB: dist/ er BEVIDST committet, fordi Netlify-opsætningen kan servere den
+# committede build direkte. Byg lokalt (npm run build) før commit, så dist/ er frisk.

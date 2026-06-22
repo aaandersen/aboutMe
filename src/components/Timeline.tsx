@@ -11,22 +11,24 @@ interface TimelineItem {
   period: string;
   type: "education" | "work";
   description: string[];
+  badge?: string;
   expanded?: boolean;
 }
 
 const TimelineData: TimelineItem[] = [
   {
     id: "1",
-    title: "Bachelor of Science - HA(it)",
-    organization: "Business Administration and Information Technology, CBS",
-    period: "August 2023 - July 2026",
+    title: "BSc in Business Administration & IT — HA(it.)",
+    organization: "Copenhagen Business School (CBS)",
+    period: "August 2023 – June 2026",
     type: "education",
+    badge: "Graduated 2026",
+    expanded: true,
     description: [
+      "Graduated in June 2026, combining business administration with information technology.",
+      "Bachelor thesis (in collaboration with Microsoft): investigated the organizational and individual conditions that enable non-technical employees at Carlsberg to create real and lasting business value through citizen development of AI agents in Microsoft Copilot.",
       "Relevant courses: Organizational Theory, Accounting, Finance, Micro- & Macroeconomics, Programming (SQL, JavaScript & HTML/CSS), IT Project Management.",
-      "Key Projects:",
-      "• Implemented SCRUM methodologies in business planning and website development.",
-      "• Cloud Infrastructure: Deployed and managed cloud solutions with Azure and DigitalOcean.",
-      "• Deployed and maintained a web application on a cloud platform (DigitalOcean) using Ubuntu servers."
+      "Selected projects: SCRUM-based business planning & web development, and cloud deployments on Azure and DigitalOcean (Ubuntu)."
     ]
   },
   {
@@ -66,7 +68,7 @@ const TimelineData: TimelineItem[] = [
     id: "5",
     title: "Content Creator",
     organization: "Trendhim",
-    period: "August 2024 - April 2024",
+    period: "April 2024 – August 2024",
     type: "work",
     description: [
       "Wrote and optimized product descriptions and blog posts to improve SEO and customer experience.",
@@ -95,12 +97,15 @@ const TimelineData: TimelineItem[] = [
   },
   {
     id: "8",
-    title: "Technology Specialist Student Worker",
+    title: "Technology Specialist (Student Worker)",
     organization: "Microsoft",
-    period: "August 2025 - Present",
+    period: "August 2025 – Present",
     type: "work",
+    badge: "Current",
+    expanded: true,
     description: [
-      "Contributing to the development and implementation of AI-driven solutions that help businesses transform and optimize their operations."
+      "Supporting customers in adopting AI and Microsoft Copilot, with a focus on agents and citizen development.",
+      "Helping organizations turn AI enthusiasm into measurable, lasting business value."
     ]
   }
 ];
@@ -148,11 +153,12 @@ const Timeline = () => {
       <div className="container">
         <div className="max-w-3xl mx-auto">
           <div className="flex flex-col items-center text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 section-heading">
-              Experience & Education
+            <span className="eyebrow mb-3">Career</span>
+            <h2 className="mb-4 section-heading text-3xl font-bold md:text-4xl">
+              Experience &amp; Education
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl">
-              My professional journey combining business expertise with technical skills
+            <p className="max-w-2xl text-lg text-muted-foreground">
+              My journey combining business expertise with technical skills — from CBS to Microsoft.
             </p>
             
             <div className="flex space-x-2 mt-8">
@@ -186,27 +192,40 @@ const Timeline = () => {
             {filteredTimeline.map((item, index) => (
               <div 
                 key={item.id}
-                className="glass-card rounded-xl p-6 transition-all duration-500"
+                className="glass-card card-hover rounded-2xl p-6"
                 style={{ 
-                  transitionDelay: `${index * 100}ms`,
+                  transitionDelay: `${index * 80}ms`,
                   transform: revealed ? 'translateY(0)' : 'translateY(20px)',
                   opacity: revealed ? 1 : 0
                 }}
               >
-                <div className="flex items-start justify-between">
-                  <div className="flex items-start">
-                    <div className="mr-4 p-2 rounded-full bg-primary/10">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex items-start gap-4">
+                    <div
+                      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-white shadow-md ${
+                        item.type === "education"
+                          ? "bg-gradient-to-br from-primary to-violet-500"
+                          : "bg-gradient-to-br from-sky-500 to-primary"
+                      }`}
+                    >
                       {item.type === "education" ? (
-                        <GraduationCap className="h-5 w-5 text-primary" />
+                        <GraduationCap className="h-5 w-5" />
                       ) : (
-                        <Building className="h-5 w-5 text-primary" />
+                        <Building className="h-5 w-5" />
                       )}
                     </div>
                     <div>
-                      <h3 className="text-xl font-semibold">{item.title}</h3>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <h3 className="text-lg font-semibold leading-tight">{item.title}</h3>
+                        {item.badge && (
+                          <Badge className="border-0 bg-primary/10 text-primary hover:bg-primary/10">
+                            {item.badge}
+                          </Badge>
+                        )}
+                      </div>
                       <p className="text-muted-foreground">{item.organization}</p>
-                      <div className="flex items-center mt-1 text-sm text-muted-foreground">
-                        <Calendar className="h-3.5 w-3.5 mr-1" />
+                      <div className="mt-1 flex items-center text-sm text-muted-foreground">
+                        <Calendar className="mr-1 h-3.5 w-3.5" />
                         <span>{item.period}</span>
                       </div>
                     </div>
@@ -216,15 +235,16 @@ const Timeline = () => {
                     size="icon"
                     onClick={() => toggleExpand(item.id)}
                     aria-label={item.expanded ? "Collapse" : "Expand"}
+                    className="shrink-0"
                   >
                     {item.expanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
                   </Button>
                 </div>
                 
                 {item.expanded && (
-                  <div className="mt-4 pt-4 border-t space-y-2 animate-fade-in">
+                  <div className="mt-4 space-y-2 border-t pt-4 animate-fade-in">
                     {item.description.map((desc, i) => (
-                      <p key={i} className="text-sm">
+                      <p key={i} className="text-sm leading-relaxed text-foreground/80">
                         {desc}
                       </p>
                     ))}

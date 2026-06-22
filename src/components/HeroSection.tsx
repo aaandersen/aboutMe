@@ -1,94 +1,155 @@
 
 import { useState, useEffect } from "react";
-import { Download, Linkedin, Github, Mail, ExternalLink } from "lucide-react";
+import {
+  Download,
+  Linkedin,
+  Github,
+  Mail,
+  ArrowRight,
+  GraduationCap,
+  Briefcase,
+  MapPin,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
+
+const scrollToId = (id: string) => {
+  const el = document.getElementById(id);
+  if (el) window.scrollTo({ top: el.offsetTop - 90, behavior: "smooth" });
+};
 
 const HeroSection = () => {
   const [isLoaded, setIsLoaded] = useState(false);
-  
+
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoaded(true);
-    }, 300);
-    
+    const timer = setTimeout(() => setIsLoaded(true), 150);
     return () => clearTimeout(timer);
   }, []);
 
   return (
-    <section className="min-h-screen flex items-center pt-32 md:pt-0" id="about">
+    <section
+      className="relative flex min-h-screen items-center overflow-hidden pt-32 md:pt-24"
+      id="about"
+    >
+      {/* Background layers */}
+      <div className="surface-gradient absolute inset-0 -z-10" aria-hidden="true" />
+      <div className="bg-grid absolute inset-0 -z-10" aria-hidden="true" />
+      <div
+        className="blob -z-10 left-[-6rem] top-[-4rem] h-80 w-80 bg-primary/40"
+        aria-hidden="true"
+      />
+      <div
+        className="blob -z-10 right-[-5rem] top-24 h-72 w-72 bg-sky-400/40"
+        style={{ animationDelay: "-6s" }}
+        aria-hidden="true"
+      />
+
       <div className="container">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <div className={`space-y-6 ${isLoaded ? 'animate-fade-in-left' : 'opacity-0'}`}>
-            <div className="inline-block bg-primary/10 text-primary rounded-full px-4 py-1.5 text-sm font-medium mb-2">
-              Business Administration & IT
+        <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-2">
+          {/* Left */}
+          <div className={`space-y-6 ${isLoaded ? "animate-fade-in-left" : "opacity-0"}`}>
+            <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-sm font-medium text-primary">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+              </span>
+              Open to opportunities
             </div>
-            
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight">
-              Anders Adalberth <span className="text-primary">Andersen</span>
+
+            <h1 className="font-display text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
+              Anders Adalberth{" "}
+              <span className="text-gradient">Andersen</span>
             </h1>
-            
-            <p className="text-xl text-muted-foreground max-w-md">
-              Ambitious student with strong interest in AI/LLM combining business administration with IT expertise.
+
+            <p className="max-w-xl text-lg leading-relaxed text-muted-foreground md:text-xl">
+              Business Administration &amp; IT graduate from CBS and Technology
+              Specialist at Microsoft — turning AI agents and citizen development
+              into real, lasting business value.
             </p>
-            
-            <div className="flex items-center space-x-6 pt-2">
-              <a 
-                href="https://www.linkedin.com/in/anders-adalberth-andersen-58b537215" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-primary transition-colors"
-                aria-label="LinkedIn"
-              >
-                <Linkedin size={20} />
-              </a>
-              <a 
-                href="https://github.com/AAAndersen" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-primary transition-colors"
-                aria-label="GitHub"
-              >
-                <Github size={20} />
-              </a>
-              <a 
-                href="mailto:andersadalberth@gmail.com" 
-                className="text-muted-foreground hover:text-primary transition-colors"
-                aria-label="Email"
-              >
-                <Mail size={20} />
-              </a>
+
+            <div className="flex flex-wrap gap-2.5 pt-1">
+              <span className="chip">
+                <GraduationCap className="h-4 w-4 text-primary" /> BSc · CBS 2026
+              </span>
+              <span className="chip">
+                <Briefcase className="h-4 w-4 text-primary" /> Microsoft
+              </span>
+              <span className="chip">
+                <MapPin className="h-4 w-4 text-primary" /> Copenhagen
+              </span>
             </div>
-            
-            <div className="pt-4">
+
+            <div className="flex flex-wrap items-center gap-4 pt-3">
               <a href="/anders-resume.pdf" download>
-                <Button className="download-btn bg-primary hover:bg-primary/90 text-white rounded-full px-6 py-6 h-auto text-base font-medium">
+                <Button className="btn-gradient h-auto rounded-full px-7 py-6 text-base font-semibold">
                   <Download className="mr-2 h-5 w-5" />
                   Download Resume
                 </Button>
               </a>
-              <a href="tel:+4529362992" className="ml-4 inline-flex items-center text-muted-foreground hover:text-primary transition-colors">
-                <span>+45 29362992</span>
-                <ExternalLink className="ml-1 h-3 w-3" />
-              </a>
+              <Button
+                variant="outline"
+                onClick={() => scrollToId("contact")}
+                className="group h-auto rounded-full border-2 px-7 py-6 text-base font-semibold"
+              >
+                Get in touch
+                <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+              </Button>
+            </div>
+
+            <div className="flex items-center gap-3 pt-2">
+              {[
+                { href: "https://www.linkedin.com/in/anders-adalberth-andersen-58b537215", label: "LinkedIn", Icon: Linkedin },
+                { href: "https://github.com/aaandersen", label: "GitHub", Icon: Github },
+                { href: "mailto:andersadalberth@gmail.com", label: "Email", Icon: Mail },
+              ].map(({ href, label, Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target={href.startsWith("http") ? "_blank" : undefined}
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-white/70 text-muted-foreground shadow-sm backdrop-blur transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:text-primary"
+                >
+                  <Icon size={19} />
+                </a>
+              ))}
             </div>
           </div>
-          
-          <div 
-            className={`flex justify-center ${isLoaded ? 'animate-fade-in-right' : 'opacity-0'}`}
-            style={{ transitionDelay: '200ms' }}
+
+          {/* Right — photo */}
+          <div
+            className={`flex justify-center ${isLoaded ? "animate-fade-in-right" : "opacity-0"}`}
           >
-            <div className="photo-container max-w-md w-full shadow-xl">
-              <img 
-                src="/lovable-uploads/2eebffc6-42b4-4ba9-b753-d710ac8e209c.png" 
-                alt="Anders Adalberth Andersen" 
-                className="w-full h-auto object-cover"
-                loading="eager"
+            <div className="relative mx-auto w-full max-w-md animate-float">
+              <div
+                className="absolute -inset-5 rounded-[2rem] bg-gradient-to-tr from-primary/30 via-violet-500/20 to-sky-400/30 blur-2xl"
+                aria-hidden="true"
               />
-              <div className="hover-effect"></div>
+              <div className="relative rounded-[1.75rem] bg-gradient-to-br from-primary via-violet-500 to-sky-400 p-[2px] shadow-2xl">
+                <div className="overflow-hidden rounded-[1.65rem] bg-white">
+                  <img
+                    src="/lovable-uploads/2eebffc6-42b4-4ba9-b753-d710ac8e209c.png"
+                    alt="Anders Adalberth Andersen"
+                    className="h-auto w-full object-cover"
+                    loading="eager"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Scroll cue */}
+      <button
+        onClick={() => scrollToId("experience")}
+        aria-label="Scroll to content"
+        className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-muted-foreground transition-colors hover:text-primary md:flex"
+      >
+        <span className="text-xs font-medium uppercase tracking-[0.2em]">Scroll</span>
+        <span className="flex h-9 w-5 items-start justify-center rounded-full border-2 border-current p-1">
+          <span className="h-2 w-1 animate-bounce rounded-full bg-current" />
+        </span>
+      </button>
     </section>
   );
 };

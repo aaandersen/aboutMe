@@ -1,10 +1,15 @@
 
 import { useState } from "react";
-import { Send, User, Mail, MessageSquare } from "lucide-react";
+import { Send, User, Mail, MessageSquare, Phone, MapPin, Linkedin, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
+
+const encode = (data: Record<string, string>) =>
+  Object.keys(data)
+    .map((key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+    .join("&");
 
 const ContactForm = () => {
   const { toast } = useToast();
@@ -22,118 +27,181 @@ const ContactForm = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulate API call
-    setTimeout(() => {
-      console.log("Form submitted:", formData);
+
+    try {
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: encode({ "form-name": "contact", ...formData }),
+      });
+
+      if (!response.ok) throw new Error("Request failed");
+
       toast({
         title: "Message sent!",
-        description: "Thank you for your message. I'll respond as soon as possible.",
+        description: "Thanks for reaching out — I'll get back to you as soon as possible.",
       });
-      
       setFormData({ name: "", email: "", message: "" });
+    } catch {
+      toast({
+        variant: "destructive",
+        title: "Couldn't send your message",
+        description: "Please email me directly at andersadalberth@gmail.com.",
+      });
+    } finally {
       setIsSubmitting(false);
-    }, 1000);
+    }
   };
+
+  const contactDetails = [
+    { Icon: Mail, label: "Email", value: "andersadalberth@gmail.com", href: "mailto:andersadalberth@gmail.com" },
+    { Icon: Phone, label: "Phone", value: "+45 29 36 29 92", href: "tel:+4529362992" },
+    { Icon: MapPin, label: "Location", value: "Copenhagen, Denmark", href: undefined },
+  ];
 
   return (
     <section id="contact" className="py-24">
       <div className="container">
-        <div className="max-w-2xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 section-heading">
-              Get In Touch
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-xl mx-auto">
-              Have a question or want to work together? Feel free to contact me.
-            </p>
+        <div className="mx-auto grid max-w-5xl grid-cols-1 gap-10 lg:grid-cols-5">
+          {/* Info column */}
+          <div className="space-y-8 lg:col-span-2">
+            <div>
+              <span className="eyebrow mb-3">Contact</span>
+              <h2 className="section-heading text-3xl font-bold md:text-4xl">Get In Touch</h2>
+              <p className="mt-4 text-muted-foreground">
+                Have a question, a role, or an idea you'd like to discuss? I'd love to hear
+                from you — I usually reply within a day.
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              {contactDetails.map(({ Icon, label, value, href }) => {
+                const content = (
+                  <div className="flex items-center gap-4 rounded-xl border border-border bg-white/60 p-4 backdrop-blur transition-colors hover:border-primary/40">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-sky-400 text-white shadow-md">
+                      <Icon className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{label}</p>
+                      <p className="font-medium text-foreground">{value}</p>
+                    </div>
+                  </div>
+                );
+                return href ? (
+                  <a key={label} href={href} className="block">
+                    {content}
+                  </a>
+                ) : (
+                  <div key={label}>{content}</div>
+                );
+              })}
+            </div>
+
+            <div className="flex items-center gap-3">
+              {[
+                { href: "https://www.linkedin.com/in/anders-adalberth-andersen-58b537215", label: "LinkedIn", Icon: Linkedin },
+                { href: "https://github.com/aaandersen", label: "GitHub", Icon: Github },
+              ].map(({ href, label, Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-white/70 text-muted-foreground transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:text-primary"
+                >
+                  <Icon size={19} />
+                </a>
+              ))}
+            </div>
           </div>
-          
-          <div className="glass-card rounded-xl p-8 shadow-lg animate-fade-in">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="space-y-2">
-                <label htmlFor="name" className="text-sm font-medium">
-                  Name
-                </label>
-                <div className="relative">
-                  <Input
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="Your name"
-                    className="pl-10"
-                    required
-                  />
-                  <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                </div>
-              </div>
-              
-              <div className="space-y-2">
-                <label htmlFor="email" className="text-sm font-medium">
-                  Email
-                </label>
-                <div className="relative">
-                  <Input
-                    id="email"
-                    name="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="Your email address"
-                    className="pl-10"
-                    required
-                  />
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                </div>
-              </div>
-              
-              <div className="space-y-2">
-                <label htmlFor="message" className="text-sm font-medium">
-                  Message
-                </label>
-                <div className="relative">
-                  <Textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    placeholder="Your message"
-                    className="min-h-32 pl-10"
-                    required
-                  />
-                  <MessageSquare className="absolute left-3 top-6 h-4 w-4 text-muted-foreground" />
-                </div>
-              </div>
-              
-              <Button 
-                type="submit" 
-                disabled={isSubmitting}
-                className="w-full py-6 h-auto text-base font-medium"
+
+          {/* Form column */}
+          <div className="lg:col-span-3">
+            <div className="glass-card rounded-2xl p-6 shadow-lg sm:p-8">
+              <form
+                name="contact"
+                method="POST"
+                data-netlify="true"
+                netlify-honeypot="bot-field"
+                onSubmit={handleSubmit}
+                className="space-y-6"
               >
-                <Send className="mr-2 h-5 w-5" />
-                {isSubmitting ? "Sending..." : "Send Message"}
-              </Button>
-            </form>
-          </div>
-          
-          <div className="mt-12 text-center text-sm text-muted-foreground">
-            <p>
-              Prefer direct contact? Email me at{" "}
-              <a
-                href="mailto:andersadalberth@gmail.com"
-                className="text-primary hover:underline"
-              >
-                andersadalberth@gmail.com
-              </a>{" "}
-              or call{" "}
-              <a href="tel:+4529362992" className="text-primary hover:underline">
-                +45 29362992
-              </a>
-            </p>
+                <input type="hidden" name="form-name" value="contact" />
+                <p className="hidden">
+                  <label>
+                    Don't fill this out if you're human: <input name="bot-field" />
+                  </label>
+                </p>
+
+                <div className="space-y-2">
+                  <label htmlFor="name" className="text-sm font-medium">
+                    Name
+                  </label>
+                  <div className="relative">
+                    <Input
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      placeholder="Your name"
+                      className="pl-10"
+                      required
+                    />
+                    <User className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label htmlFor="email" className="text-sm font-medium">
+                    Email
+                  </label>
+                  <div className="relative">
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="Your email address"
+                      className="pl-10"
+                      required
+                    />
+                    <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label htmlFor="message" className="text-sm font-medium">
+                    Message
+                  </label>
+                  <div className="relative">
+                    <Textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      placeholder="Your message"
+                      className="min-h-32 pl-10"
+                      required
+                    />
+                    <MessageSquare className="absolute left-3 top-6 h-4 w-4 text-muted-foreground" />
+                  </div>
+                </div>
+
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="btn-gradient h-auto w-full py-6 text-base font-semibold"
+                >
+                  <Send className="mr-2 h-5 w-5" />
+                  {isSubmitting ? "Sending..." : "Send Message"}
+                </Button>
+              </form>
+            </div>
           </div>
         </div>
       </div>
