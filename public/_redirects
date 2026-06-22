@@ -1,3 +1,6 @@
 # Fødselsdagssiden til Elisa hostes som statiske filer under /elisafylder21/.
-# Sørg for at URL'en uden skråstreg også virker (sender til versionen med skråstreg).
-/elisafylder21    /elisafylder21/    301!
+# Server index.html for den bare sti (uden skråstreg) via en 200-rewrite.
+# Vigtigt: 200-rewrite (ikke 301) for at undgå redirect-loop, da Netlify
+# matcher stier med og uden skråstreg ens. <base>-tagget i index.html sikrer
+# at relative stier loader korrekt.
+/elisafylder21    /elisafylder21/index.html    200
