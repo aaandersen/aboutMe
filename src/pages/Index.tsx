@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
+import TechMarquee from "@/components/TechMarquee";
 import Timeline from "@/components/Timeline";
 import SkillsMatrix from "@/components/SkillsMatrix";
 import Certifications from "@/components/Certifications";
@@ -39,9 +40,11 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="relative min-h-screen bg-background">
+      <div className="grain" aria-hidden="true" />
       <Navbar />
       <HeroSection />
+      <TechMarquee />
       <Timeline />
       <SkillsMatrix />
       <Certifications />

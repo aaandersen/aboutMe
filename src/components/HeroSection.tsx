@@ -11,6 +11,7 @@ import {
   MapPin,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import MagneticButton from "@/components/MagneticButton";
 
 const scrollToId = (id: string) => {
   const el = document.getElementById(id);
@@ -31,14 +32,15 @@ const HeroSection = () => {
       id="about"
     >
       {/* Background layers */}
+      <div className="aurora" aria-hidden="true" />
       <div className="surface-gradient absolute inset-0 -z-10" aria-hidden="true" />
       <div className="bg-grid absolute inset-0 -z-10" aria-hidden="true" />
       <div
-        className="blob -z-10 left-[-6rem] top-[-4rem] h-80 w-80 bg-primary/40"
+        className="blob -z-10 left-[-6rem] top-[-4rem] h-80 w-80 bg-primary/30"
         aria-hidden="true"
       />
       <div
-        className="blob -z-10 right-[-5rem] top-24 h-72 w-72 bg-sky-400/40"
+        className="blob -z-10 right-[-5rem] top-24 h-72 w-72 bg-cyan-400/25"
         style={{ animationDelay: "-6s" }}
         aria-hidden="true"
       />
@@ -55,9 +57,9 @@ const HeroSection = () => {
               Open to opportunities
             </div>
 
-            <h1 className="font-display text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
+            <h1 className="font-display text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl xl:text-7xl">
               Anders Adalberth{" "}
-              <span className="text-gradient">Andersen</span>
+              <span className="text-gradient-animate">Andersen</span>
             </h1>
 
             <p className="max-w-xl text-lg leading-relaxed text-muted-foreground md:text-xl">
@@ -79,20 +81,24 @@ const HeroSection = () => {
             </div>
 
             <div className="flex flex-wrap items-center gap-4 pt-3">
-              <a href="/anders-resume.pdf" download>
-                <Button className="btn-gradient h-auto rounded-full px-7 py-6 text-base font-semibold">
-                  <Download className="mr-2 h-5 w-5" />
-                  Download Resume
+              <MagneticButton>
+                <a href="/anders-resume.pdf" download>
+                  <Button className="btn-gradient h-auto rounded-full px-7 py-6 text-base font-semibold">
+                    <Download className="mr-2 h-5 w-5" />
+                    Download Resume
+                  </Button>
+                </a>
+              </MagneticButton>
+              <MagneticButton>
+                <Button
+                  variant="outline"
+                  onClick={() => scrollToId("contact")}
+                  className="group h-auto rounded-full border-2 border-white/15 bg-white/[0.03] px-7 py-6 text-base font-semibold backdrop-blur hover:border-primary/50 hover:bg-white/[0.06]"
+                >
+                  Get in touch
+                  <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Button>
-              </a>
-              <Button
-                variant="outline"
-                onClick={() => scrollToId("contact")}
-                className="group h-auto rounded-full border-2 px-7 py-6 text-base font-semibold"
-              >
-                Get in touch
-                <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-              </Button>
+              </MagneticButton>
             </div>
 
             <div className="flex items-center gap-3 pt-2">
@@ -107,7 +113,7 @@ const HeroSection = () => {
                   target={href.startsWith("http") ? "_blank" : undefined}
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-white/70 text-muted-foreground shadow-sm backdrop-blur transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:text-primary"
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-muted-foreground shadow-sm backdrop-blur transition-all hover:-translate-y-0.5 hover:border-primary/50 hover:text-primary"
                 >
                   <Icon size={19} />
                 </a>
@@ -121,11 +127,11 @@ const HeroSection = () => {
           >
             <div className="relative mx-auto w-full max-w-md animate-float">
               <div
-                className="absolute -inset-5 rounded-[2rem] bg-gradient-to-tr from-primary/30 via-violet-500/20 to-sky-400/30 blur-2xl"
+                className="absolute -inset-5 rounded-[2rem] bg-gradient-to-tr from-primary/30 via-violet-500/25 to-cyan-400/30 blur-2xl"
                 aria-hidden="true"
               />
-              <div className="relative rounded-[1.75rem] bg-gradient-to-br from-primary via-violet-500 to-sky-400 p-[2px] shadow-2xl">
-                <div className="overflow-hidden rounded-[1.65rem] bg-white">
+              <div className="relative rounded-[1.75rem] bg-gradient-to-br from-primary via-violet-500 to-cyan-400 p-[2px] shadow-2xl">
+                <div className="overflow-hidden rounded-[1.65rem] bg-card">
                   <img
                     src="/lovable-uploads/2eebffc6-42b4-4ba9-b753-d710ac8e209c.png"
                     alt="Anders Adalberth Andersen"

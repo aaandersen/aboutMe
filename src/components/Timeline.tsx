@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { Building, GraduationCap, Calendar, ChevronDown, ChevronUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { handleSpotlight } from "@/lib/interactions";
 
 interface TimelineItem {
   id: string;
@@ -192,7 +193,8 @@ const Timeline = () => {
             {filteredTimeline.map((item, index) => (
               <div 
                 key={item.id}
-                className="glass-card card-hover rounded-2xl p-6"
+                onMouseMove={handleSpotlight}
+                className="glass-card card-hover spotlight rounded-2xl p-6"
                 style={{ 
                   transitionDelay: `${index * 80}ms`,
                   transform: revealed ? 'translateY(0)' : 'translateY(20px)',
@@ -205,7 +207,7 @@ const Timeline = () => {
                       className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-white shadow-md ${
                         item.type === "education"
                           ? "bg-gradient-to-br from-primary to-violet-500"
-                          : "bg-gradient-to-br from-sky-500 to-primary"
+                          : "bg-gradient-to-br from-cyan-500 to-primary"
                       }`}
                     >
                       {item.type === "education" ? (

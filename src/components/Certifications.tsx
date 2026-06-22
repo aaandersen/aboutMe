@@ -11,6 +11,7 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { handleSpotlight } from "@/lib/interactions";
 
 interface Certification {
   id: string;
@@ -128,7 +129,8 @@ const Certifications = () => {
             return (
               <Card
                 key={cert.id}
-                className="card-hover flex flex-col overflow-hidden border-border"
+                onMouseMove={handleSpotlight}
+                className="card-hover spotlight flex flex-col overflow-hidden border-border"
                 style={{
                   transitionDelay: `${index * 90}ms`,
                   opacity: revealed ? 1 : 0,
@@ -202,7 +204,7 @@ const Certifications = () => {
           <a href={LEARN_PROFILE} target="_blank" rel="noopener noreferrer">
             <Button
               variant="outline"
-              className="group h-auto rounded-full border-2 px-6 py-5 text-base font-semibold"
+              className="group h-auto rounded-full border-2 border-white/15 bg-white/[0.03] px-6 py-5 text-base font-semibold backdrop-blur hover:border-primary/50 hover:bg-white/[0.06]"
             >
               View all credentials on Microsoft Learn
               <ExternalLink className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-0.5" />

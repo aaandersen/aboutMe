@@ -6,17 +6,17 @@ import { Menu, X } from "lucide-react";
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  
+  const [scrollProgress, setScrollProgress] = useState(0);
+
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 10) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 10);
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      setScrollProgress(docHeight > 0 ? (window.scrollY / docHeight) * 100 : 0);
     };
-    
-    window.addEventListener("scroll", handleScroll);
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -36,10 +36,16 @@ const Navbar = () => {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         isScrolled
-          ? "border-b border-border/60 bg-white/80 py-3 shadow-sm backdrop-blur-md"
+          ? "border-b border-white/10 bg-background/70 py-3 shadow-[0_8px_30px_-12px_rgba(0,0,0,0.6)] backdrop-blur-xl"
           : "border-b border-transparent bg-transparent py-6"
       )}
     >
+      {/* Scroll progress bar */}
+      <div
+        className="absolute inset-x-0 top-0 h-0.5 origin-left bg-gradient-to-r from-primary via-violet-400 to-cyan-400 transition-transform duration-150"
+        style={{ transform: `scaleX(${scrollProgress / 100})` }}
+        aria-hidden="true"
+      />
       <div className="container flex items-center justify-between">
         <a 
           href="#" 
@@ -92,7 +98,7 @@ const Navbar = () => {
       
       {/* Mobile menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-white shadow-lg animate-fade-in">
+        <div className="md:hidden absolute top-full left-0 w-full border-b border-white/10 bg-background/95 shadow-lg backdrop-blur-xl animate-fade-in">
           <nav className="container flex flex-col py-4 space-y-4">
             <button onClick={() => scrollToSection("about")} className="nav-link text-left py-3">
               About

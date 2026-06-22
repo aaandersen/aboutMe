@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { handleSpotlight } from "@/lib/interactions";
 
 interface PortfolioItem {
   id: string;
@@ -128,7 +129,8 @@ const Portfolio = () => {
               return (
                 <Card
                   key={item.id}
-                  className="card-hover overflow-hidden border-border md:col-span-2"
+                  onMouseMove={handleSpotlight}
+                  className="card-hover spotlight overflow-hidden border-border md:col-span-2"
                   style={revealStyle(index)}
                 >
                   <div className="grid md:grid-cols-5">
@@ -166,7 +168,8 @@ const Portfolio = () => {
             return (
               <Card
                 key={item.id}
-                className="card-hover overflow-hidden border-border"
+                onMouseMove={handleSpotlight}
+                className="card-hover spotlight overflow-hidden border-border"
                 style={revealStyle(index)}
               >
                 <div

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
+import { handleSpotlight } from "@/lib/interactions";
 
 const encode = (data: Record<string, string>) =>
   Object.keys(data)
@@ -68,7 +69,7 @@ const ContactForm = () => {
         <div className="mx-auto grid max-w-5xl grid-cols-1 gap-10 lg:grid-cols-5">
           {/* Info column */}
           <div className="space-y-8 lg:col-span-2">
-            <div>
+            <div className="flex flex-col items-start">
               <span className="eyebrow mb-3">Contact</span>
               <h2 className="section-heading text-3xl font-bold md:text-4xl">Get In Touch</h2>
               <p className="mt-4 text-muted-foreground">
@@ -80,8 +81,11 @@ const ContactForm = () => {
             <div className="space-y-3">
               {contactDetails.map(({ Icon, label, value, href }) => {
                 const content = (
-                  <div className="flex items-center gap-4 rounded-xl border border-border bg-white/60 p-4 backdrop-blur transition-colors hover:border-primary/40">
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-sky-400 text-white shadow-md">
+                  <div
+                    onMouseMove={handleSpotlight}
+                    className="spotlight flex items-center gap-4 rounded-xl border border-white/10 bg-white/[0.04] p-4 backdrop-blur transition-colors hover:border-primary/40"
+                  >
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-cyan-400 text-white shadow-md">
                       <Icon className="h-5 w-5" />
                     </div>
                     <div>
@@ -111,7 +115,7 @@ const ContactForm = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-white/70 text-muted-foreground transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:text-primary"
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-muted-foreground transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:text-primary"
                 >
                   <Icon size={19} />
                 </a>
@@ -121,7 +125,10 @@ const ContactForm = () => {
 
           {/* Form column */}
           <div className="lg:col-span-3">
-            <div className="glass-card rounded-2xl p-6 shadow-lg sm:p-8">
+            <div
+              onMouseMove={handleSpotlight}
+              className="glass-card spotlight rounded-2xl p-6 shadow-lg sm:p-8"
+            >
               <form
                 name="contact"
                 method="POST"

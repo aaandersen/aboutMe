@@ -1,7 +1,7 @@
 
 import { useState, useEffect, useRef } from "react";
-import { Check, Star } from "lucide-react";
-import { Progress } from "@/components/ui/progress";
+import { Star } from "lucide-react";
+import { handleSpotlight } from "@/lib/interactions";
 
 interface Skill {
   name: string;
@@ -75,7 +75,7 @@ const SkillsMatrix = () => {
       stars.push(
         <Star 
           key={i} 
-          className={`h-4 w-4 ${i < fullStars ? 'fill-primary text-primary' : 'text-muted'}`}
+          className={`h-4 w-4 ${i < fullStars ? 'fill-primary text-primary' : 'text-white/15'}`}
         />
       );
     }
@@ -101,10 +101,10 @@ const SkillsMatrix = () => {
               <button
                 key={category.value}
                 onClick={() => setSelectedCategory(category.value)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                   selectedCategory === category.value
-                    ? "bg-primary text-white"
-                    : "bg-secondary hover:bg-secondary/80 text-foreground"
+                    ? "bg-primary text-white shadow-lg shadow-primary/30"
+                    : "border border-white/10 bg-white/5 text-muted-foreground hover:border-white/20 hover:text-foreground"
                 }`}
               >
                 {category.label}
@@ -116,7 +116,8 @@ const SkillsMatrix = () => {
             {filteredSkills.map((skill, index) => (
               <div
                 key={skill.name}
-                className="skill-card"
+                onMouseMove={handleSpotlight}
+                className="skill-card spotlight"
                 style={{
                   transitionDelay: `${index * 50}ms`,
                   opacity: revealed ? 1 : 0,
@@ -129,7 +130,12 @@ const SkillsMatrix = () => {
                     {renderStars(skill.level)}
                   </div>
                 </div>
-                <Progress value={skill.level} className="h-2 mt-2" />
+                <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-white/10">
+                  <div
+                    className="h-full rounded-full bg-gradient-to-r from-primary to-cyan-400 transition-all duration-1000 ease-out"
+                    style={{ width: revealed ? `${skill.level}%` : "0%" }}
+                  />
+                </div>
                 <div className="flex justify-between mt-2 text-xs text-muted-foreground">
                   <span>Beginner</span>
                   <span>Proficient</span>
