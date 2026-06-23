@@ -35,11 +35,11 @@ const HeroSection = () => {
       <div className="aurora" aria-hidden="true" />
       <div className="surface-gradient absolute inset-0 -z-10" aria-hidden="true" />
       <div
-        className="blob -z-10 left-[-6rem] top-[-4rem] h-80 w-80 bg-primary/30"
+        className="blob -z-10 left-[-6rem] top-[-4rem] h-80 w-80 bg-white/10"
         aria-hidden="true"
       />
       <div
-        className="blob -z-10 right-[-5rem] top-24 h-72 w-72 bg-cyan-400/25"
+        className="blob -z-10 right-[-5rem] top-24 h-72 w-72 bg-white/[0.07]"
         style={{ animationDelay: "-6s" }}
         aria-hidden="true"
       />
@@ -50,8 +50,8 @@ const HeroSection = () => {
           <div className={`space-y-6 ${isLoaded ? "animate-fade-in-left" : "opacity-0"}`}>
             <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-sm font-medium text-primary">
               <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white/70 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-white" />
               </span>
               Open to opportunities
             </div>
@@ -126,10 +126,10 @@ const HeroSection = () => {
           >
             <div className="relative mx-auto w-full max-w-md animate-float">
               <div
-                className="absolute -inset-5 rounded-[2rem] bg-gradient-to-tr from-primary/30 via-violet-500/25 to-cyan-400/30 blur-2xl"
+                className="absolute -inset-5 rounded-[2rem] bg-gradient-to-tr from-white/15 via-white/10 to-white/15 blur-2xl"
                 aria-hidden="true"
               />
-              <div className="relative rounded-[1.75rem] bg-gradient-to-br from-primary via-violet-500 to-cyan-400 p-[2px] shadow-2xl">
+              <div className="relative rounded-[1.75rem] bg-gradient-to-br from-white via-neutral-400 to-neutral-700 p-[2px] shadow-2xl">
                 <div className="overflow-hidden rounded-[1.65rem] bg-card">
                   <img
                     src="/lovable-uploads/2eebffc6-42b4-4ba9-b753-d710ac8e209c.png"

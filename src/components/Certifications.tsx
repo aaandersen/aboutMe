@@ -46,7 +46,7 @@ const certifications: Certification[] = [
       "Draft and analyze business content by using AI",
     ],
     icon: Sparkles,
-    gradient: "from-rose-500 via-fuchsia-500 to-indigo-500",
+    gradient: "from-neutral-700 to-neutral-900",
     verifyUrl:
       "https://learn.microsoft.com/en-us/users/andersandersen-0583/credentials/certification/ai-business-professional",
   },
@@ -63,7 +63,7 @@ const certifications: Certification[] = [
       "Understand data protection and governance tasks for Microsoft 365 and Copilot",
     ],
     icon: ShieldCheck,
-    gradient: "from-sky-500 to-cyan-400",
+    gradient: "from-neutral-700 to-neutral-950",
     verifyUrl: LEARN_PROFILE,
   },
   {
@@ -80,7 +80,7 @@ const certifications: Certification[] = [
       "Describe the capabilities of Power Apps, Power Automate & Power BI",
     ],
     icon: Award,
-    gradient: "from-indigo-500 via-violet-500 to-sky-500",
+    gradient: "from-neutral-600 to-neutral-900",
     verifyUrl:
       "https://learn.microsoft.com/en-us/users/andersandersen-0583/credentials/certification/power-platform-fundamentals",
   },

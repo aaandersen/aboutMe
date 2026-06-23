@@ -7,49 +7,49 @@
   :root {
     color-scheme: dark;
 
-    --background: 236 28% 6%;
-    --foreground: 228 28% 94%;
+    --background: 0 0% 5%;
+    --foreground: 0 0% 96%;
 
-    --card: 235 24% 9%;
-    --card-foreground: 228 28% 94%;
+    --card: 0 0% 9%;
+    --card-foreground: 0 0% 96%;
 
-    --popover: 235 26% 8%;
-    --popover-foreground: 228 28% 94%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 96%;
 
-    --primary: 264 90% 67%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 8%;
 
-    --secondary: 234 18% 15%;
-    --secondary-foreground: 228 22% 90%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 90%;
 
-    --muted: 234 16% 14%;
-    --muted-foreground: 230 13% 64%;
+    --muted: 0 0% 14%;
+    --muted-foreground: 0 0% 62%;
 
-    --accent: 234 22% 17%;
-    --accent-foreground: 228 28% 94%;
+    --accent: 0 0% 17%;
+    --accent-foreground: 0 0% 96%;
 
-    --destructive: 0 72% 56%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 0% 24%;
+    --destructive-foreground: 0 0% 96%;
 
-    --border: 233 16% 17%;
-    --input: 233 16% 19%;
-    --ring: 264 90% 67%;
+    --border: 0 0% 17%;
+    --input: 0 0% 20%;
+    --ring: 0 0% 78%;
 
     --radius: 0.9rem;
 
-    /* Brand-gradient stops (violet -> electric blue -> cyan) */
-    --brand-1: 264 90% 67%;
-    --brand-2: 224 86% 62%;
-    --brand-3: 187 92% 53%;
+    /* Monochrome accent stops (white -> light gray -> mid gray) */
+    --brand-1: 0 0% 100%;
+    --brand-2: 0 0% 80%;
+    --brand-3: 0 0% 58%;
 
-    --sidebar-background: 235 24% 9%;
-    --sidebar-foreground: 228 22% 88%;
-    --sidebar-primary: 264 90% 67%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 234 22% 17%;
-    --sidebar-accent-foreground: 228 28% 94%;
-    --sidebar-border: 233 16% 17%;
-    --sidebar-ring: 264 90% 67%;
+    --sidebar-background: 0 0% 9%;
+    --sidebar-foreground: 0 0% 88%;
+    --sidebar-primary: 0 0% 98%;
+    --sidebar-primary-foreground: 0 0% 8%;
+    --sidebar-accent: 0 0% 17%;
+    --sidebar-accent-foreground: 0 0% 96%;
+    --sidebar-border: 0 0% 17%;
+    --sidebar-ring: 0 0% 78%;
   }
 
   * {
@@ -125,7 +125,7 @@
     @apply border border-white/10 bg-white/[0.035] backdrop-blur-xl;
     box-shadow:
       inset 0 1px 0 0 hsl(0 0% 100% / 0.05),
-      0 24px 60px -30px hsl(240 60% 2% / 0.9);
+      0 24px 60px -30px hsl(0 0% 0% / 0.9);
   }
 
   .timeline-item {
@@ -197,7 +197,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(45deg, rgba(59, 130, 246, 0.2), rgba(64, 120, 240, 0));
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0));
   opacity: 0;
   transition: opacity 0.5s ease;
 }
@@ -254,13 +254,13 @@
   }
 
   .btn-gradient {
-    @apply relative overflow-hidden text-white transition-all hover:-translate-y-0.5;
-    background-image: linear-gradient(120deg, hsl(var(--brand-1)), hsl(var(--brand-2)) 50%, hsl(var(--brand-3)));
-    box-shadow: 0 12px 34px -12px hsl(var(--brand-1) / 0.65);
+    @apply relative overflow-hidden text-background transition-all hover:-translate-y-0.5;
+    background-image: linear-gradient(120deg, hsl(var(--brand-1)), hsl(var(--brand-2)) 55%, hsl(var(--brand-3)));
+    box-shadow: 0 12px 34px -14px hsl(0 0% 100% / 0.35);
   }
 
   .btn-gradient:hover {
-    box-shadow: 0 16px 44px -12px hsl(var(--brand-1) / 0.8);
+    box-shadow: 0 16px 44px -14px hsl(0 0% 100% / 0.5);
   }
 }
 
@@ -288,9 +288,9 @@
 
 .surface-gradient {
   background:
-    radial-gradient(60% 55% at 12% 8%, hsl(var(--brand-1) / 0.22), transparent 60%),
-    radial-gradient(55% 55% at 92% 0%, hsl(var(--brand-3) / 0.18), transparent 55%),
-    radial-gradient(45% 45% at 82% 92%, hsl(var(--brand-2) / 0.16), transparent 60%);
+    radial-gradient(60% 55% at 12% 8%, hsl(var(--brand-1) / 0.12), transparent 60%),
+    radial-gradient(55% 55% at 92% 0%, hsl(var(--brand-3) / 0.10), transparent 55%),
+    radial-gradient(45% 45% at 82% 92%, hsl(var(--brand-2) / 0.08), transparent 60%);
 }
 
 .bg-grid {
@@ -368,10 +368,10 @@
   inset: -25% -15%;
   z-index: -1;
   background:
-    radial-gradient(38% 38% at 18% 28%, hsl(var(--brand-1) / 0.28), transparent 62%),
-    radial-gradient(34% 34% at 82% 18%, hsl(var(--brand-3) / 0.24), transparent 62%),
-    radial-gradient(44% 44% at 62% 82%, hsl(var(--brand-2) / 0.22), transparent 62%);
-  filter: blur(46px) saturate(1.2);
+    radial-gradient(38% 38% at 18% 28%, hsl(var(--brand-1) / 0.12), transparent 62%),
+    radial-gradient(34% 34% at 82% 18%, hsl(var(--brand-3) / 0.10), transparent 62%),
+    radial-gradient(44% 44% at 62% 82%, hsl(var(--brand-2) / 0.10), transparent 62%);
+  filter: blur(46px);
   animation: aurora 20s ease-in-out infinite;
   pointer-events: none;
 }

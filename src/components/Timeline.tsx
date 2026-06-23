@@ -204,10 +204,10 @@ const Timeline = () => {
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex items-start gap-4">
                     <div
-                      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-white shadow-md ${
+                      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-neutral-900 shadow-md ${
                         item.type === "education"
-                          ? "bg-gradient-to-br from-primary to-violet-500"
-                          : "bg-gradient-to-br from-cyan-500 to-primary"
+                          ? "bg-gradient-to-br from-white to-neutral-300"
+                          : "bg-gradient-to-br from-neutral-200 to-neutral-400"
                       }`}
                     >
                       {item.type === "education" ? (

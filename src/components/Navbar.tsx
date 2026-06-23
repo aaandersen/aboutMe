@@ -42,7 +42,7 @@ const Navbar = () => {
     >
       {/* Scroll progress bar */}
       <div
-        className="absolute inset-x-0 top-0 h-0.5 origin-left bg-gradient-to-r from-primary via-violet-400 to-cyan-400 transition-transform duration-150"
+        className="absolute inset-x-0 top-0 h-0.5 origin-left bg-gradient-to-r from-white via-neutral-300 to-neutral-500 transition-transform duration-150"
         style={{ transform: `scaleX(${scrollProgress / 100})` }}
         aria-hidden="true"
       />
@@ -83,7 +83,7 @@ const Navbar = () => {
           </button>
           <button
             onClick={() => scrollToSection("contact")}
-            className="btn-gradient ml-2 rounded-full px-5 py-2 text-sm font-semibold text-white"
+            className="btn-gradient ml-2 rounded-full px-5 py-2 text-sm font-semibold text-background"
           >
             Let's talk
           </button>
@@ -126,7 +126,7 @@ const Navbar = () => {
             </button>
             <button
               onClick={() => scrollToSection("contact")}
-              className="btn-gradient mt-2 rounded-full px-5 py-3 text-sm font-semibold text-white"
+              className="btn-gradient mt-2 rounded-full px-5 py-3 text-sm font-semibold text-background"
             >
               Let's talk
             </button>

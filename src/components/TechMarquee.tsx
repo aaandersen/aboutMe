@@ -28,7 +28,7 @@ const TechMarquee = () => (
                   {item}
                 </span>
                 <span
-                  className="h-1.5 w-1.5 rounded-full bg-gradient-to-r from-primary to-cyan-400"
+                  className="h-1.5 w-1.5 rounded-full bg-gradient-to-r from-white to-neutral-500"
                   aria-hidden="true"
                 />
               </li>

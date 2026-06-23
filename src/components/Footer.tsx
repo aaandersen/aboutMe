@@ -23,7 +23,7 @@ const Footer = () => {
 
   return (
     <footer className="relative border-t border-white/10 bg-background/60 py-14 backdrop-blur-xl">
-      <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary via-violet-500 to-sky-400" />
+      <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-white/80 via-white/30 to-transparent" />
       <div className="container mx-auto">
         <div className="flex flex-col items-center gap-8 text-center">
           <div>

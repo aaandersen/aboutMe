@@ -106,7 +106,7 @@ const SkillsMatrix = () => {
                 onClick={() => setSelectedCategory(category.value)}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                   selectedCategory === category.value
-                    ? "bg-primary text-white shadow-lg shadow-primary/30"
+                    ? "bg-primary text-primary-foreground shadow-lg shadow-white/20"
                     : "border border-white/10 bg-white/5 text-muted-foreground hover:border-white/20 hover:text-foreground"
                 }`}
               >
@@ -135,7 +135,7 @@ const SkillsMatrix = () => {
                 </div>
                 <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-white/10">
                   <div
-                    className="h-full rounded-full bg-gradient-to-r from-primary to-cyan-400 transition-all duration-1000 ease-out"
+                    className="h-full rounded-full bg-gradient-to-r from-white to-neutral-500 transition-all duration-1000 ease-out"
                     style={{ width: revealed ? `${skill.level}%` : "0%" }}
                   />
                 </div>

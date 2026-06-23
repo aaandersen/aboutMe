@@ -84,7 +84,7 @@ const HexBackground = () => {
       // Pre-render the faint base grid once.
       baseCtx.clearRect(0, 0, width, height);
       baseCtx.lineWidth = 1;
-      baseCtx.strokeStyle = "hsla(216, 14%, 55%, 0.05)";
+      baseCtx.strokeStyle = "hsla(0, 0%, 55%, 0.05)";
       for (const h of hexes) {
         tracePath(baseCtx, h.x, h.y, HEX_SIZE - 1.5);
         baseCtx.stroke();
@@ -119,10 +119,10 @@ const HexBackground = () => {
 
           // Neutral, low-intensity sheen — light catching carbon, not a glow.
           tracePath(ctx, h.x, h.y, HEX_SIZE - 1.5);
-          ctx.fillStyle = `hsla(210, 12%, 80%, ${ease * 0.05})`;
+          ctx.fillStyle = `hsla(0, 0%, 82%, ${ease * 0.05})`;
           ctx.fill();
           ctx.lineWidth = 1;
-          ctx.strokeStyle = `hsla(208, 16%, 86%, ${ease * 0.3})`;
+          ctx.strokeStyle = `hsla(0, 0%, 88%, ${ease * 0.3})`;
           ctx.stroke();
         }
         rafId = requestAnimationFrame(render);

@@ -15,28 +15,28 @@ const capabilities: Capability[] = [
     description:
       "Designing and building custom agents in Microsoft Copilot Studio and the Microsoft 365 Agents SDK — grounding them with the right knowledge, tools, and actions.",
     icon: Bot,
-    gradient: "from-primary to-violet-500",
+    gradient: "from-white to-neutral-300",
   },
   {
     title: "Multi-agent orchestration",
     description:
       "Composing agents into coordinated workflows — routing, hand-offs, and tool-calling wired together over the Model Context Protocol (MCP).",
     icon: Workflow,
-    gradient: "from-violet-500 to-cyan-400",
+    gradient: "from-neutral-200 to-neutral-400",
   },
   {
     title: "Citizen development at scale",
     description:
       "Enabling non-technical builders to ship agents safely — guardrails, governance, and a champion network that turns enthusiasm into real adoption.",
     icon: Users,
-    gradient: "from-cyan-500 to-primary",
+    gradient: "from-white to-neutral-400",
   },
   {
     title: "Value & measurement",
     description:
       "Instrumenting agents with usage analytics so impact is judged on real, lasting business value — actionable metrics, not vanity numbers.",
     icon: Gauge,
-    gradient: "from-sky-500 to-violet-500",
+    gradient: "from-neutral-100 to-neutral-300",
   },
 ];
 
@@ -93,7 +93,7 @@ const AgentExpertise = () => {
               >
                 <div className="flex items-start gap-4">
                   <div
-                    className={`hex-clip flex h-12 w-12 shrink-0 items-center justify-center bg-gradient-to-br ${cap.gradient} text-white shadow-lg`}
+                    className={`hex-clip flex h-12 w-12 shrink-0 items-center justify-center bg-gradient-to-br ${cap.gradient} text-neutral-900 shadow-lg`}
                   >
                     <Icon className="h-5 w-5" strokeWidth={1.75} />
                   </div>
