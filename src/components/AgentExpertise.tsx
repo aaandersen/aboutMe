@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Bot, Workflow, Users, Gauge, type LucideIcon } from "lucide-react";
 import { handleSpotlight } from "@/lib/interactions";
+import NeuralBackground from "@/components/NeuralBackground";
 
 interface Capability {
   title: string;
@@ -63,8 +64,13 @@ const AgentExpertise = () => {
   }, []);
 
   return (
-    <section id="agents" className="py-24" ref={sectionRef}>
-      <div className="container">
+    <section
+      id="agents"
+      className="relative overflow-hidden border-y border-white/[0.06] bg-background py-24"
+      ref={sectionRef}
+    >
+      <NeuralBackground />
+      <div className="container relative z-10">
         <div className="mb-12 flex flex-col items-center text-center">
           <span className="eyebrow mb-3">What I do</span>
           <h2 className="section-heading mb-4 max-w-3xl text-3xl font-bold md:text-4xl">

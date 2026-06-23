@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { handleSpotlight } from "@/lib/interactions";
+import CodeBackground from "@/components/CodeBackground";
 
 interface StackItem {
   name: string;
@@ -69,8 +70,13 @@ const TechStack = () => {
   }, []);
 
   return (
-    <section id="stack" className="bg-white/[0.015] py-24" ref={sectionRef}>
-      <div className="container">
+    <section
+      id="stack"
+      className="relative overflow-hidden border-y border-white/[0.06] bg-background py-24"
+      ref={sectionRef}
+    >
+      <CodeBackground />
+      <div className="container relative z-10">
         <div className="mb-12 flex flex-col items-center text-center">
           <span className="eyebrow mb-3">Toolkit</span>
           <h2 className="section-heading mb-4 text-3xl font-bold md:text-4xl">

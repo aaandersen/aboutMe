@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { ArrowUpRight, Check } from "lucide-react";
+import CodeBackground from "@/components/CodeBackground";
 
 const manifest = `{
   "name": "Account Insights",
@@ -44,8 +45,13 @@ const CodeShowcase = () => {
   }, []);
 
   return (
-    <section id="build" className="py-24" ref={sectionRef}>
-      <div className="container">
+    <section
+      id="build"
+      className="relative overflow-hidden border-y border-white/[0.06] bg-background py-24"
+      ref={sectionRef}
+    >
+      <CodeBackground />
+      <div className="container relative z-10">
         <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 lg:grid-cols-2">
           {/* Code panel */}
           <div

@@ -124,7 +124,7 @@ const HeroSection = () => {
               <div className="relative rounded-[1.75rem] bg-gradient-to-br from-white via-neutral-400 to-neutral-700 p-[2px] shadow-2xl">
                 <div className="overflow-hidden rounded-[1.65rem] bg-card">
                   <img
-                    src="/lovable-uploads/2eebffc6-42b4-4ba9-b753-d710ac8e209c.png"
+                    src="/uploads/2eebffc6-42b4-4ba9-b753-d710ac8e209c.png"
                     alt="Anders Adalberth Andersen"
                     className="h-auto w-full object-cover"
                     loading="eager"

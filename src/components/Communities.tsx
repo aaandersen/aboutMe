@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Building2, Users, Network, ArrowUpRight, type LucideIcon } from "lucide-react";
+import { Building2, Users, ArrowUpRight, type LucideIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { handleSpotlight } from "@/lib/interactions";
 
@@ -14,30 +14,22 @@ interface Group {
 
 const groups: Group[] = [
   {
-    name: "ERP peer group",
-    org: "A.P. Møller",
+    name: "ERP — A.P. Møller group",
+    org: "Microsoft community",
     description:
-      "A knowledge-sharing group where ERP practitioners exchange experience and align on best practice across the organisation.",
-    tags: ["Knowledge sharing", "ERP"],
+      "A Microsoft community I run for ERP leaders across major brands — facilitating knowledge sharing and aligning stakeholders around enterprise change.",
+    tags: ["ERP", "Knowledge sharing", "Stakeholder management"],
     icon: Building2,
     link: "https://www.linkedin.com/posts/anders-adalberth-andersen-58b537215_apmaeoller-knowledgesharing-activity-7417511067469127681-Rz8u",
   },
   {
-    name: "CRM ERFA group",
-    org: "Cross-company forum",
+    name: "CRM — Enterprise group",
+    org: "Microsoft community",
     description:
-      "An experience-exchange (ERFA) group exploring digital transformation and how AI agents are reshaping CRM.",
-    tags: ["Digital transformation", "Agents"],
+      "A Microsoft enterprise community on CRM and digital transformation — convening big brands to explore how AI agents reshape customer engagement.",
+    tags: ["CRM", "Digital transformation", "Agents"],
     icon: Users,
     link: "https://www.linkedin.com/posts/anders-adalberth-andersen-58b537215_digitaltransformation-erfa-agents-activity-7425631509304410112-7Ltf",
-  },
-  {
-    name: "Enterprise group",
-    org: "Cross-company forum",
-    description:
-      "A peer forum for enterprise practitioners to align on strategy and tooling — where stakeholder management turns shared lessons into action.",
-    tags: ["Enterprise", "Stakeholder management"],
-    icon: Network,
   },
 ];
 
@@ -69,17 +61,16 @@ const Communities = () => {
         <div className="mb-12 flex flex-col items-center text-center">
           <span className="eyebrow mb-3">Facilitation</span>
           <h2 className="section-heading mb-4 text-3xl font-bold md:text-4xl">
-            Communities I facilitate
+            Communities I run
           </h2>
           <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-            Beyond building agents, I bring people together — running
-            cross-organisation peer groups where practitioners share experience,
-            align stakeholders, and turn digital-transformation lessons into
-            practice.
+            I run two Microsoft communities that bring leaders from major brands
+            together — driving knowledge sharing, digital transformation, and the
+            stakeholder management that turns conversation into change.
           </p>
         </div>
 
-        <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-3">
+        <div className="mx-auto grid max-w-3xl grid-cols-1 gap-6 md:grid-cols-2">
           {groups.map((group, index) => {
             const Icon = group.icon;
             return (
@@ -129,6 +120,23 @@ const Communities = () => {
               </div>
             );
           })}
+        </div>
+
+        {/* Member brand logos — placeholders until the company list is provided. */}
+        <div className="mx-auto mt-12 max-w-4xl">
+          <p className="mb-5 text-center text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+            Member brands
+          </p>
+          <div className="grid grid-cols-3 gap-3 sm:grid-cols-6">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div
+                key={i}
+                className="flex h-14 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03]"
+              >
+                <Building2 className="h-5 w-5 text-muted-foreground/40" />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
