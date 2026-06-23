@@ -1,0 +1,118 @@
+import { useState, useEffect, useRef } from "react";
+import { ArrowUpRight, Check } from "lucide-react";
+
+const manifest = `{
+  "name": "Account Insights",
+  "description": "Surfaces account health and next-best actions for non-technical teams.",
+  "instructions": "Ground every answer in the live dashboard. Always cite the account and the metric.",
+  "knowledge": [
+    { "type": "graph_connector", "id": "sales-dashboard" }
+  ],
+  "actions": [
+    { "id": "getAccount", "spec": "actions/accounts.openapi.yaml" },
+    { "id": "logVisit",   "spec": "actions/visits.openapi.yaml" }
+  ],
+  "capabilities": ["CodeInterpreter", "WebSearch"]
+}`;
+
+const outcomes = [
+  "Grounded in real data sources — not guesswork",
+  "Typed actions that call real APIs and write back",
+  "Governed and instrumented so value is measurable",
+];
+
+const CodeShowcase = () => {
+  const [revealed, setRevealed] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setRevealed(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <section id="build" className="py-24" ref={sectionRef}>
+      <div className="container">
+        <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 lg:grid-cols-2">
+          {/* Code panel */}
+          <div
+            className="overflow-hidden rounded-2xl border border-white/10 bg-[#0b0b0b] shadow-2xl"
+            style={{
+              transition: "opacity .7s ease, transform .7s ease",
+              opacity: revealed ? 1 : 0,
+              transform: revealed ? "translateX(0)" : "translateX(-20px)",
+            }}
+          >
+            <div className="flex items-center gap-2 border-b border-white/10 px-4 py-3">
+              <span className="h-3 w-3 rounded-full bg-white/15" />
+              <span className="h-3 w-3 rounded-full bg-white/15" />
+              <span className="h-3 w-3 rounded-full bg-white/15" />
+              <span className="ml-3 font-mono text-xs text-muted-foreground">
+                agent.manifest.json
+              </span>
+            </div>
+            <pre className="overflow-x-auto p-5 font-mono text-[13px] leading-relaxed text-foreground/85">
+              <code>{manifest}</code>
+            </pre>
+          </div>
+
+          {/* Explanation */}
+          <div
+            style={{
+              transition: "opacity .7s ease .1s, transform .7s ease .1s",
+              opacity: revealed ? 1 : 0,
+              transform: revealed ? "translateX(0)" : "translateX(20px)",
+            }}
+          >
+            <span className="eyebrow mb-3">How I build</span>
+            <h2 className="section-heading text-3xl font-bold md:text-4xl">
+              From a brief to a working agent
+            </h2>
+            <p className="mt-4 text-muted-foreground">
+              Every agent starts as a manifest: clear instructions, the right
+              knowledge sources, and typed actions wired to real systems. From
+              low-code in Copilot Studio to pro-code orchestration over MCP, I keep
+              them grounded, governed, and measurable.
+            </p>
+
+            <ul className="mt-6 space-y-3">
+              {outcomes.map((item) => (
+                <li key={item} className="flex items-start gap-3">
+                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white/10 text-foreground">
+                    <Check className="h-3 w-3" />
+                  </span>
+                  <span className="text-sm text-foreground/80">{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <a
+              href="https://aicockpit.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group mt-7 inline-flex items-center text-sm font-semibold text-foreground hover:underline"
+            >
+              Explore a live build — The AI Cockpit
+              <ArrowUpRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default CodeShowcase;

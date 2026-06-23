@@ -69,8 +69,8 @@ const Navbar = () => {
           <button onClick={() => scrollToSection("experience")} className="nav-link">
             Experience
           </button>
-          <button onClick={() => scrollToSection("skills")} className="nav-link">
-            Skills
+          <button onClick={() => scrollToSection("communities")} className="nav-link">
+            Communities
           </button>
           <button onClick={() => scrollToSection("certifications")} className="nav-link">
             Certifications
@@ -112,8 +112,8 @@ const Navbar = () => {
             <button onClick={() => scrollToSection("experience")} className="nav-link text-left py-3">
               Experience
             </button>
-            <button onClick={() => scrollToSection("skills")} className="nav-link text-left py-3">
-              Skills
+            <button onClick={() => scrollToSection("communities")} className="nav-link text-left py-3">
+              Communities
             </button>
             <button onClick={() => scrollToSection("certifications")} className="nav-link text-left py-3">
               Certifications

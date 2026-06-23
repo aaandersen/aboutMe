@@ -48,14 +48,6 @@ const HeroSection = () => {
         <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-2">
           {/* Left */}
           <div className={`space-y-6 ${isLoaded ? "animate-fade-in-left" : "opacity-0"}`}>
-            <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-sm font-medium text-primary">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white/70 opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-white" />
-              </span>
-              Open to opportunities
-            </div>
-
             <h1 className="font-display text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl xl:text-7xl">
               Anders Adalberth{" "}
               <span className="text-gradient-animate">Andersen</span>

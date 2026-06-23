@@ -3,10 +3,13 @@ import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import HexBackground from "@/components/HexBackground";
 import HeroSection from "@/components/HeroSection";
+import StatsBand from "@/components/StatsBand";
 import TechMarquee from "@/components/TechMarquee";
 import AgentExpertise from "@/components/AgentExpertise";
+import CodeShowcase from "@/components/CodeShowcase";
+import TechStack from "@/components/TechStack";
 import Timeline from "@/components/Timeline";
-import SkillsMatrix from "@/components/SkillsMatrix";
+import Communities from "@/components/Communities";
 import Certifications from "@/components/Certifications";
 import Portfolio from "@/components/Portfolio";
 import ContactForm from "@/components/ContactForm";
@@ -48,10 +51,13 @@ const Index = () => {
       <div className="relative z-10">
         <Navbar />
         <HeroSection />
+        <StatsBand />
         <TechMarquee />
         <AgentExpertise />
+        <CodeShowcase />
+        <TechStack />
         <Timeline />
-        <SkillsMatrix />
+        <Communities />
         <Certifications />
         <Portfolio />
         <ContactForm />
