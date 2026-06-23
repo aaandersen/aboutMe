@@ -1,14 +1,25 @@
 import { useState, useEffect, useRef } from "react";
 import { Building2, Users, ArrowUpRight, type LucideIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  type CarouselApi,
+} from "@/components/ui/carousel";
 import { handleSpotlight } from "@/lib/interactions";
+
+interface Brand {
+  name: string;
+  domain: string;
+}
 
 interface Group {
   name: string;
   org: string;
   description: string;
   tags: string[];
-  companies: string[];
+  companies: Brand[];
   icon: LucideIcon;
   link?: string;
 }
@@ -21,15 +32,15 @@ const groups: Group[] = [
       "A Microsoft community I run for ERP leaders across major brands — facilitating knowledge sharing and aligning stakeholders around enterprise change.",
     tags: ["ERP", "Knowledge sharing", "Stakeholder management"],
     companies: [
-      "C2X",
-      "Maersk Tankers",
-      "APM Terminals",
-      "Maersk Container Industry (MCI)",
-      "Svitzer",
-      "KK Wind Solutions",
-      "Faerch",
-      "Maersk Marketing Excellence",
-      "Innargi",
+      { name: "C2X", domain: "c2x.com" },
+      { name: "Maersk Tankers", domain: "maersktankers.com" },
+      { name: "APM Terminals", domain: "apmterminals.com" },
+      { name: "Maersk Container Industry", domain: "mcicontainers.com" },
+      { name: "Svitzer", domain: "svitzer.com" },
+      { name: "KK Wind Solutions", domain: "kkwindsolutions.com" },
+      { name: "Faerch", domain: "faerch.com" },
+      { name: "Maersk Marketing Excellence", domain: "maersk.com" },
+      { name: "Innargi", domain: "innargi.com" },
     ],
     icon: Building2,
     link: "https://www.linkedin.com/posts/anders-adalberth-andersen-58b537215_apmaeoller-knowledgesharing-activity-7417511067469127681-Rz8u",
@@ -41,30 +52,96 @@ const groups: Group[] = [
       "A Microsoft enterprise community on CRM and digital transformation — convening big brands to explore how AI agents reshape customer engagement.",
     tags: ["CRM", "Digital transformation", "Agents"],
     companies: [
-      "Audika",
-      "Demant",
-      "DFDS",
-      "DSV",
-      "Falck",
-      "FLSmidth",
-      "GN Group",
-      "Jabra",
-      "Hempel",
-      "ISS",
-      "Jyske Finans",
-      "Kemp & Lauritzen",
-      "LINAK",
-      "Microsoft",
-      "Norican Group",
-      "Radiometer",
-      "Ramboll",
-      "ROCKWOOL",
-      "WS Audiology (WSA)",
+      { name: "Audika", domain: "audika.com" },
+      { name: "Demant", domain: "demant.com" },
+      { name: "DFDS", domain: "dfds.com" },
+      { name: "DSV", domain: "dsv.com" },
+      { name: "Falck", domain: "falck.com" },
+      { name: "FLSmidth", domain: "flsmidth.com" },
+      { name: "GN Group", domain: "gn.com" },
+      { name: "Jabra", domain: "jabra.com" },
+      { name: "Hempel", domain: "hempel.com" },
+      { name: "ISS", domain: "issworld.com" },
+      { name: "Jyske Finans", domain: "jyskefinans.dk" },
+      { name: "Kemp & Lauritzen", domain: "kemp-lauritzen.dk" },
+      { name: "LINAK", domain: "linak.com" },
+      { name: "Microsoft", domain: "microsoft.com" },
+      { name: "Norican Group", domain: "noricangroup.com" },
+      { name: "Radiometer", domain: "radiometer.com" },
+      { name: "Ramboll", domain: "ramboll.com" },
+      { name: "ROCKWOOL", domain: "rockwool.com" },
+      { name: "WS Audiology", domain: "wsa.com" },
     ],
     icon: Users,
     link: "https://www.linkedin.com/posts/anders-adalberth-andersen-58b537215_digitaltransformation-erfa-agents-activity-7425631509304410112-7Ltf",
   },
 ];
+
+const LogoTile = ({ brand }: { brand: Brand }) => {
+  const [failed, setFailed] = useState(false);
+
+  return (
+    <div className="flex h-20 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] px-5">
+      {failed ? (
+        <span className="text-center text-sm font-medium text-foreground/70">
+          {brand.name}
+        </span>
+      ) : (
+        <img
+          src={`https://logo.clearbit.com/${brand.domain}?size=128`}
+          alt={brand.name}
+          title={brand.name}
+          loading="lazy"
+          referrerPolicy="no-referrer"
+          onError={() => setFailed(true)}
+          style={{ filter: "brightness(0) invert(1)" }}
+          className="max-h-9 w-auto max-w-full object-contain opacity-70 transition-opacity duration-300 hover:opacity-100"
+        />
+      )}
+    </div>
+  );
+};
+
+const BrandCarousel = ({ brands }: { brands: Brand[] }) => {
+  const [api, setApi] = useState<CarouselApi>();
+
+  useEffect(() => {
+    if (!api) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const root = api.rootNode();
+    let timer = window.setInterval(() => api.scrollNext(), 2600);
+    const pause = () => window.clearInterval(timer);
+    const resume = () => {
+      window.clearInterval(timer);
+      timer = window.setInterval(() => api.scrollNext(), 2600);
+    };
+
+    root.addEventListener("mouseenter", pause);
+    root.addEventListener("mouseleave", resume);
+
+    return () => {
+      window.clearInterval(timer);
+      root.removeEventListener("mouseenter", pause);
+      root.removeEventListener("mouseleave", resume);
+    };
+  }, [api]);
+
+  return (
+    <Carousel opts={{ loop: true, align: "start" }} setApi={setApi}>
+      <CarouselContent>
+        {brands.map((brand) => (
+          <CarouselItem
+            key={brand.name}
+            className="basis-1/2 sm:basis-1/3 lg:basis-1/4"
+          >
+            <LogoTile brand={brand} />
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+    </Carousel>
+  );
+};
 
 const Communities = () => {
   const [revealed, setRevealed] = useState(false);
@@ -155,23 +232,14 @@ const Communities = () => {
           })}
         </div>
 
-        {/* Member organisations per group */}
-        <div className="mx-auto mt-14 grid max-w-5xl gap-10 md:grid-cols-2">
+        {/* Member organisations — auto-rotating logo carousels per group */}
+        <div className="mx-auto mt-16 max-w-5xl space-y-10">
           {groups.map((group) => (
             <div key={group.name}>
-              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-                {group.name} · {group.companies.length} members
+              <p className="mb-5 text-center text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                {group.name} · {group.companies.length} member organisations
               </p>
-              <div className="flex flex-wrap gap-2">
-                {group.companies.map((company) => (
-                  <span
-                    key={company}
-                    className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-1.5 text-sm text-foreground/80 transition-colors hover:border-white/25 hover:text-foreground"
-                  >
-                    {company}
-                  </span>
-                ))}
-              </div>
+              <BrandCarousel brands={group.companies} />
             </div>
           ))}
         </div>
