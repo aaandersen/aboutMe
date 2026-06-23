@@ -334,8 +334,8 @@
   50% { background-position: 100% 50%; }
 }
 @keyframes code-scroll {
-  from { transform: translate(-50%, 0); }
-  to { transform: translate(-50%, -50%); }
+  from { transform: translateY(0); }
+  to { transform: translateY(-50%); }
 }
 .code-scroll-anim {
   animation: code-scroll 48s linear infinite;
