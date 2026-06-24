@@ -83,14 +83,14 @@ const ContactForm = () => {
                 const content = (
                   <div
                     onMouseMove={handleSpotlight}
-                    className="spotlight flex items-center gap-4 rounded-xl border border-white/10 bg-white/[0.04] p-4 backdrop-blur transition-colors hover:border-primary/40"
+                    className="spotlight flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.04] p-4 backdrop-blur transition-colors hover:border-primary/40 sm:gap-4"
                   >
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-white to-neutral-300 text-neutral-900 shadow-md">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-white to-neutral-300 text-neutral-900 shadow-md sm:h-11 sm:w-11">
                       <Icon className="h-5 w-5" />
                     </div>
                     <div className="min-w-0">
                       <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{label}</p>
-                      <p className="break-words font-medium text-foreground">{value}</p>
+                      <p className="whitespace-nowrap text-[13px] font-medium text-foreground sm:text-base">{value}</p>
                     </div>
                   </div>
                 );
