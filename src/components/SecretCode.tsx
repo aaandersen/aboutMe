@@ -5,6 +5,9 @@ import { KeyRound, Lock } from "lucide-react";
 /** Code words that unlock hidden pages. Add more as the fun pages grow. */
 const SECRET_CODES: Record<string, string> = {
   astro: "/astro",
+  kurser: "/kurser",
+  kruser: "/kurser",
+  courses: "/kurser",
 };
 
 const SecretCode = () => {
