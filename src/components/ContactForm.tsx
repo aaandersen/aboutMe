@@ -88,9 +88,9 @@ const ContactForm = () => {
                     <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-white to-neutral-300 text-neutral-900 shadow-md">
                       <Icon className="h-5 w-5" />
                     </div>
-                    <div>
+                    <div className="min-w-0">
                       <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{label}</p>
-                      <p className="font-medium text-foreground">{value}</p>
+                      <p className="break-words font-medium text-foreground">{value}</p>
                     </div>
                   </div>
                 );

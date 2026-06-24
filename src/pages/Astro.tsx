@@ -404,7 +404,10 @@ const Astro = () => {
             {status === "ready" ? "Start" : "Play again"}
           </button>
 
-          <p className="mt-8 font-mono text-xs text-white/50">
+          <p className="mt-8 px-4 font-mono text-[11px] leading-relaxed text-white/50 sm:hidden">
+            Tap the on-screen pads to rotate, thrust &amp; fire
+          </p>
+          <p className="mt-8 hidden px-4 font-mono text-xs text-white/50 sm:block">
             ← → / A D rotate &nbsp;·&nbsp; ↑ / W thrust &nbsp;·&nbsp; Space shoot
           </p>
         </div>
