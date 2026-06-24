@@ -242,13 +242,18 @@ const Certifications = () => {
         </div>
 
         <div className="mt-10 flex justify-center">
-          <a href={LEARN_PROFILE} target="_blank" rel="noopener noreferrer">
+          <a
+            href={LEARN_PROFILE}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block w-full max-w-sm sm:w-auto sm:max-w-none"
+          >
             <Button
               variant="outline"
-              className="group h-auto rounded-full border-2 border-white/15 bg-white/[0.03] px-6 py-5 text-base font-semibold backdrop-blur hover:border-primary/50 hover:bg-white/[0.06]"
+              className="group h-auto w-full whitespace-normal rounded-full border-2 border-white/15 bg-white/[0.03] px-5 py-4 text-center text-sm font-semibold leading-snug backdrop-blur hover:border-primary/50 hover:bg-white/[0.06] sm:w-auto sm:whitespace-nowrap sm:px-6 sm:py-5 sm:text-base"
             >
               View all credentials on Microsoft Learn
-              <ExternalLink className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-0.5" />
+              <ExternalLink className="ml-2 h-5 w-5 shrink-0 transition-transform group-hover:translate-x-0.5" />
             </Button>
           </a>
         </div>
