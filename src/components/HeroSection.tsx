@@ -64,7 +64,7 @@ const HeroSection = () => {
                 <GraduationCap className="h-4 w-4 text-primary" /> BSc · CBS 2026
               </span>
               <span className="chip">
-                <Briefcase className="h-4 w-4 text-primary" /> Microsoft
+                <Briefcase className="h-4 w-4 text-primary" /> Microsoft AI
               </span>
               <span className="chip">
                 <MapPin className="h-4 w-4 text-primary" /> Copenhagen
