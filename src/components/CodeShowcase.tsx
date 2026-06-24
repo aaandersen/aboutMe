@@ -83,7 +83,7 @@ const CodeShowcase = () => {
               transform: revealed ? "translateX(0)" : "translateX(20px)",
             }}
           >
-            <span className="eyebrow mb-3">How I build</span>
+            <span className="eyebrow mb-3 flex w-fit">How I build</span>
             <h2 className="section-heading text-3xl font-bold md:text-4xl">
               From a brief to a working agent
             </h2>
