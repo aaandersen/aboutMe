@@ -1,5 +1,6 @@
 
 import { Github, Linkedin, Mail, Phone, ArrowUpRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import SecretCode from "@/components/SecretCode";
 
 interface FooterLink {
@@ -18,6 +19,7 @@ const columns: { title: string; links: FooterLink[] }[] = [
       { label: "Experience", href: "#experience" },
       { label: "Communities", href: "#communities" },
       { label: "Certifications", href: "#certifications" },
+      { label: "Courses", href: "/kurser" },
       { label: "Portfolio", href: "#portfolio" },
     ],
   },
@@ -87,22 +89,33 @@ const Footer = () => {
                 {column.title}
               </h3>
               <ul className="mt-4 space-y-2.5">
-                {column.links.map((link) => (
-                  <li key={link.label}>
-                    <a
-                      href={link.href}
-                      target={link.external ? "_blank" : undefined}
-                      rel={link.external ? "noopener noreferrer" : undefined}
-                      download={link.download || undefined}
-                      className="group inline-flex items-center text-sm text-foreground/70 transition-colors hover:text-foreground"
-                    >
-                      {link.label}
-                      {(link.external || link.download) && (
-                        <ArrowUpRight className="ml-1 h-3.5 w-3.5 opacity-0 transition-opacity group-hover:opacity-100" />
+                {column.links.map((link) => {
+                  const isInternal = link.href.startsWith("/") && !link.download;
+                  const linkClass =
+                    "group inline-flex items-center text-sm text-foreground/70 transition-colors hover:text-foreground";
+                  return (
+                    <li key={link.label}>
+                      {isInternal ? (
+                        <Link to={link.href} className={linkClass}>
+                          {link.label}
+                        </Link>
+                      ) : (
+                        <a
+                          href={link.href}
+                          target={link.external ? "_blank" : undefined}
+                          rel={link.external ? "noopener noreferrer" : undefined}
+                          download={link.download || undefined}
+                          className={linkClass}
+                        >
+                          {link.label}
+                          {(link.external || link.download) && (
+                            <ArrowUpRight className="ml-1 h-3.5 w-3.5 opacity-0 transition-opacity group-hover:opacity-100" />
+                          )}
+                        </a>
                       )}
-                    </a>
-                  </li>
-                ))}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           ))}
