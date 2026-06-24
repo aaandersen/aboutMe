@@ -64,7 +64,7 @@ const ContactForm = () => {
   ];
 
   return (
-    <section id="contact" className="py-24">
+    <section id="contact" className="py-16 sm:py-24">
       <div className="container">
         <div className="mx-auto grid max-w-5xl grid-cols-1 gap-10 lg:grid-cols-5">
           {/* Info column */}

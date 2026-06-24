@@ -140,7 +140,7 @@ const Certifications = () => {
   }, [api]);
 
   return (
-    <section id="certifications" className="py-24" ref={sectionRef}>
+    <section id="certifications" className="py-16 sm:py-24" ref={sectionRef}>
       <div className="container">
         <div className="mb-12 flex flex-col items-center text-center">
           <span className="eyebrow mb-3">Credentials</span>

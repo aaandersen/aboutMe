@@ -158,7 +158,7 @@ const Timeline = () => {
   return (
     <section
       id="experience"
-      className="overflow-hidden bg-white/[0.015] py-24 !px-0"
+      className="overflow-hidden bg-white/[0.015] py-16 sm:py-24 !px-0"
       ref={sectionRef}
     >
       <div className="container">

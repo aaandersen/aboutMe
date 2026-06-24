@@ -166,7 +166,7 @@ const Communities = () => {
   }, []);
 
   return (
-    <section id="communities" className="py-24" ref={sectionRef}>
+    <section id="communities" className="py-16 sm:py-24" ref={sectionRef}>
       <div className="container">
         <div className="mb-12 flex flex-col items-center text-center">
           <span className="eyebrow mb-3">Facilitation</span>

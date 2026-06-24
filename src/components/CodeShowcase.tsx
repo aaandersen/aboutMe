@@ -47,7 +47,7 @@ const CodeShowcase = () => {
   return (
     <section
       id="build"
-      className="relative overflow-hidden border-y border-white/[0.06] bg-background py-24"
+      className="relative overflow-hidden border-y border-white/[0.06] bg-background py-16 sm:py-24"
       ref={sectionRef}
     >
       <CodeBackground />

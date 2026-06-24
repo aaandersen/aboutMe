@@ -1,5 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import { Bot, Workflow, Users, Gauge, type LucideIcon } from "lucide-react";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  type CarouselApi,
+} from "@/components/ui/carousel";
 import { handleSpotlight } from "@/lib/interactions";
 import NeuralBackground from "@/components/NeuralBackground";
 
@@ -43,6 +49,8 @@ const capabilities: Capability[] = [
 
 const AgentExpertise = () => {
   const [revealed, setRevealed] = useState(false);
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -63,56 +71,115 @@ const AgentExpertise = () => {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    if (!api) return;
+    setCurrent(api.selectedScrollSnap());
+    const onSelect = () => setCurrent(api.selectedScrollSnap());
+    api.on("select", onSelect);
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return () => {
+        api.off("select", onSelect);
+      };
+    }
+
+    const root = api.rootNode();
+    let timer = window.setInterval(() => api.scrollNext(), 4500);
+    const pause = () => window.clearInterval(timer);
+    const resume = () => {
+      window.clearInterval(timer);
+      timer = window.setInterval(() => api.scrollNext(), 4500);
+    };
+    root.addEventListener("mouseenter", pause);
+    root.addEventListener("mouseleave", resume);
+
+    return () => {
+      window.clearInterval(timer);
+      api.off("select", onSelect);
+      root.removeEventListener("mouseenter", pause);
+      root.removeEventListener("mouseleave", resume);
+    };
+  }, [api]);
+
+  const renderCard = (cap: Capability, index: number) => {
+    const Icon = cap.icon;
+    return (
+      <div
+        key={cap.title}
+        onMouseMove={handleSpotlight}
+        className="glass-card card-hover spotlight h-full rounded-2xl p-6"
+        style={{
+          transitionDelay: `${index * 90}ms`,
+          opacity: revealed ? 1 : 0,
+          transform: revealed ? "translateY(0)" : "translateY(20px)",
+        }}
+      >
+        <div className="flex items-start gap-4">
+          <div
+            className={`hex-clip flex h-12 w-12 shrink-0 items-center justify-center bg-gradient-to-br ${cap.gradient} text-neutral-900 shadow-lg`}
+          >
+            <Icon className="h-5 w-5" strokeWidth={1.75} />
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold leading-tight">{cap.title}</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              {cap.description}
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <section
       id="agents"
-      className="relative overflow-hidden border-y border-white/[0.06] bg-background py-24"
+      className="relative overflow-hidden border-y border-white/[0.06] bg-background py-16 sm:py-24"
       ref={sectionRef}
     >
       <NeuralBackground />
       <div className="container relative z-10">
-        <div className="mb-12 flex flex-col items-center text-center">
+        <div className="mb-10 flex flex-col items-center text-center sm:mb-12">
           <span className="eyebrow mb-3">What I do</span>
           <h2 className="section-heading mb-4 max-w-3xl text-3xl font-bold md:text-4xl">
             Developing &amp; orchestrating AI agents
           </h2>
-          <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
+          <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg">
             My core focus: turning isolated AI capabilities into networks of agents
             that coordinate, act, and deliver measurable value — from a single
             Copilot agent to an orchestrated, governed system.
           </p>
         </div>
 
-        <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 sm:grid-cols-2">
-          {capabilities.map((cap, index) => {
-            const Icon = cap.icon;
-            return (
-              <div
+        {/* Mobile: swipeable carousel keeps the section short */}
+        <div className="sm:hidden">
+          <Carousel opts={{ loop: true, align: "start" }} setApi={setApi}>
+            <CarouselContent>
+              {capabilities.map((cap, index) => (
+                <CarouselItem key={cap.title} className="basis-full">
+                  {renderCard(cap, index)}
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
+          <div className="mt-6 flex items-center justify-center gap-2">
+            {capabilities.map((cap, i) => (
+              <button
                 key={cap.title}
-                onMouseMove={handleSpotlight}
-                className="glass-card card-hover spotlight rounded-2xl p-6"
-                style={{
-                  transitionDelay: `${index * 90}ms`,
-                  opacity: revealed ? 1 : 0,
-                  transform: revealed ? "translateY(0)" : "translateY(20px)",
-                }}
-              >
-                <div className="flex items-start gap-4">
-                  <div
-                    className={`hex-clip flex h-12 w-12 shrink-0 items-center justify-center bg-gradient-to-br ${cap.gradient} text-neutral-900 shadow-lg`}
-                  >
-                    <Icon className="h-5 w-5" strokeWidth={1.75} />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold leading-tight">{cap.title}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                      {cap.description}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+                type="button"
+                aria-label={`Show ${cap.title}`}
+                onClick={() => api?.scrollTo(i)}
+                className={`h-1.5 rounded-full transition-all ${
+                  i === current ? "w-6 bg-foreground" : "w-1.5 bg-white/25"
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Tablet & up: full grid */}
+        <div className="mx-auto hidden max-w-5xl grid-cols-2 gap-6 sm:grid">
+          {capabilities.map((cap, index) => renderCard(cap, index))}
         </div>
       </div>
     </section>
