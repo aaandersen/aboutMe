@@ -7,6 +7,9 @@ import {
   LayoutDashboard,
   LineChart,
   Cloud,
+  CalendarHeart,
+  Music2,
+  CalendarDays,
   type LucideIcon,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -68,6 +71,33 @@ const portfolioItems: PortfolioItem[] = [
     gradient: "from-neutral-600 to-neutral-900",
     link: "https://aicockpit.org",
     linkLabel: "Visit aicockpit.org",
+  },
+  {
+    id: "famtime",
+    title: "FamTime",
+    description:
+      "An AI-driven planner that automatically finds free slots across the family's calendars and suggests when to spend time together \u2014 taking the coordination work out of planning family time. Built with React, TypeScript, and Firebase.",
+    technologies: ["React", "TypeScript", "Firebase", "Tailwind CSS", "Vite"],
+    icon: CalendarHeart,
+    gradient: "from-neutral-700 to-neutral-900",
+  },
+  {
+    id: "joetunes",
+    title: "JoeTunes",
+    description:
+      "A playful web app that lets guests at Joe & The Juice shape the in-caf\u00e9 soundtrack by voting on their favourite songs \u2014 turning the playlist into a shared, interactive experience.",
+    technologies: ["JavaScript", "HTML", "CSS", "Web App"],
+    icon: Music2,
+    gradient: "from-neutral-800 to-neutral-950",
+  },
+  {
+    id: "svaneeng",
+    title: "Svaneeng Calendar System",
+    description:
+      "A calendar and scheduling system built for Svaneeng \u2014 bringing bookings and events together in one shared, easy-to-manage overview.",
+    technologies: ["Web App", "Scheduling", "Calendar"],
+    icon: CalendarDays,
+    gradient: "from-neutral-600 to-neutral-900",
   },
   {
     id: "forecasting",
