@@ -98,8 +98,8 @@ const TimelineData: TimelineItem[] = [
   },
   {
     id: "8",
-    title: "Technology Specialist (Student Worker)",
-    organization: "Microsoft",
+    title: "Technology Specialist (Intern)",
+    organization: "Microsoft AI",
     period: "August 2025 – Present",
     type: "work",
     badge: "Current",
@@ -168,7 +168,7 @@ const Timeline = () => {
             Experience &amp; Education
           </h2>
           <p className="max-w-2xl text-lg text-muted-foreground">
-            My journey from CBS to Microsoft — newest first. Scroll back through
+            My journey from CBS to Microsoft AI — newest first. Scroll back through
             time and tap any point to read more.
           </p>
         </div>
