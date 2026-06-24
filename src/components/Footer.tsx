@@ -1,5 +1,6 @@
 
 import { Github, Linkedin, Mail, Phone, ArrowUpRight } from "lucide-react";
+import SecretCode from "@/components/SecretCode";
 
 interface FooterLink {
   label: string;
@@ -16,7 +17,6 @@ const columns: { title: string; links: FooterLink[] }[] = [
       { label: "Agents", href: "#agents" },
       { label: "Experience", href: "#experience" },
       { label: "Communities", href: "#communities" },
-      { label: "Stack", href: "#stack" },
       { label: "Certifications", href: "#certifications" },
       { label: "Portfolio", href: "#portfolio" },
     ],
@@ -108,7 +108,14 @@ const Footer = () => {
           ))}
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-sm text-muted-foreground sm:flex-row">
+        <div className="mt-12 flex flex-col items-center gap-3 border-t border-white/10 pt-8">
+          <p className="text-xs text-muted-foreground">
+            Psst — there are hidden pages. Know the magic word?
+          </p>
+          <SecretCode />
+        </div>
+
+        <div className="mt-8 flex flex-col items-center justify-between gap-3 text-sm text-muted-foreground sm:flex-row">
           <p>
             &copy; {currentYear} Anders Adalberth Andersen · Copenhagen, Denmark
           </p>

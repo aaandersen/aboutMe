@@ -12,3 +12,6 @@
 /aiusagetracker/*    https://aiusagetracker.org/:splat   302
 /aicockpit           https://aicockpit.org/              302
 /aicockpit/*         https://aicockpit.org/:splat        302
+
+# Single-page-app fallback: serve index.html for client-side routes (e.g. /astro).
+/*    /index.html    200

@@ -6,7 +6,6 @@ import HeroSection from "@/components/HeroSection";
 import TechMarquee from "@/components/TechMarquee";
 import AgentExpertise from "@/components/AgentExpertise";
 import CodeShowcase from "@/components/CodeShowcase";
-import TechStack from "@/components/TechStack";
 import Timeline from "@/components/Timeline";
 import Communities from "@/components/Communities";
 import Certifications from "@/components/Certifications";
@@ -53,7 +52,6 @@ const Index = () => {
         <TechMarquee />
         <AgentExpertise />
         <CodeShowcase />
-        <TechStack />
         <Timeline />
         <Communities />
         <Certifications />

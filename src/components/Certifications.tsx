@@ -11,6 +11,14 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  type CarouselApi,
+} from "@/components/ui/carousel";
 import { handleSpotlight } from "@/lib/interactions";
 
 interface Certification {
@@ -88,6 +96,7 @@ const certifications: Certification[] = [
 
 const Certifications = () => {
   const [revealed, setRevealed] = useState(false);
+  const [api, setApi] = useState<CarouselApi>();
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -108,6 +117,28 @@ const Certifications = () => {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    if (!api) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const root = api.rootNode();
+    let timer = window.setInterval(() => api.scrollNext(), 4500);
+    const pause = () => window.clearInterval(timer);
+    const resume = () => {
+      window.clearInterval(timer);
+      timer = window.setInterval(() => api.scrollNext(), 4500);
+    };
+
+    root.addEventListener("mouseenter", pause);
+    root.addEventListener("mouseleave", resume);
+
+    return () => {
+      window.clearInterval(timer);
+      root.removeEventListener("mouseenter", pause);
+      root.removeEventListener("mouseleave", resume);
+    };
+  }, [api]);
+
   return (
     <section id="certifications" className="py-24" ref={sectionRef}>
       <div className="container">
@@ -122,82 +153,90 @@ const Certifications = () => {
           </p>
         </div>
 
-        <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {certifications.map((cert, index) => {
-            const Icon = cert.icon;
+        <div
+          className="mx-auto max-w-5xl px-0 sm:px-12"
+          style={{
+            opacity: revealed ? 1 : 0,
+            transform: revealed ? "translateY(0)" : "translateY(20px)",
+            transition: "opacity .6s ease, transform .6s ease",
+          }}
+        >
+          <Carousel opts={{ loop: true, align: "start" }} setApi={setApi}>
+            <CarouselContent>
+              {certifications.map((cert) => {
+                const Icon = cert.icon;
+                return (
+                  <CarouselItem key={cert.id} className="basis-full md:basis-1/2">
+                    <Card
+                      onMouseMove={handleSpotlight}
+                      className="card-hover spotlight flex h-full flex-col overflow-hidden border-border"
+                    >
+                      <div
+                        className={`relative flex items-center justify-between overflow-hidden bg-gradient-to-br ${cert.gradient} px-6 py-5`}
+                      >
+                        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/15 backdrop-blur">
+                          <Icon className="h-7 w-7 text-white" strokeWidth={1.5} />
+                        </div>
+                        <span className="relative z-10 inline-flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 text-xs font-semibold text-white backdrop-blur">
+                          <BadgeCheck className="h-3.5 w-3.5" />
+                          {cert.level}
+                        </span>
+                        <div className="pointer-events-none absolute -right-8 -top-12 h-32 w-32 rounded-full bg-white/10" />
+                        <div className="pointer-events-none absolute -right-2 bottom-2 h-16 w-16 rounded-full bg-white/10" />
+                      </div>
 
-            return (
-              <Card
-                key={cert.id}
-                onMouseMove={handleSpotlight}
-                className="card-hover spotlight flex flex-col overflow-hidden border-border"
-                style={{
-                  transitionDelay: `${index * 90}ms`,
-                  opacity: revealed ? 1 : 0,
-                  transform: revealed ? "translateY(0)" : "translateY(20px)",
-                }}
-              >
-                <div
-                  className={`relative flex items-center justify-between overflow-hidden bg-gradient-to-br ${cert.gradient} px-6 py-5`}
-                >
-                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/15 backdrop-blur">
-                    <Icon className="h-7 w-7 text-white" strokeWidth={1.5} />
-                  </div>
-                  <span className="relative z-10 inline-flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 text-xs font-semibold text-white backdrop-blur">
-                    <BadgeCheck className="h-3.5 w-3.5" />
-                    {cert.level}
-                  </span>
-                  <div className="pointer-events-none absolute -right-8 -top-12 h-32 w-32 rounded-full bg-white/10" />
-                  <div className="pointer-events-none absolute -right-2 bottom-2 h-16 w-16 rounded-full bg-white/10" />
-                </div>
+                      <CardContent className="flex flex-1 flex-col p-6">
+                        <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                          {cert.issuer}
+                        </p>
+                        <h3 className="mt-1 text-lg font-semibold leading-tight">
+                          {cert.title}
+                        </h3>
 
-                <CardContent className="flex flex-1 flex-col p-6">
-                  <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                    {cert.issuer}
-                  </p>
-                  <h3 className="mt-1 text-lg font-semibold leading-tight">
-                    {cert.title}
-                  </h3>
+                        <div className="mt-3 flex items-center text-sm text-muted-foreground">
+                          <CalendarDays className="mr-1.5 h-4 w-4" />
+                          <span>Earned {cert.earned}</span>
+                        </div>
 
-                  <div className="mt-3 flex items-center text-sm text-muted-foreground">
-                    <CalendarDays className="mr-1.5 h-4 w-4" />
-                    <span>Earned {cert.earned}</span>
-                  </div>
+                        <div className="mt-4 flex flex-wrap gap-1.5">
+                          {cert.skills.map((skill) => (
+                            <Badge key={skill} variant="secondary" className="text-xs font-normal">
+                              {skill}
+                            </Badge>
+                          ))}
+                        </div>
 
-                  <div className="mt-4 flex flex-wrap gap-1.5">
-                    {cert.skills.map((skill) => (
-                      <Badge key={skill} variant="secondary" className="text-xs font-normal">
-                        {skill}
-                      </Badge>
-                    ))}
-                  </div>
+                        <dl className="mt-5 space-y-1 border-t pt-4 text-xs text-muted-foreground">
+                          <div className="flex items-center justify-between gap-3">
+                            <dt>Credential ID</dt>
+                            <dd className="font-mono text-foreground/70">{cert.credentialId}</dd>
+                          </div>
+                          <div className="flex items-center justify-between gap-3">
+                            <dt>Certification no.</dt>
+                            <dd className="font-mono text-foreground/70">
+                              {cert.certificationNumber}
+                            </dd>
+                          </div>
+                        </dl>
 
-                  <dl className="mt-5 space-y-1 border-t pt-4 text-xs text-muted-foreground">
-                    <div className="flex items-center justify-between gap-3">
-                      <dt>Credential ID</dt>
-                      <dd className="font-mono text-foreground/70">{cert.credentialId}</dd>
-                    </div>
-                    <div className="flex items-center justify-between gap-3">
-                      <dt>Certification no.</dt>
-                      <dd className="font-mono text-foreground/70">
-                        {cert.certificationNumber}
-                      </dd>
-                    </div>
-                  </dl>
-
-                  <a
-                    href={cert.verifyUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group mt-5 inline-flex items-center text-sm font-medium text-primary hover:underline"
-                  >
-                    Verify on Microsoft Learn
-                    <ExternalLink className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                  </a>
-                </CardContent>
-              </Card>
-            );
-          })}
+                        <a
+                          href={cert.verifyUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group mt-5 inline-flex items-center text-sm font-medium text-primary hover:underline"
+                        >
+                          Verify on Microsoft Learn
+                          <ExternalLink className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                        </a>
+                      </CardContent>
+                    </Card>
+                  </CarouselItem>
+                );
+              })}
+            </CarouselContent>
+            <CarouselPrevious className="hidden border-white/15 bg-white/[0.03] sm:flex" />
+            <CarouselNext className="hidden border-white/15 bg-white/[0.03] sm:flex" />
+          </Carousel>
         </div>
 
         <div className="mt-10 flex justify-center">
