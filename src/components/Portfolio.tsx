@@ -20,6 +20,7 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import { handleSpotlight } from "@/lib/interactions";
+import CarouselDots from "@/components/CarouselDots";
 
 interface PortfolioItem {
   id: string;
@@ -209,6 +210,7 @@ const Portfolio = () => {
             <CarouselPrevious className="hidden border-white/15 bg-white/[0.03] sm:flex" />
             <CarouselNext className="hidden border-white/15 bg-white/[0.03] sm:flex" />
           </Carousel>
+          <CarouselDots api={api} />
         </div>
       </div>
     </section>

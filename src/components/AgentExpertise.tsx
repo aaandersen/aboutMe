@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/carousel";
 import { handleSpotlight } from "@/lib/interactions";
 import NeuralBackground from "@/components/NeuralBackground";
+import CarouselDots from "@/components/CarouselDots";
 
 interface Capability {
   title: string;
@@ -50,7 +51,6 @@ const capabilities: Capability[] = [
 const AgentExpertise = () => {
   const [revealed, setRevealed] = useState(false);
   const [api, setApi] = useState<CarouselApi>();
-  const [current, setCurrent] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -71,17 +71,10 @@ const AgentExpertise = () => {
     return () => observer.disconnect();
   }, []);
 
+  // Auto-advance the mobile carousel; pause on hover, honour reduced motion.
   useEffect(() => {
     if (!api) return;
-    setCurrent(api.selectedScrollSnap());
-    const onSelect = () => setCurrent(api.selectedScrollSnap());
-    api.on("select", onSelect);
-
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      return () => {
-        api.off("select", onSelect);
-      };
-    }
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const root = api.rootNode();
     let timer = window.setInterval(() => api.scrollNext(), 4500);
@@ -95,7 +88,6 @@ const AgentExpertise = () => {
 
     return () => {
       window.clearInterval(timer);
-      api.off("select", onSelect);
       root.removeEventListener("mouseenter", pause);
       root.removeEventListener("mouseleave", resume);
     };
@@ -162,19 +154,7 @@ const AgentExpertise = () => {
               ))}
             </CarouselContent>
           </Carousel>
-          <div className="mt-6 flex items-center justify-center gap-2">
-            {capabilities.map((cap, i) => (
-              <button
-                key={cap.title}
-                type="button"
-                aria-label={`Show ${cap.title}`}
-                onClick={() => api?.scrollTo(i)}
-                className={`h-1.5 rounded-full transition-all ${
-                  i === current ? "w-6 bg-foreground" : "w-1.5 bg-white/25"
-                }`}
-              />
-            ))}
-          </div>
+          <CarouselDots api={api} />
         </div>
 
         {/* Tablet & up: full grid */}

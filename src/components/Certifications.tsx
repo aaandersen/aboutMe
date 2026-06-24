@@ -19,6 +19,7 @@ import {
   CarouselPrevious,
   type CarouselApi,
 } from "@/components/ui/carousel";
+import CarouselDots from "@/components/CarouselDots";
 import { handleSpotlight } from "@/lib/interactions";
 
 interface Certification {
@@ -237,6 +238,7 @@ const Certifications = () => {
             <CarouselPrevious className="hidden border-white/15 bg-white/[0.03] sm:flex" />
             <CarouselNext className="hidden border-white/15 bg-white/[0.03] sm:flex" />
           </Carousel>
+          <CarouselDots api={api} />
         </div>
 
         <div className="mt-10 flex justify-center">
