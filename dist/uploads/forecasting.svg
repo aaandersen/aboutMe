@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 130" role="img" aria-label="SIR epidemic forecasting curves">
+  <defs>
+    <linearGradient id="f-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1020"/>
+      <stop offset="1" stop-color="#241d52"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="130" fill="url(#f-bg)"/>
+  <g stroke="#ffffff" stroke-opacity="0.06" stroke-width="1">
+    <line x1="0" y1="40" x2="400" y2="40"/>
+    <line x1="0" y1="70" x2="400" y2="70"/>
+    <line x1="0" y1="100" x2="400" y2="100"/>
+  </g>
+  <!-- Susceptible: declines -->
+  <path d="M14,28 C150,32 175,104 386,112" fill="none" stroke="#38bdf8" stroke-width="3" stroke-linecap="round"/>
+  <!-- Infected: bell curve -->
+  <path d="M14,116 C100,116 170,30 200,30 C230,30 300,116 386,116" fill="none" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+  <!-- Recovered: rises -->
+  <path d="M14,116 C150,110 250,42 386,28" fill="none" stroke="#34d399" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="200" cy="30" r="3.5" fill="#fbbf24"/>
+</svg>

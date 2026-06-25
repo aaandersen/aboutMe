@@ -113,6 +113,7 @@ const portfolioItems: PortfolioItem[] = [
       "Higher-secondary (HTX) SOP project modelling epidemic development with the SIR model — demonstrating mathematics, algorithms, and predictive data analysis.",
     technologies: ["Mathematics", "Algorithms", "Modelling"],
     icon: LineChart,
+    image: "/uploads/forecasting.svg",
     gradient: "from-neutral-800 to-neutral-950",
   },
   {
@@ -122,6 +123,7 @@ const portfolioItems: PortfolioItem[] = [
       "Deployed and maintained web applications on Azure and DigitalOcean using Ubuntu servers — covering provisioning, hosting, and ongoing infrastructure management.",
     technologies: ["Azure", "DigitalOcean", "Ubuntu", "Cloud"],
     icon: Cloud,
+    image: "/uploads/cloud.svg",
     gradient: "from-neutral-600 to-neutral-800",
   },
 ];

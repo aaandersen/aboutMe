@@ -21,6 +21,7 @@ interface Group {
   tags: string[];
   companies: Brand[];
   icon: LucideIcon;
+  gradient: string;
   link?: string;
 }
 
@@ -43,6 +44,7 @@ const groups: Group[] = [
       { name: "Innargi", domain: "innargi.com" },
     ],
     icon: Building2,
+    gradient: "linear-gradient(135deg, #0091DA, #00243D)",
     link: "https://www.linkedin.com/posts/anders-adalberth-andersen-58b537215_apmaeoller-knowledgesharing-activity-7417511067469127681-Rz8u",
   },
   {
@@ -73,6 +75,7 @@ const groups: Group[] = [
       { name: "WS Audiology", domain: "wsa.com" },
     ],
     icon: Users,
+    gradient: "linear-gradient(125deg, #F25022, #FFB900 38%, #7FBA00 64%, #00A4EF)",
     link: "https://www.linkedin.com/posts/anders-adalberth-andersen-58b537215_digitaltransformation-erfa-agents-activity-7425631509304410112-7Ltf",
   },
 ];
@@ -88,7 +91,13 @@ const LogoTile = ({ brand }: { brand: Brand }) => {
     .replace(/^-+|-+$/g, "");
 
   return (
-    <div className="flex h-20 items-center justify-center rounded-xl border border-white/10 bg-white/95 px-4 shadow-sm">
+    <a
+      href={`https://${brand.domain}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      title={`Visit ${brand.name}`}
+      className="flex h-20 items-center justify-center rounded-xl border border-white/10 bg-white/95 px-4 shadow-sm transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-md"
+    >
       {failed ? (
         <span className="text-center text-sm font-semibold text-neutral-700">
           {brand.name}
@@ -103,7 +112,7 @@ const LogoTile = ({ brand }: { brand: Brand }) => {
           className="max-h-9 w-auto max-w-full object-contain"
         />
       )}
-    </div>
+    </a>
   );
 };
 
@@ -192,7 +201,7 @@ const Communities = () => {
               <div
                 key={group.name}
                 onMouseMove={handleSpotlight}
-                className="glass-card card-hover spotlight flex flex-col rounded-2xl p-6"
+                className="glass-card card-hover spotlight flex flex-col overflow-hidden rounded-2xl"
                 style={{
                   transitionDelay: `${index * 90}ms`,
                   opacity: revealed ? 1 : 0,
@@ -200,38 +209,47 @@ const Communities = () => {
                   transition: "opacity .6s ease, transform .6s ease",
                 }}
               >
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-white/[0.06] text-foreground">
-                  <Icon className="h-5 w-5" strokeWidth={1.75} />
+                <div
+                  className="relative flex h-20 items-center overflow-hidden px-6"
+                  style={{ background: group.gradient }}
+                >
+                  <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-xl bg-white/20 text-white shadow-md backdrop-blur">
+                    <Icon className="h-6 w-6" strokeWidth={1.75} />
+                  </div>
+                  <div className="pointer-events-none absolute -right-6 -top-10 h-24 w-24 rounded-full bg-white/10" />
+                  <div className="pointer-events-none absolute -right-3 bottom-2 h-12 w-12 rounded-full bg-white/10" />
                 </div>
 
-                <h3 className="mt-4 text-lg font-semibold leading-tight">
-                  {group.name}
-                </h3>
-                <p className="text-sm text-muted-foreground">{group.org}</p>
+                <div className="flex flex-1 flex-col p-6">
+                  <h3 className="text-lg font-semibold leading-tight">
+                    {group.name}
+                  </h3>
+                  <p className="text-sm text-muted-foreground">{group.org}</p>
 
-                <p className="mt-3 text-sm leading-relaxed text-foreground/75">
-                  {group.description}
-                </p>
+                  <p className="mt-3 text-sm leading-relaxed text-foreground/75">
+                    {group.description}
+                  </p>
 
-                <div className="mt-4 flex flex-wrap gap-1.5">
-                  {group.tags.map((tag) => (
-                    <Badge key={tag} variant="secondary" className="text-xs font-normal">
-                      {tag}
-                    </Badge>
-                  ))}
+                  <div className="mt-4 flex flex-wrap gap-1.5">
+                    {group.tags.map((tag) => (
+                      <Badge key={tag} variant="secondary" className="text-xs font-normal">
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
+
+                  {group.link && (
+                    <a
+                      href={group.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group mt-auto inline-flex items-center pt-5 text-sm font-medium text-foreground hover:underline"
+                    >
+                      View on LinkedIn
+                      <ArrowUpRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </a>
+                  )}
                 </div>
-
-                {group.link && (
-                  <a
-                    href={group.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group mt-5 inline-flex items-center text-sm font-medium text-foreground hover:underline"
-                  >
-                    View on LinkedIn
-                    <ArrowUpRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                  </a>
-                )}
               </div>
             );
           })}
