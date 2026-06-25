@@ -55,7 +55,7 @@ const Navbar = () => {
             window.scrollTo({ top: 0, behavior: "smooth" });
           }}
         >
-          Anders<span className="text-primary">.</span>
+          AAA<span className="text-primary">.</span>
         </a>
         
         {/* Desktop navigation */}

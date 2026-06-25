@@ -13,6 +13,8 @@ import Portfolio from "@/components/Portfolio";
 import Recommendations from "@/components/Recommendations";
 import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/Footer";
+import { ChatProvider } from "@/components/ChatProvider";
+import FloatingChat from "@/components/FloatingChat";
 
 const Index = () => {
   useEffect(() => {
@@ -44,24 +46,27 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="relative min-h-screen">
-      <HexBackground />
-      <div className="grain" aria-hidden="true" />
-      <div className="relative z-10">
-        <Navbar />
-        <HeroSection />
-        <TechMarquee />
-        <AgentExpertise />
-        <CodeShowcase />
-        <Timeline />
-        <Communities />
-        <Certifications />
-        <Portfolio />
-        <Recommendations />
-        <ContactForm />
-        <Footer />
+    <ChatProvider>
+      <div className="relative min-h-screen">
+        <HexBackground />
+        <div className="grain" aria-hidden="true" />
+        <div className="relative z-10">
+          <Navbar />
+          <HeroSection />
+          <TechMarquee />
+          <AgentExpertise />
+          <CodeShowcase />
+          <Timeline />
+          <Communities />
+          <Certifications />
+          <Portfolio />
+          <Recommendations />
+          <ContactForm />
+          <Footer />
+        </div>
+        <FloatingChat />
       </div>
-    </div>
+    </ChatProvider>
   );
 };
 

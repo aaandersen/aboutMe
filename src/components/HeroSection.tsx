@@ -13,6 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import MagneticButton from "@/components/MagneticButton";
 import RoleRotator from "@/components/RoleRotator";
+import HeroChat from "@/components/HeroChat";
 
 const scrollToId = (id: string) => {
   const el = document.getElementById(id);
@@ -115,26 +116,11 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* Right — photo */}
+          {/* Right — chat */}
           <div
             className={`flex justify-center ${isLoaded ? "animate-fade-in-right" : "opacity-0"}`}
           >
-            <div className="relative mx-auto w-full max-w-md animate-float">
-              <div
-                className="absolute -inset-5 rounded-[2rem] bg-gradient-to-tr from-white/15 via-white/10 to-white/15 blur-2xl"
-                aria-hidden="true"
-              />
-              <div className="relative rounded-[1.75rem] bg-gradient-to-br from-white via-neutral-400 to-neutral-700 p-[2px] shadow-2xl">
-                <div className="overflow-hidden rounded-[1.65rem] bg-card">
-                  <img
-                    src="/uploads/2eebffc6-42b4-4ba9-b753-d710ac8e209c.png"
-                    alt="Anders Adalberth Andersen"
-                    className="h-auto w-full object-cover"
-                    loading="eager"
-                  />
-                </div>
-              </div>
-            </div>
+            <HeroChat />
           </div>
         </div>
       </div>

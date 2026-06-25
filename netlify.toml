@@ -1,0 +1,14 @@
+# Netlify configuration.
+#
+# Build & publish settings stay as configured in the Netlify dashboard (the
+# committed dist/ folder is published as-is). This file only wires up the
+# serverless function that powers the "Chat with Anders" window.
+#
+# To enable the live LLM, add ONE of these in Site settings → Environment variables:
+#   • OpenAI:        OPENAI_API_KEY   (optional: OPENAI_MODEL, default gpt-4o-mini)
+#   • Azure OpenAI:  AZURE_OPENAI_ENDPOINT + AZURE_OPENAI_API_KEY + AZURE_OPENAI_DEPLOYMENT
+# Without a key the chat automatically uses its built-in scripted answers.
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
