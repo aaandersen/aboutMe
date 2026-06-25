@@ -53,21 +53,13 @@ const AgentExpertise = () => {
   const [api, setApi] = useState<CarouselApi>();
   const sectionRef = useRef<HTMLElement>(null);
 
+  // Re-fire on every viewport entry so the reveal replays when you scroll back.
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setRevealed(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
+      ([entry]) => setRevealed(entry.isIntersecting),
+      { threshold: 0.15 }
     );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
+    if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 

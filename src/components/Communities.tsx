@@ -181,28 +181,23 @@ const Communities = () => {
     return () => mq.removeEventListener("change", update);
   }, []);
 
+  // Re-fire on every viewport entry so the reveal replays when you scroll back.
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setRevealed(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
+      ([entry]) => setRevealed(entry.isIntersecting),
+      { threshold: 0.15 }
     );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
+    if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
   // Deal the cards in: they fade in stacked on top of each other, then spring
   // apart into the grid as you scroll down.
   useEffect(() => {
-    if (!revealed) return;
+    if (!revealed) {
+      setPhase("hidden");
+      return;
+    }
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setPhase("spread");
       return;

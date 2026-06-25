@@ -26,29 +26,37 @@ const CodeShowcase = () => {
   const [revealed, setRevealed] = useState(false);
   const [count, setCount] = useState(0);
   const [lit, setLit] = useState(0);
+  const [outcomesIn, setOutcomesIn] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+  const outcomesRef = useRef<HTMLUListElement>(null);
 
+  // Re-fire every time the section enters the viewport, so the animation
+  // replays whenever you scroll back to it.
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setRevealed(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
+      ([entry]) => setRevealed(entry.isIntersecting),
+      { threshold: 0.15 }
     );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
+  // The checkmarks light only once they themselves are on screen.
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => setOutcomesIn(entry.isIntersecting),
+      { threshold: 0.5 }
+    );
+    if (outcomesRef.current) observer.observe(outcomesRef.current);
     return () => observer.disconnect();
   }, []);
 
   // Type the manifest out, like it's being written live, once it scrolls in.
   useEffect(() => {
-    if (!revealed) return;
+    if (!revealed) {
+      setCount(0);
+      return;
+    }
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setCount(manifest.length);
       return;
@@ -64,7 +72,10 @@ const CodeShowcase = () => {
 
   // Light the outcome checkmarks green, one after another, once in view.
   useEffect(() => {
-    if (!revealed) return;
+    if (!outcomesIn) {
+      setLit(0);
+      return;
+    }
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setLit(outcomes.length);
       return;
@@ -76,7 +87,7 @@ const CodeShowcase = () => {
       if (n >= outcomes.length) window.clearInterval(id);
     }, 480);
     return () => window.clearInterval(id);
-  }, [revealed]);
+  }, [outcomesIn]);
 
   const typing = count < manifest.length;
 
@@ -143,7 +154,7 @@ const CodeShowcase = () => {
               them grounded, governed, and measurable.
             </p>
 
-            <ul className="mt-6 space-y-3">
+            <ul ref={outcomesRef} className="mt-6 space-y-3">
               {outcomes.map((item, i) => {
                 const on = i < lit;
                 return (
