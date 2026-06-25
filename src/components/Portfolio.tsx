@@ -31,6 +31,7 @@ interface PortfolioItem {
   description: string;
   technologies: string[];
   icon: LucideIcon;
+  image?: string;
   gradient: string;
   link?: string;
   linkLabel?: string;
@@ -46,6 +47,7 @@ const portfolioItems: PortfolioItem[] = [
       "In collaboration with Microsoft, I researched the organizational and individual conditions that enable non-technical employees at Carlsberg to create real and lasting business value through AI agents in Microsoft Copilot. A qualitative single-case study (15 informants, 17 interviews) bridging Kotter's change theory with affordance theory.",
     technologies: ["AI Agents", "Microsoft Copilot", "Citizen Development", "Qualitative Research", "Change Management"],
     icon: Bot,
+    image: "/uploads/carlsberg.png",
     gradient: "from-neutral-700 to-neutral-950",
     meta: "Microsoft × Carlsberg",
     featured: true,
@@ -79,6 +81,7 @@ const portfolioItems: PortfolioItem[] = [
       "An AI-driven planner that automatically finds free slots across the family's calendars and suggests when to spend time together \u2014 taking the coordination work out of planning family time. Built with React, TypeScript, and Firebase.",
     technologies: ["React", "TypeScript", "Firebase", "Tailwind CSS", "Vite"],
     icon: CalendarHeart,
+    image: "/uploads/famtime.png",
     gradient: "from-neutral-700 to-neutral-900",
   },
   {
@@ -88,6 +91,7 @@ const portfolioItems: PortfolioItem[] = [
       "A playful web app that lets guests at Joe & The Juice shape the in-caf\u00e9 soundtrack by voting on their favourite songs \u2014 turning the playlist into a shared, interactive experience.",
     technologies: ["JavaScript", "HTML", "CSS", "Web App"],
     icon: Music2,
+    image: "/uploads/joetunes.png",
     gradient: "from-neutral-800 to-neutral-950",
   },
   {
@@ -199,11 +203,22 @@ const Portfolio = () => {
                       <div
                         className={`relative flex h-28 items-center overflow-hidden bg-gradient-to-br ${item.gradient} px-6`}
                       >
-                        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/15 backdrop-blur">
-                          <Icon className="h-7 w-7 text-white" strokeWidth={1.5} />
-                        </div>
-                        <div className="pointer-events-none absolute -right-8 -top-12 h-32 w-32 rounded-full bg-white/10" />
-                        <div className="pointer-events-none absolute -right-2 bottom-2 h-16 w-16 rounded-full bg-white/10" />
+                        {item.image ? (
+                          <img
+                            src={item.image}
+                            alt={item.title}
+                            loading="lazy"
+                            className="absolute inset-0 h-full w-full object-cover"
+                          />
+                        ) : (
+                          <>
+                            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/15 backdrop-blur">
+                              <Icon className="h-7 w-7 text-white" strokeWidth={1.5} />
+                            </div>
+                            <div className="pointer-events-none absolute -right-8 -top-12 h-32 w-32 rounded-full bg-white/10" />
+                            <div className="pointer-events-none absolute -right-2 bottom-2 h-16 w-16 rounded-full bg-white/10" />
+                          </>
+                        )}
                       </div>
 
                       <CardContent className="flex flex-1 flex-col p-6">

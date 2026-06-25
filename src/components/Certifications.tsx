@@ -32,6 +32,7 @@ interface Certification {
   certificationNumber: string;
   skills: string[];
   icon: LucideIcon;
+  image?: string;
   gradient: string;
   verifyUrl: string;
 }
@@ -55,6 +56,7 @@ const certifications: Certification[] = [
       "Draft and analyze business content by using AI",
     ],
     icon: Sparkles,
+    image: "/uploads/ai-business-professional.png",
     gradient: "from-neutral-700 to-neutral-900",
     verifyUrl:
       "https://learn.microsoft.com/en-us/users/andersandersen-0583/credentials/certification/ai-business-professional",
@@ -89,6 +91,7 @@ const certifications: Certification[] = [
       "Describe the capabilities of Power Apps, Power Automate & Power BI",
     ],
     icon: Award,
+    image: "/uploads/power-platform-fundamentals.png",
     gradient: "from-neutral-600 to-neutral-900",
     verifyUrl:
       "https://learn.microsoft.com/en-us/users/andersandersen-0583/credentials/certification/power-platform-fundamentals",
@@ -175,9 +178,18 @@ const Certifications = () => {
                       <div
                         className={`relative flex items-center justify-between overflow-hidden bg-gradient-to-br ${cert.gradient} px-6 py-5`}
                       >
-                        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/15 backdrop-blur">
-                          <Icon className="h-7 w-7 text-white" strokeWidth={1.5} />
-                        </div>
+                        {cert.image ? (
+                          <img
+                            src={cert.image}
+                            alt={`${cert.title} badge`}
+                            loading="lazy"
+                            className="h-14 w-14 shrink-0 object-contain"
+                          />
+                        ) : (
+                          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/15 backdrop-blur">
+                            <Icon className="h-7 w-7 text-white" strokeWidth={1.5} />
+                          </div>
+                        )}
                         <span className="relative z-10 inline-flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 text-xs font-semibold text-white backdrop-blur">
                           <BadgeCheck className="h-3.5 w-3.5" />
                           {cert.level}
