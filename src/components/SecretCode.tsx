@@ -34,15 +34,20 @@ const SecretCode = () => {
       <div className="relative flex-1">
         <Lock className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
         <input
-          type="password"
+          type="text"
           inputMode="text"
           value={value}
           onChange={(e) => setValue(e.target.value)}
-          aria-label="Secret password"
+          aria-label="Magic word"
           placeholder={feedback ?? "enter the magic word"}
-          autoComplete="new-password"
+          autoComplete="off"
+          autoCorrect="off"
+          autoCapitalize="off"
           spellCheck={false}
-          className={`h-11 w-full rounded-full border bg-white/[0.04] pl-10 pr-4 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground/70 focus:bg-white/[0.06] ${
+          data-1p-ignore="true"
+          data-lpignore="true"
+          data-form-type="other"
+          className={`magic-mask h-11 w-full rounded-full border bg-white/[0.04] pl-10 pr-4 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground/70 focus:bg-white/[0.06] ${
             feedback
               ? "border-white/50 placeholder:text-foreground/60"
               : "border-white/15 focus:border-white/35"

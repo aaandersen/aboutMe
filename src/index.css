@@ -511,3 +511,8 @@ html.egg-neon body::after {
   to { transform: scale(16); opacity: 0; }
 }
 .egg-ring { animation: egg-ring 0.9s ease-out forwards; }
+
+/* Mask the magic-word input without type=password (avoids password-manager autofill). */
+.magic-mask {
+  -webkit-text-security: disc;
+}
