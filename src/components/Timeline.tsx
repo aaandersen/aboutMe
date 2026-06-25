@@ -12,6 +12,7 @@ interface TimelineItem {
   period: string;
   type: "education" | "work";
   description: string[];
+  image?: string;
   badge?: string;
   expanded?: boolean;
 }
@@ -23,6 +24,7 @@ const TimelineData: TimelineItem[] = [
     organization: "Copenhagen Business School (CBS)",
     period: "August 2023 – June 2026",
     type: "education",
+    image: "/uploads/cbs.png",
     badge: "Graduated 2026",
     expanded: true,
     description: [
@@ -49,6 +51,7 @@ const TimelineData: TimelineItem[] = [
     organization: "TMC Nordic",
     period: "October 2024 - August 2025",
     type: "work",
+    image: "/uploads/TMCnordic.png",
     description: [
       "Develop and produce digital content to enhance the brand's online presence.",
       "Optimize SEO strategies and work with digital marketing."
@@ -60,6 +63,7 @@ const TimelineData: TimelineItem[] = [
     organization: "Rødovre School",
     period: "August 2022 - August 2025",
     type: "work",
+    image: "/uploads/rodovreskole.png",
     description: [
       "Teach and guide students in various subjects with a focus on structured learning and engagement.",
       "Develop teaching materials and ensure effective classroom management."
@@ -71,6 +75,7 @@ const TimelineData: TimelineItem[] = [
     organization: "Trendhim",
     period: "April 2024 – August 2024",
     type: "work",
+    image: "/uploads/trendhim.png",
     description: [
       "Wrote and optimized product descriptions and blog posts to improve SEO and customer experience.",
       "Worked with brand storytelling and digital marketing."
@@ -82,6 +87,7 @@ const TimelineData: TimelineItem[] = [
     organization: "EASIS A/S",
     period: "June 2024 - August 2024",
     type: "work",
+    image: "/uploads/easisi.png",
     description: [
       "Created digital content and optimized social media platforms to increase brand engagement."
     ]
@@ -92,6 +98,7 @@ const TimelineData: TimelineItem[] = [
     organization: "Danish Patient Safety Authority",
     period: "July 2021 - January 2022",
     type: "work",
+    image: "/uploads/patientsikkerhed.png",
     description: [
       "Managed data registration and coordinated administrative tasks with precision and confidentiality."
     ]
@@ -102,6 +109,7 @@ const TimelineData: TimelineItem[] = [
     organization: "Microsoft AI",
     period: "August 2025 – Present",
     type: "work",
+    image: "/uploads/microsoft.png",
     badge: "Current",
     expanded: true,
     description: [
@@ -267,21 +275,38 @@ const Timeline = () => {
                     aria-expanded={isOpen}
                     className="glass-card card-hover spotlight w-full rounded-2xl p-5 text-left"
                   >
-                    <div className="flex items-start gap-3">
-                      <div
-                        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-neutral-900 shadow-md ${
-                          item.type === "education"
-                            ? "bg-gradient-to-br from-white to-neutral-300"
-                            : "bg-gradient-to-br from-neutral-200 to-neutral-400"
-                        }`}
-                      >
-                        <Icon className="h-5 w-5" />
+                    {item.image ? (
+                      <div className="space-y-3">
+                        <div className="flex h-16 items-center justify-center overflow-hidden rounded-xl bg-white px-4 shadow-md">
+                          <img
+                            src={item.image}
+                            alt={`${item.organization} logo`}
+                            loading="lazy"
+                            className="max-h-10 w-auto max-w-full object-contain"
+                          />
+                        </div>
+                        <div className="min-w-0">
+                          <h3 className="text-base font-semibold leading-snug">{item.title}</h3>
+                          <p className="text-sm text-muted-foreground">{item.organization}</p>
+                        </div>
                       </div>
-                      <div className="min-w-0">
-                        <h3 className="text-base font-semibold leading-snug">{item.title}</h3>
-                        <p className="text-sm text-muted-foreground">{item.organization}</p>
+                    ) : (
+                      <div className="flex items-start gap-3">
+                        <div
+                          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-neutral-900 shadow-md ${
+                            item.type === "education"
+                              ? "bg-gradient-to-br from-white to-neutral-300"
+                              : "bg-gradient-to-br from-neutral-200 to-neutral-400"
+                          }`}
+                        >
+                          <Icon className="h-5 w-5" />
+                        </div>
+                        <div className="min-w-0">
+                          <h3 className="text-base font-semibold leading-snug">{item.title}</h3>
+                          <p className="text-sm text-muted-foreground">{item.organization}</p>
+                        </div>
                       </div>
-                    </div>
+                    )}
 
                     {item.badge && (
                       <Badge className="mt-3 border-0 bg-white/10 text-foreground hover:bg-white/10">

@@ -59,6 +59,7 @@ const portfolioItems: PortfolioItem[] = [
       "A full-stack analytics dashboard for tracking and visualizing AI & Copilot usage across an organization — leaderboards, stored-data insights, and a built-in chat agent. Built on Azure Static Web Apps with an Azure Functions backend and Entra ID authentication.",
     technologies: ["Azure SWA", "Azure Functions", "React", "TypeScript", "Entra ID"],
     icon: BarChart3,
+    image: "/uploads/aiusagetracker.png",
     gradient: "from-neutral-700 to-neutral-900",
     link: "https://aiusagetracker.org",
     linkLabel: "Visit aiusagetracker.org",
@@ -70,6 +71,7 @@ const portfolioItems: PortfolioItem[] = [
       "A platform for surfacing, voting on, and prioritizing AI use-cases and agent ideas — with user profiles, an MCP server, and SWA authentication. Helps teams turn AI enthusiasm into an actionable pipeline.",
     technologies: ["Azure SWA", "MCP Server", "React", "TypeScript", "SWA Auth"],
     icon: LayoutDashboard,
+    image: "/uploads/AIcockpit.png",
     gradient: "from-neutral-600 to-neutral-900",
     link: "https://aicockpit.org",
     linkLabel: "Visit aicockpit.org",
@@ -101,6 +103,7 @@ const portfolioItems: PortfolioItem[] = [
       "A calendar and scheduling system built for Svaneeng \u2014 bringing bookings and events together in one shared, easy-to-manage overview.",
     technologies: ["Web App", "Scheduling", "Calendar"],
     icon: CalendarDays,
+    image: "/uploads/Svaneeng.png",
     gradient: "from-neutral-600 to-neutral-900",
   },
   {
