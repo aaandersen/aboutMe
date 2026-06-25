@@ -22,6 +22,7 @@ interface Group {
   tags: string[];
   companies: Brand[];
   icon: LucideIcon;
+  iconImg?: string;
   gradient: string;
   link?: string;
 }
@@ -45,6 +46,7 @@ const groups: Group[] = [
       { name: "Innargi", domain: "innargi.com" },
     ],
     icon: Building2,
+    iconImg: "/uploads/maersk-star.svg",
     gradient: "linear-gradient(135deg, #0091DA, #00243D)",
     link: "https://www.linkedin.com/posts/anders-adalberth-andersen-58b537215_apmaeoller-knowledgesharing-activity-7417511067469127681-Rz8u",
   },
@@ -76,6 +78,7 @@ const groups: Group[] = [
       { name: "WS Audiology", domain: "wsa.com" },
     ],
     icon: Users,
+    iconImg: "/uploads/dynamics-logo.svg",
     gradient: "linear-gradient(125deg, #F25022, #FFB900 38%, #7FBA00 64%, #00A4EF)",
     link: "https://www.linkedin.com/posts/anders-adalberth-andersen-58b537215_digitaltransformation-erfa-agents-activity-7425631509304410112-7Ltf",
   },
@@ -221,7 +224,11 @@ const Communities = () => {
                   style={{ background: group.gradient }}
                 >
                   <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-xl bg-white/20 text-white shadow-md backdrop-blur">
-                    <Icon className="h-6 w-6" strokeWidth={1.75} />
+                    {group.iconImg ? (
+                      <img src={group.iconImg} alt="" className="h-7 w-7 object-contain" />
+                    ) : (
+                      <Icon className="h-6 w-6" strokeWidth={1.75} />
+                    )}
                   </div>
                   <div className="pointer-events-none absolute -right-6 -top-10 h-24 w-24 rounded-full bg-white/10" />
                   <div className="pointer-events-none absolute -right-3 bottom-2 h-12 w-12 rounded-full bg-white/10" />

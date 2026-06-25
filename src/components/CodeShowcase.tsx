@@ -24,6 +24,7 @@ const outcomes = [
 
 const CodeShowcase = () => {
   const [revealed, setRevealed] = useState(false);
+  const [count, setCount] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -43,6 +44,24 @@ const CodeShowcase = () => {
 
     return () => observer.disconnect();
   }, []);
+
+  // Type the manifest out, like it's being written live, once it scrolls in.
+  useEffect(() => {
+    if (!revealed) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setCount(manifest.length);
+      return;
+    }
+    let c = 0;
+    const id = window.setInterval(() => {
+      c = Math.min(manifest.length, c + 3);
+      setCount(c);
+      if (c >= manifest.length) window.clearInterval(id);
+    }, 12);
+    return () => window.clearInterval(id);
+  }, [revealed]);
+
+  const typing = count < manifest.length;
 
   return (
     <section
@@ -70,9 +89,22 @@ const CodeShowcase = () => {
                 agent.manifest.json
               </span>
             </div>
-            <pre className="overflow-x-auto p-5 font-mono text-[13px] leading-relaxed text-foreground/85">
-              <code>{manifest}</code>
-            </pre>
+            <div className="relative">
+              {/* Invisible full manifest reserves the height so nothing jumps. */}
+              <pre
+                className="overflow-hidden p-5 font-mono text-[13px] leading-relaxed opacity-0"
+                aria-hidden="true"
+              >
+                <code className="whitespace-pre">{manifest}</code>
+              </pre>
+              {/* Visible text that types itself in. */}
+              <pre className="absolute inset-0 overflow-hidden p-5 font-mono text-[13px] leading-relaxed text-foreground/85">
+                <code className="whitespace-pre">
+                  {manifest.slice(0, count)}
+                  <span className={`text-primary ${typing ? "" : "type-caret"}`}>▋</span>
+                </code>
+              </pre>
+            </div>
           </div>
 
           {/* Explanation */}

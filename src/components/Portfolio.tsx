@@ -47,7 +47,7 @@ const portfolioItems: PortfolioItem[] = [
       "In collaboration with Microsoft, I researched the organizational and individual conditions that enable non-technical employees at Carlsberg to create real and lasting business value through AI agents in Microsoft Copilot. A qualitative single-case study (15 informants, 17 interviews) bridging Kotter's change theory with affordance theory.",
     technologies: ["AI Agents", "Microsoft Copilot", "Citizen Development", "Qualitative Research", "Change Management"],
     icon: Bot,
-    image: "/uploads/carlsberg.png",
+    image: "/uploads/carlsberggroup-logo.svg",
     gradient: "from-neutral-700 to-neutral-950",
     meta: "Microsoft × Carlsberg",
     featured: true,

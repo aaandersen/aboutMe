@@ -342,6 +342,15 @@
   will-change: transform;
 }
 
+/* Typewriter caret for the agent.manifest.json showcase */
+@keyframes type-caret {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.type-caret {
+  animation: type-caret 1s step-end infinite;
+}
+
 .gradient-frame {
   position: relative;
 }
