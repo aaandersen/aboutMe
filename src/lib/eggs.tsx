@@ -56,17 +56,15 @@ export const EGGS: EggCommand[] = [
     words: ["agent", "copilot", "chat", "ai"],
     icon: Bot,
     run: (a) => a.openOverlay("agent"),
-    ready: false,
   },
   {
     id: "terminal",
     label: "Terminal",
-    blurb: "A retro shell — type `help` to explore.",
+    blurb: "A retro shell \u2014 type `help` to explore.",
     hint: "developers love a good shell…",
     words: ["terminal", "cli", "shell", "sudo", "bash"],
     icon: TerminalSquare,
     run: (a) => a.openOverlay("terminal"),
-    ready: false,
   },
   {
     id: "arcade",

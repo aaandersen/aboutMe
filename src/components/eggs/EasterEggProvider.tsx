@@ -27,6 +27,8 @@ import ZenMode from "./ZenMode";
 import HexStormFlash from "./HexStormFlash";
 import CommandPalette from "./CommandPalette";
 import AchievementsTray from "./AchievementsTray";
+import Terminal from "./Terminal";
+import AgentChat from "./AgentChat";
 
 export type RunResult = "hit" | "near" | "miss";
 
@@ -188,6 +190,9 @@ const EasterEggProvider = ({ children }: { children: ReactNode }) => {
           discovered={discovered}
         />
       )}
+
+      {overlay === "terminal" && <Terminal onClose={() => setOverlay(null)} />}
+      {overlay === "agent" && <AgentChat onClose={() => setOverlay(null)} />}
 
       {showTray && <AchievementsTray discovered={discovered} onRun={runEgg} />}
     </Ctx.Provider>
