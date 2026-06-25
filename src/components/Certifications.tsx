@@ -57,7 +57,7 @@ const certifications: Certification[] = [
     ],
     icon: Sparkles,
     image: "/uploads/ai-business-professional.png",
-    gradient: "from-rose-700 to-neutral-950",
+    gradient: "from-rose-500 to-rose-800",
     verifyUrl:
       "https://learn.microsoft.com/en-us/users/andersandersen-0583/credentials/certification/ai-business-professional",
   },
@@ -75,7 +75,7 @@ const certifications: Certification[] = [
     ],
     icon: ShieldCheck,
     image: "/uploads/copilot-agent-admin-fundamentals.png",
-    gradient: "from-sky-700 to-neutral-950",
+    gradient: "from-sky-500 to-blue-800",
     verifyUrl: LEARN_PROFILE,
   },
   {
@@ -93,7 +93,7 @@ const certifications: Certification[] = [
     ],
     icon: Award,
     image: "/uploads/power-platform-fundamentals.png",
-    gradient: "from-violet-700 to-neutral-950",
+    gradient: "from-violet-500 to-purple-800",
     verifyUrl:
       "https://learn.microsoft.com/en-us/users/andersandersen-0583/credentials/certification/power-platform-fundamentals",
   },
@@ -177,15 +177,17 @@ const Certifications = () => {
                       className="card-hover spotlight flex h-full flex-col overflow-hidden border-border"
                     >
                       <div
-                        className={`relative flex h-28 items-center justify-center overflow-hidden bg-gradient-to-br ${cert.gradient}`}
+                        className={`relative flex h-32 items-center justify-center overflow-hidden bg-gradient-to-br ${cert.gradient}`}
                       >
                         {cert.image ? (
-                          <img
-                            src={cert.image}
-                            alt={`${cert.title} badge`}
-                            loading="lazy"
-                            className="relative z-10 h-24 w-24 object-contain drop-shadow-[0_6px_14px_rgba(0,0,0,0.45)]"
-                          />
+                          <div className="relative z-10 rounded-2xl bg-white p-2 shadow-xl ring-1 ring-black/5">
+                            <img
+                              src={cert.image}
+                              alt={`${cert.title} badge`}
+                              loading="lazy"
+                              className="h-16 w-16 object-contain"
+                            />
+                          </div>
                         ) : (
                           <div className="relative z-10 flex h-16 w-16 items-center justify-center rounded-2xl bg-white/15 backdrop-blur">
                             <Icon className="h-8 w-8 text-white" strokeWidth={1.5} />
