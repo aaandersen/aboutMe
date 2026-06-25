@@ -40,6 +40,7 @@ const TimelineData: TimelineItem[] = [
     organization: "NEXT SUKKERTOPPEN",
     period: "August 2018 - January 2021",
     type: "education",
+    image: "/uploads/next-sukkertoppen.png",
     description: [
       "Mathematics A and Programming B.",
       "SOP Project: Algorithmic Forecasting of Epidemic Development via the SIR Model."

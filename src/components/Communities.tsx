@@ -80,22 +80,27 @@ const groups: Group[] = [
 const LogoTile = ({ brand }: { brand: Brand }) => {
   const [failed, setFailed] = useState(false);
 
+  // Local logo filename mirrors the script's slug: domain minus TLD, dashed.
+  const slug = brand.domain
+    .toLowerCase()
+    .replace(/\.[a-z0-9]+$/i, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+
   return (
-    <div className="flex h-20 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] px-5">
+    <div className="flex h-20 items-center justify-center rounded-xl border border-white/10 bg-white/95 px-4 shadow-sm">
       {failed ? (
-        <span className="text-center text-sm font-medium text-foreground/70">
+        <span className="text-center text-sm font-semibold text-neutral-700">
           {brand.name}
         </span>
       ) : (
         <img
-          src={`https://logo.clearbit.com/${brand.domain}?size=128`}
+          src={`/uploads/brands/${slug}.png`}
           alt={brand.name}
           title={brand.name}
           loading="lazy"
-          referrerPolicy="no-referrer"
           onError={() => setFailed(true)}
-          style={{ filter: "brightness(0) invert(1)" }}
-          className="max-h-9 w-auto max-w-full object-contain opacity-70 transition-opacity duration-300 hover:opacity-100"
+          className="max-h-9 w-auto max-w-full object-contain"
         />
       )}
     </div>

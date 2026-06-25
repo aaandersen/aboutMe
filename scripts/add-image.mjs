@@ -82,12 +82,19 @@ for (const { url, name } of jobs) {
     const ext = detectExt(buf);
     if (!ext) throw new Error("not a recognized image (png/jpg/gif/webp/svg/ico)");
 
-    const base = name || decodeURIComponent(new URL(url).pathname.split("/").pop() || "");
-    const slug = slugify(base) || `image-${Date.now()}`;
-    const outPath = join(UPLOADS, `${slug}.${ext}`);
+    const raw = name || decodeURIComponent(new URL(url).pathname.split("/").pop() || "");
+    // Allow an optional subfolder, e.g. "brands/acme" -> public/uploads/brands/acme.<ext>
+    const segs = raw.split("/").filter(Boolean);
+    const fileBase = segs.pop() || "";
+    const subdir = segs.map(slugify).filter(Boolean).join("/");
+    const slug = slugify(fileBase) || `image-${Date.now()}`;
+    const dir = subdir ? join(UPLOADS, subdir) : UPLOADS;
+    const ref = `/uploads/${subdir ? subdir + "/" : ""}${slug}.${ext}`;
 
+    await mkdir(dir, { recursive: true });
+    const outPath = join(dir, `${slug}.${ext}`);
     await writeFile(outPath, buf);
-    console.log(`✓ ${(buf.length / 1024).toFixed(1).padStart(7)} KB  →  /uploads/${slug}.${ext}`);
+    console.log(`✓ ${(buf.length / 1024).toFixed(1).padStart(7)} KB  →  ${ref}`);
     ok++;
   } catch (err) {
     console.error(`✗ ${url}\n   ${err.message}`);
@@ -95,4 +102,5 @@ for (const { url, name } of jobs) {
 }
 
 console.log(`\nDone: ${ok}/${jobs.length} saved to public/uploads/`);
-process.exit(ok === jobs.length ? 0 : 1);
+// Use exitCode (not process.exit) so pending libuv handles close cleanly on Windows.
+process.exitCode = ok === jobs.length ? 0 : 1;
