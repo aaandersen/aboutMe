@@ -169,7 +169,17 @@ const BrandCarousel = ({ brands }: { brands: Brand[] }) => {
 
 const Communities = () => {
   const [revealed, setRevealed] = useState(false);
+  const [phase, setPhase] = useState<"hidden" | "stacked" | "spread">("hidden");
+  const [isWide, setIsWide] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    const update = () => setIsWide(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -189,6 +199,19 @@ const Communities = () => {
     return () => observer.disconnect();
   }, []);
 
+  // Deal the cards in: they fade in stacked on top of each other, then spring
+  // apart into the grid as you scroll down.
+  useEffect(() => {
+    if (!revealed) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setPhase("spread");
+      return;
+    }
+    setPhase("stacked");
+    const t = window.setTimeout(() => setPhase("spread"), 520);
+    return () => window.clearTimeout(t);
+  }, [revealed]);
+
   return (
     <section id="communities" className="py-16 sm:py-24" ref={sectionRef}>
       <div className="container">
@@ -207,16 +230,24 @@ const Communities = () => {
         <div className="mx-auto grid max-w-3xl grid-cols-1 gap-6 md:grid-cols-2">
           {groups.map((group, index) => {
             const Icon = group.icon;
+            const stacked = isWide
+              ? index === 0
+                ? "translateX(52%) translateY(6px) rotate(-6deg) scale(.92)"
+                : "translateX(-52%) translateY(16px) rotate(6deg) scale(.92)"
+              : index === 0
+                ? "translateY(12px) rotate(-2deg) scale(.95)"
+                : "translateY(12px) rotate(2deg) scale(.95)";
             return (
               <div
                 key={group.name}
                 onMouseMove={handleSpotlight}
                 className="glass-card card-hover spotlight flex flex-col overflow-hidden rounded-2xl"
                 style={{
-                  transitionDelay: `${index * 90}ms`,
-                  opacity: revealed ? 1 : 0,
-                  transform: revealed ? "translateY(0)" : "translateY(20px)",
-                  transition: "opacity .6s ease, transform .6s ease",
+                  opacity: phase === "hidden" ? 0 : 1,
+                  transform: phase === "spread" ? undefined : stacked,
+                  transition:
+                    "opacity .45s ease, transform .7s cubic-bezier(.22,1,.36,1)",
+                  zIndex: phase === "spread" ? undefined : groups.length - index,
                 }}
               >
                 <div

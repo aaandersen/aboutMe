@@ -16,19 +16,20 @@ const AchievementsTray = ({ discovered, onRun, soundOn, onToggleSound }: Props) 
   const found = discovered.length;
 
   return (
-    <>
+    <div className="relative inline-block">
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="fixed bottom-4 left-4 z-[110] flex items-center gap-2 rounded-full border border-white/12 bg-background/80 px-3.5 py-2 text-xs font-medium text-foreground/80 shadow-lg backdrop-blur transition-colors hover:border-white/25 hover:text-foreground"
+        className="flex items-center gap-2 rounded-full border border-white/12 bg-background/80 px-3.5 py-2 text-xs font-medium text-foreground/80 shadow-lg backdrop-blur transition-colors hover:border-white/25 hover:text-foreground"
         aria-label="Hidden secrets found"
+        aria-expanded={open}
       >
         <Sparkles className="h-3.5 w-3.5" />
         {found}/{total} secrets
       </button>
 
       {open && (
-        <div className="fixed bottom-16 left-4 z-[140] w-72 max-w-[calc(100vw-2rem)] overflow-hidden rounded-2xl border border-white/12 bg-[#0d0d0d] shadow-2xl">
+        <div className="absolute bottom-full left-1/2 z-[140] mb-3 w-72 max-w-[calc(100vw-2rem)] -translate-x-1/2 overflow-hidden rounded-2xl border border-white/12 bg-[#0d0d0d] text-left shadow-2xl">
           <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
             <span className="text-sm font-semibold">Hidden secrets</span>
             <div className="flex items-center gap-1.5">
@@ -84,7 +85,7 @@ const AchievementsTray = ({ discovered, onRun, soundOn, onToggleSound }: Props) 
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

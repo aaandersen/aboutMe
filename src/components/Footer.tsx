@@ -2,6 +2,8 @@
 import { Github, Linkedin, Mail, Phone, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import SecretCode from "@/components/SecretCode";
+import AchievementsTray from "@/components/eggs/AchievementsTray";
+import { useEggs } from "@/components/eggs/EasterEggProvider";
 
 interface FooterLink {
   label: string;
@@ -52,6 +54,7 @@ const socials = [
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { discovered, runEgg, soundOn, toggleSound } = useEggs();
 
   return (
     <footer className="relative border-t border-white/10 bg-background/60 py-16 backdrop-blur-xl">
@@ -127,6 +130,12 @@ const Footer = () => {
             Psst — there are hidden pages. Know the magic word?
           </p>
           <SecretCode />
+          <AchievementsTray
+            discovered={discovered}
+            onRun={runEgg}
+            soundOn={soundOn}
+            onToggleSound={toggleSound}
+          />
         </div>
 
         <div className="mt-8 flex flex-col items-center justify-between gap-3 text-sm text-muted-foreground sm:flex-row">

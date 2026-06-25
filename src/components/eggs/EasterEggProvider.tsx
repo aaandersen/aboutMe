@@ -8,7 +8,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import {
   EGGS,
@@ -28,7 +28,6 @@ import NeonTheme from "./NeonTheme";
 import ZenMode from "./ZenMode";
 import HexStormFlash from "./HexStormFlash";
 import CommandPalette from "./CommandPalette";
-import AchievementsTray from "./AchievementsTray";
 import Terminal from "./Terminal";
 import AgentChat from "./AgentChat";
 
@@ -40,6 +39,9 @@ interface EggApi {
   openOverlay: (o: OverlayName) => void;
   modes: Record<ModeName, boolean>;
   toggleMode: (m: ModeName) => void;
+  discovered: string[];
+  soundOn: boolean;
+  toggleSound: () => void;
 }
 
 const Ctx = createContext<EggApi | null>(null);
@@ -51,11 +53,9 @@ export const useEggs = (): EggApi => {
 };
 
 const STORAGE_KEY = "egg-discovered-v1";
-const CHROMELESS_ROUTES = ["/astro", "/arcade"];
 
 const EasterEggProvider = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
-  const location = useLocation();
 
   const [overlay, setOverlay] = useState<OverlayName | null>(null);
   const [modes, setModes] = useState<Record<ModeName, boolean>>({
@@ -113,6 +113,8 @@ const EasterEggProvider = ({ children }: { children: ReactNode }) => {
     (m: ModeName) => setModes((s) => ({ ...s, [m]: !s[m] })),
     []
   );
+
+  const toggleSound = useCallback(() => setSoundOn((s) => !s), []);
 
   const actions: EggActions = useMemo(
     () => ({
@@ -182,11 +184,18 @@ const EasterEggProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const api: EggApi = useMemo(
-    () => ({ runWord, runEgg, openOverlay: setOverlay, modes, toggleMode }),
-    [runWord, runEgg, modes, toggleMode]
+    () => ({
+      runWord,
+      runEgg,
+      openOverlay: setOverlay,
+      modes,
+      toggleMode,
+      discovered,
+      soundOn,
+      toggleSound,
+    }),
+    [runWord, runEgg, modes, toggleMode, discovered, soundOn, toggleSound]
   );
-
-  const showTray = !CHROMELESS_ROUTES.includes(location.pathname);
 
   return (
     <Ctx.Provider value={api}>
@@ -213,15 +222,6 @@ const EasterEggProvider = ({ children }: { children: ReactNode }) => {
 
       {overlay === "terminal" && <Terminal onClose={() => setOverlay(null)} />}
       {overlay === "agent" && <AgentChat onClose={() => setOverlay(null)} />}
-
-      {showTray && (
-        <AchievementsTray
-          discovered={discovered}
-          onRun={runEgg}
-          soundOn={soundOn}
-          onToggleSound={() => setSoundOn((v) => !v)}
-        />
-      )}
     </Ctx.Provider>
   );
 };

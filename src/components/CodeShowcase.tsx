@@ -25,6 +25,7 @@ const outcomes = [
 const CodeShowcase = () => {
   const [revealed, setRevealed] = useState(false);
   const [count, setCount] = useState(0);
+  const [lit, setLit] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -58,6 +59,22 @@ const CodeShowcase = () => {
       setCount(c);
       if (c >= manifest.length) window.clearInterval(id);
     }, 12);
+    return () => window.clearInterval(id);
+  }, [revealed]);
+
+  // Light the outcome checkmarks green, one after another, once in view.
+  useEffect(() => {
+    if (!revealed) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setLit(outcomes.length);
+      return;
+    }
+    let n = 0;
+    const id = window.setInterval(() => {
+      n += 1;
+      setLit(n);
+      if (n >= outcomes.length) window.clearInterval(id);
+    }, 480);
     return () => window.clearInterval(id);
   }, [revealed]);
 
@@ -127,14 +144,29 @@ const CodeShowcase = () => {
             </p>
 
             <ul className="mt-6 space-y-3">
-              {outcomes.map((item) => (
-                <li key={item} className="flex items-start gap-3">
-                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white/10 text-foreground">
-                    <Check className="h-3 w-3" />
-                  </span>
-                  <span className="text-sm text-foreground/80">{item}</span>
-                </li>
-              ))}
+              {outcomes.map((item, i) => {
+                const on = i < lit;
+                return (
+                  <li key={item} className="flex items-start gap-3">
+                    <span
+                      className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full transition-all duration-500 ${
+                        on
+                          ? "scale-100 bg-emerald-500 text-white shadow-[0_0_12px_rgba(16,185,129,0.55)]"
+                          : "scale-90 bg-white/10 text-foreground/40"
+                      }`}
+                    >
+                      <Check className="h-3 w-3" strokeWidth={3} />
+                    </span>
+                    <span
+                      className={`text-sm transition-colors duration-500 ${
+                        on ? "text-foreground" : "text-foreground/50"
+                      }`}
+                    >
+                      {item}
+                    </span>
+                  </li>
+                );
+              })}
             </ul>
 
             <a

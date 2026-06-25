@@ -288,13 +288,30 @@ const Timeline = () => {
                   </div>
 
                   <div className="relative my-4 h-4">
+                    {/* faint full track */}
                     <div className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-white/10" />
+                    {/* bright connector that glides in across the timeline */}
+                    <div
+                      className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 origin-left bg-gradient-to-r from-white/70 to-white/25"
+                      style={{
+                        transform: revealed ? "scaleX(1)" : "scaleX(0)",
+                        transition: "transform .55s ease",
+                        transitionDelay: `${index * 90}ms`,
+                      }}
+                    />
                     <span
-                      className={`absolute left-1/2 top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 bg-background ${
+                      className={`absolute left-1/2 top-1/2 h-4 w-4 rounded-full border-2 bg-background ${
                         item.badge
                           ? "border-white shadow-[0_0_14px_rgba(255,255,255,0.45)]"
                           : "border-white/35"
                       }`}
+                      style={{
+                        transform: revealed
+                          ? "translate(-50%, -50%) scale(1)"
+                          : "translate(-50%, -50%) scale(0)",
+                        transition: "transform .45s cubic-bezier(.34,1.56,.64,1)",
+                        transitionDelay: `${index * 90 + 170}ms`,
+                      }}
                     />
                   </div>
 
