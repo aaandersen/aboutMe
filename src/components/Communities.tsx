@@ -8,6 +8,7 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import { handleSpotlight } from "@/lib/interactions";
+import { extractEdgeColor } from "@/lib/logoColor";
 
 interface Brand {
   name: string;
@@ -82,6 +83,7 @@ const groups: Group[] = [
 
 const LogoTile = ({ brand }: { brand: Brand }) => {
   const [failed, setFailed] = useState(false);
+  const [bg, setBg] = useState("#ffffff");
 
   // Local logo filename mirrors the script's slug: domain minus TLD, dashed.
   const slug = brand.domain
@@ -96,7 +98,8 @@ const LogoTile = ({ brand }: { brand: Brand }) => {
       target="_blank"
       rel="noopener noreferrer"
       title={`Visit ${brand.name}`}
-      className="flex h-20 items-center justify-center rounded-xl border border-white/10 bg-white/95 px-4 shadow-sm transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-md"
+      style={{ backgroundColor: bg }}
+      className="flex h-20 items-center justify-center rounded-xl border border-white/10 px-4 shadow-sm transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-md"
     >
       {failed ? (
         <span className="text-center text-sm font-semibold text-neutral-700">
@@ -108,6 +111,10 @@ const LogoTile = ({ brand }: { brand: Brand }) => {
           alt={brand.name}
           title={brand.name}
           loading="lazy"
+          onLoad={(e) => {
+            const c = extractEdgeColor(e.currentTarget);
+            if (c) setBg(c);
+          }}
           onError={() => setFailed(true)}
           className="max-h-9 w-auto max-w-full object-contain"
         />

@@ -4,6 +4,7 @@ import { Building, GraduationCap, ChevronDown, ChevronLeft, ChevronRight } from 
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { handleSpotlight } from "@/lib/interactions";
+import { extractEdgeColor } from "@/lib/logoColor";
 
 interface TimelineItem {
   id: string;
@@ -121,6 +122,34 @@ const TimelineData: TimelineItem[] = [
 ];
 
 const PRESENT_TO_PAST = ["8", "1", "3", "4", "6", "5", "7", "2"];
+
+/** A full-bleed logo banner (like the project cards). Its background is set to
+ *  the logo's own edge colour so there is no visible white border. Wide logos
+ *  cover the banner; squarish logos are centred on the matching colour. */
+const LogoBanner = ({ src, alt }: { src: string; alt: string }) => {
+  const [bg, setBg] = useState("#ffffff");
+  const [cover, setCover] = useState(false);
+  return (
+    <div className="relative h-24 w-full overflow-hidden" style={{ backgroundColor: bg }}>
+      <img
+        src={src}
+        alt={alt}
+        loading="lazy"
+        onLoad={(e) => {
+          const img = e.currentTarget;
+          const c = extractEdgeColor(img);
+          if (c) setBg(c);
+          setCover(img.naturalWidth / img.naturalHeight >= 1.7);
+        }}
+        className={
+          cover
+            ? "absolute inset-0 h-full w-full object-cover"
+            : "absolute inset-0 m-auto max-h-[62%] max-w-[78%] object-contain"
+        }
+      />
+    </div>
+  );
+};
 
 const Timeline = () => {
   const [filter, setFilter] = useState<"all" | "education" | "work">("all");
@@ -274,65 +303,59 @@ const Timeline = () => {
                     onClick={() => toggleExpand(item.id)}
                     onMouseMove={handleSpotlight}
                     aria-expanded={isOpen}
-                    className="glass-card card-hover spotlight w-full rounded-2xl p-5 text-left"
+                    className="glass-card card-hover spotlight w-full overflow-hidden rounded-2xl text-left"
                   >
-                    {item.image ? (
-                      <div className="space-y-3">
-                        <div className="flex h-16 items-center justify-center overflow-hidden rounded-xl bg-white px-4 shadow-md">
-                          <img
-                            src={item.image}
-                            alt={`${item.organization} logo`}
-                            loading="lazy"
-                            className="max-h-10 w-auto max-w-full object-contain"
-                          />
-                        </div>
+                    {item.image && <LogoBanner src={item.image} alt={`${item.organization} logo`} />}
+
+                    <div className="p-5">
+                      {item.image ? (
                         <div className="min-w-0">
                           <h3 className="text-base font-semibold leading-snug">{item.title}</h3>
                           <p className="text-sm text-muted-foreground">{item.organization}</p>
                         </div>
-                      </div>
-                    ) : (
-                      <div className="flex items-start gap-3">
-                        <div
-                          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-neutral-900 shadow-md ${
-                            item.type === "education"
-                              ? "bg-gradient-to-br from-white to-neutral-300"
-                              : "bg-gradient-to-br from-neutral-200 to-neutral-400"
-                          }`}
-                        >
-                          <Icon className="h-5 w-5" />
+                      ) : (
+                        <div className="flex items-start gap-3">
+                          <div
+                            className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-neutral-900 shadow-md ${
+                              item.type === "education"
+                                ? "bg-gradient-to-br from-white to-neutral-300"
+                                : "bg-gradient-to-br from-neutral-200 to-neutral-400"
+                            }`}
+                          >
+                            <Icon className="h-5 w-5" />
+                          </div>
+                          <div className="min-w-0">
+                            <h3 className="text-base font-semibold leading-snug">{item.title}</h3>
+                            <p className="text-sm text-muted-foreground">{item.organization}</p>
+                          </div>
                         </div>
-                        <div className="min-w-0">
-                          <h3 className="text-base font-semibold leading-snug">{item.title}</h3>
-                          <p className="text-sm text-muted-foreground">{item.organization}</p>
-                        </div>
+                      )}
+
+                      {item.badge && (
+                        <Badge className="mt-3 border-0 bg-white/10 text-foreground hover:bg-white/10">
+                          {item.badge}
+                        </Badge>
+                      )}
+
+                      <div className="mt-3 flex items-center text-xs font-semibold text-primary">
+                        {isOpen ? "Show less" : "Read more"}
+                        <ChevronDown
+                          className={`ml-1 h-3.5 w-3.5 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+                        />
                       </div>
-                    )}
 
-                    {item.badge && (
-                      <Badge className="mt-3 border-0 bg-white/10 text-foreground hover:bg-white/10">
-                        {item.badge}
-                      </Badge>
-                    )}
-
-                    <div className="mt-3 flex items-center text-xs font-semibold text-primary">
-                      {isOpen ? "Show less" : "Read more"}
-                      <ChevronDown
-                        className={`ml-1 h-3.5 w-3.5 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
-                      />
-                    </div>
-
-                    <div
-                      className={`grid transition-all duration-300 ease-out ${
-                        isOpen ? "mt-3 grid-rows-[1fr] border-t pt-3" : "grid-rows-[0fr]"
-                      }`}
-                    >
-                      <div className="space-y-2 overflow-hidden">
-                        {item.description.map((desc, i) => (
-                          <p key={i} className="text-sm leading-relaxed text-foreground/75">
-                            {desc}
-                          </p>
-                        ))}
+                      <div
+                        className={`grid transition-all duration-300 ease-out ${
+                          isOpen ? "mt-3 grid-rows-[1fr] border-t pt-3" : "grid-rows-[0fr]"
+                        }`}
+                      >
+                        <div className="space-y-2 overflow-hidden">
+                          {item.description.map((desc, i) => (
+                            <p key={i} className="text-sm leading-relaxed text-foreground/75">
+                              {desc}
+                            </p>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </button>
