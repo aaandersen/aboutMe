@@ -57,7 +57,7 @@ const certifications: Certification[] = [
     ],
     icon: Sparkles,
     image: "/uploads/ai-business-professional.png",
-    gradient: "from-neutral-700 to-neutral-900",
+    gradient: "from-rose-700 to-neutral-950",
     verifyUrl:
       "https://learn.microsoft.com/en-us/users/andersandersen-0583/credentials/certification/ai-business-professional",
   },
@@ -74,7 +74,8 @@ const certifications: Certification[] = [
       "Understand data protection and governance tasks for Microsoft 365 and Copilot",
     ],
     icon: ShieldCheck,
-    gradient: "from-neutral-700 to-neutral-950",
+    image: "/uploads/copilot-agent-admin-fundamentals.png",
+    gradient: "from-sky-700 to-neutral-950",
     verifyUrl: LEARN_PROFILE,
   },
   {
@@ -92,7 +93,7 @@ const certifications: Certification[] = [
     ],
     icon: Award,
     image: "/uploads/power-platform-fundamentals.png",
-    gradient: "from-neutral-600 to-neutral-900",
+    gradient: "from-violet-700 to-neutral-950",
     verifyUrl:
       "https://learn.microsoft.com/en-us/users/andersandersen-0583/credentials/certification/power-platform-fundamentals",
   },
@@ -176,26 +177,26 @@ const Certifications = () => {
                       className="card-hover spotlight flex h-full flex-col overflow-hidden border-border"
                     >
                       <div
-                        className={`relative flex items-center justify-between overflow-hidden bg-gradient-to-br ${cert.gradient} px-6 py-5`}
+                        className={`relative flex h-28 items-center justify-center overflow-hidden bg-gradient-to-br ${cert.gradient}`}
                       >
                         {cert.image ? (
                           <img
                             src={cert.image}
                             alt={`${cert.title} badge`}
                             loading="lazy"
-                            className="h-14 w-14 shrink-0 object-contain"
+                            className="relative z-10 h-24 w-24 object-contain drop-shadow-[0_6px_14px_rgba(0,0,0,0.45)]"
                           />
                         ) : (
-                          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/15 backdrop-blur">
-                            <Icon className="h-7 w-7 text-white" strokeWidth={1.5} />
+                          <div className="relative z-10 flex h-16 w-16 items-center justify-center rounded-2xl bg-white/15 backdrop-blur">
+                            <Icon className="h-8 w-8 text-white" strokeWidth={1.5} />
                           </div>
                         )}
-                        <span className="relative z-10 inline-flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 text-xs font-semibold text-white backdrop-blur">
+                        <span className="absolute right-3 top-3 z-10 inline-flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 text-xs font-semibold text-white backdrop-blur">
                           <BadgeCheck className="h-3.5 w-3.5" />
                           {cert.level}
                         </span>
-                        <div className="pointer-events-none absolute -right-8 -top-12 h-32 w-32 rounded-full bg-white/10" />
-                        <div className="pointer-events-none absolute -right-2 bottom-2 h-16 w-16 rounded-full bg-white/10" />
+                        <div className="pointer-events-none absolute -right-10 -top-12 h-32 w-32 rounded-full bg-white/10" />
+                        <div className="pointer-events-none absolute -left-10 -bottom-12 h-32 w-32 rounded-full bg-white/10" />
                       </div>
 
                       <CardContent className="flex flex-1 flex-col p-6">
