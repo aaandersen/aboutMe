@@ -21,6 +21,7 @@ const columns: { title: string; links: FooterLink[] }[] = [
       { label: "Certifications", href: "#certifications" },
       { label: "Courses", href: "/kurser" },
       { label: "Portfolio", href: "#portfolio" },
+      { label: "Recommendations", href: "#recommendations" },
     ],
   },
   {

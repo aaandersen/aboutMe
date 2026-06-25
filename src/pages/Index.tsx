@@ -10,6 +10,7 @@ import Timeline from "@/components/Timeline";
 import Communities from "@/components/Communities";
 import Certifications from "@/components/Certifications";
 import Portfolio from "@/components/Portfolio";
+import Recommendations from "@/components/Recommendations";
 import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/Footer";
 
@@ -56,6 +57,7 @@ const Index = () => {
         <Communities />
         <Certifications />
         <Portfolio />
+        <Recommendations />
         <ContactForm />
         <Footer />
       </div>
