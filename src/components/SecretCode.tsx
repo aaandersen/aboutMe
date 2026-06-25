@@ -1,32 +1,29 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { KeyRound, Lock } from "lucide-react";
-
-/** Code words that unlock hidden pages. Add more as the fun pages grow. */
-const SECRET_CODES: Record<string, string> = {
-  astro: "/astro",
-  kurser: "/kurser",
-  kruser: "/kurser",
-  courses: "/kurser",
-};
+import { useEggs } from "@/components/eggs/EasterEggProvider";
 
 const SecretCode = () => {
-  const navigate = useNavigate();
+  const { runWord } = useEggs();
   const [value, setValue] = useState("");
-  const [miss, setMiss] = useState(false);
+  const [feedback, setFeedback] = useState<string | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const code = value.trim().toLowerCase();
-    if (!code) return;
-    const path = SECRET_CODES[code];
-    if (path) {
-      navigate(path);
+    const word = value.trim();
+    if (!word) return;
+    const { result, suggestion } = runWord(word);
+    if (result === "hit") {
+      setValue("");
+      setFeedback(null);
       return;
     }
-    setMiss(true);
     setValue("");
-    window.setTimeout(() => setMiss(false), 1400);
+    setFeedback(
+      result === "near" && suggestion
+        ? `close \u2014 did you mean “${suggestion}”?`
+        : "not quite \u2014 press ⌘/Ctrl K for hints"
+    );
+    window.setTimeout(() => setFeedback(null), 2800);
   };
 
   return (
@@ -42,11 +39,11 @@ const SecretCode = () => {
           value={value}
           onChange={(e) => setValue(e.target.value)}
           aria-label="Secret password"
-          placeholder={miss ? "wrong word — try again" : "enter the magic word"}
+          placeholder={feedback ?? "enter the magic word"}
           autoComplete="new-password"
           spellCheck={false}
           className={`h-11 w-full rounded-full border bg-white/[0.04] pl-10 pr-4 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground/70 focus:bg-white/[0.06] ${
-            miss
+            feedback
               ? "border-white/50 placeholder:text-foreground/60"
               : "border-white/15 focus:border-white/35"
           }`}

@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import Astro from "./pages/Astro";
 import Kurser from "./pages/Kurser";
 import NotFound from "./pages/NotFound";
+import EasterEggProvider from "./components/eggs/EasterEggProvider";
 
 const queryClient = new QueryClient();
 
@@ -16,13 +17,15 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/astro" element={<Astro />} />
-          <Route path="/kurser" element={<Kurser />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <EasterEggProvider>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/astro" element={<Astro />} />
+            <Route path="/kurser" element={<Kurser />} />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </EasterEggProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
