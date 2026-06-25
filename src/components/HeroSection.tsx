@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import MagneticButton from "@/components/MagneticButton";
+import RoleRotator from "@/components/RoleRotator";
 
 const scrollToId = (id: string) => {
   const el = document.getElementById(id);
@@ -52,6 +53,8 @@ const HeroSection = () => {
               Anders Adalberth{" "}
               <span className="text-gradient-animate">Andersen</span>
             </h1>
+
+            <RoleRotator />
 
             <p className="max-w-xl text-lg leading-relaxed text-muted-foreground md:text-xl">
               Business Administration &amp; IT graduate from CBS and Technology

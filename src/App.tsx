@@ -10,6 +10,7 @@ import Arcade from "./pages/Arcade";
 import Carlsberg from "./pages/Carlsberg";
 import NotFound from "./pages/NotFound";
 import EasterEggProvider from "./components/eggs/EasterEggProvider";
+import CustomCursor from "./components/CustomCursor";
 
 const queryClient = new QueryClient();
 
@@ -18,6 +19,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      <CustomCursor />
       <BrowserRouter>
         <EasterEggProvider>
           <Routes>

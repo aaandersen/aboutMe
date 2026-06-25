@@ -1,14 +1,16 @@
 import { useState } from "react";
-import { Lock, Sparkles, X } from "lucide-react";
+import { Lock, Sparkles, Volume2, VolumeX, X } from "lucide-react";
 import { READY_EGGS, type EggCommand } from "@/lib/eggs";
 
 interface Props {
   discovered: string[];
   onRun: (egg: EggCommand) => void;
+  soundOn: boolean;
+  onToggleSound: () => void;
 }
 
 /** Bottom-left collectible tray that gamifies finding the hidden eggs. */
-const AchievementsTray = ({ discovered, onRun }: Props) => {
+const AchievementsTray = ({ discovered, onRun, soundOn, onToggleSound }: Props) => {
   const [open, setOpen] = useState(false);
   const total = READY_EGGS.length;
   const found = discovered.length;
@@ -29,9 +31,19 @@ const AchievementsTray = ({ discovered, onRun }: Props) => {
         <div className="fixed bottom-16 left-4 z-[140] w-72 max-w-[calc(100vw-2rem)] overflow-hidden rounded-2xl border border-white/12 bg-[#0d0d0d] shadow-2xl">
           <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
             <span className="text-sm font-semibold">Hidden secrets</span>
-            <button type="button" onClick={() => setOpen(false)} aria-label="Close">
-              <X className="h-4 w-4 text-muted-foreground hover:text-foreground" />
-            </button>
+            <div className="flex items-center gap-1.5">
+              <button
+                type="button"
+                onClick={onToggleSound}
+                aria-label={soundOn ? "Mute sounds" : "Enable sounds"}
+                className="text-muted-foreground hover:text-foreground"
+              >
+                {soundOn ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
+              </button>
+              <button type="button" onClick={() => setOpen(false)} aria-label="Close">
+                <X className="h-4 w-4 text-muted-foreground hover:text-foreground" />
+              </button>
+            </div>
           </div>
           <ul className="max-h-[55vh] overflow-y-auto p-2">
             {READY_EGGS.map((egg) => {

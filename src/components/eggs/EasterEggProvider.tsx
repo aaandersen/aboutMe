@@ -5,6 +5,7 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -20,6 +21,7 @@ import {
   type PulseName,
 } from "@/lib/eggs";
 import { useKonami } from "@/hooks/useKonami";
+import { playUnlock } from "@/lib/sound";
 import MatrixRain from "./MatrixRain";
 import Confetti from "./Confetti";
 import NeonTheme from "./NeonTheme";
@@ -81,6 +83,23 @@ const EasterEggProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [discovered]);
 
+  const [soundOn, setSoundOn] = useState<boolean>(() => {
+    try {
+      return localStorage.getItem("egg-sound") === "1";
+    } catch {
+      return false;
+    }
+  });
+  const soundRef = useRef(soundOn);
+  soundRef.current = soundOn;
+  useEffect(() => {
+    try {
+      localStorage.setItem("egg-sound", soundOn ? "1" : "0");
+    } catch {
+      /* ignore */
+    }
+  }, [soundOn]);
+
   const markDiscovered = useCallback((id: string) => {
     setDiscovered((prev) => {
       if (prev.includes(id)) return prev;
@@ -119,6 +138,7 @@ const EasterEggProvider = ({ children }: { children: ReactNode }) => {
   const runEgg = useCallback(
     (egg: EggCommand) => {
       markDiscovered(egg.id);
+      if (soundRef.current) playUnlock();
       egg.run(actions);
     },
     [actions, markDiscovered]
@@ -194,7 +214,14 @@ const EasterEggProvider = ({ children }: { children: ReactNode }) => {
       {overlay === "terminal" && <Terminal onClose={() => setOverlay(null)} />}
       {overlay === "agent" && <AgentChat onClose={() => setOverlay(null)} />}
 
-      {showTray && <AchievementsTray discovered={discovered} onRun={runEgg} />}
+      {showTray && (
+        <AchievementsTray
+          discovered={discovered}
+          onRun={runEgg}
+          soundOn={soundOn}
+          onToggleSound={() => setSoundOn((v) => !v)}
+        />
+      )}
     </Ctx.Provider>
   );
 };
