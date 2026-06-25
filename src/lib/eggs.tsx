@@ -74,7 +74,6 @@ export const EGGS: EggCommand[] = [
     words: ["arcade", "games", "snake", "2048", "pong", "play"],
     icon: Gamepad2,
     run: (a) => a.navigate("/arcade"),
-    ready: false,
   },
   {
     id: "astro",
@@ -93,7 +92,6 @@ export const EGGS: EggCommand[] = [
     words: ["carlsberg", "thesis", "speciale", "beer"],
     icon: Beer,
     run: (a) => a.navigate("/carlsberg"),
-    ready: false,
   },
   {
     id: "kurser",
